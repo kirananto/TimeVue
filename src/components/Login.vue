@@ -8,16 +8,7 @@
             <!-- login form -->
             <form class="ui form loginForm"  @submit.prevent="checkCreds">
 
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                <input class="form-control" name="username" placeholder="Username" type="text" v-model="username">
-              </div>
-
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input class="form-control" name="password" placeholder="Password" type="password" v-model="password">
-              </div>
-              <button type="submit" v-bind:class="'btn btn-primary btn-lg ' + loading">Submit</button>
+              <button type="submit" v-bind:class="'btn btn-primary btn-lg ' + loading">Sign In using Google</button>
             </form>
 
             <!-- errors -->
@@ -36,32 +27,49 @@ export default {
     return {
       section: 'Login',
       loading: '',
-      username: '',
-      password: '',
       response: ''
     }
   },
   methods: {
     checkCreds () {
-      const {username, password} = this
-
+      var provider = new firebase.auth.GoogleAuthProvider()
       this.toggleLoading()
       this.resetResponse()
       this.$store.commit('TOGGLE_LOADING')
       this.toggleLoading()
       /* Making API call to authenticate a user */
-      firebase.auth().signInWithEmailAndPassword(username, password).then(
-        (user) => {
+
+      firebase.auth().signInWithPopup(provider)
+        .then((result) => {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          // var token = result.credential.accessToken
+          // The signed-in user info.
+          var user = result.user
+          console.log(user)
           this.$store.commit('SET_USER', user)
           this.$router.push('/')
-        },
-        (err) => {
+          // ...
+        }).catch((error) => {
+            // Handle Errors here.
           this.$store.commit('TOGGLE_LOADING')
-          console.log(err.message)
-          this.response = err.message
+          console.log(error.message)
+          this.response = error.message
           this.toggleLoading()
-        }
-      )
+            // ...
+        })
+
+          // firebase.auth().signInWithEmailAndPassword(username, password).then(
+          //   (user) => {
+          //     this.$store.commit('SET_USER', user)
+          //     this.$router.push('/')
+          //   },
+          //   (err) => {
+          //     this.$store.commit('TOGGLE_LOADING')
+          //     console.log(err.message)
+          //     this.response = err.message
+          //     this.toggleLoading()
+          //   }
+          // )
     },
     toggleLoading () {
       this.loading = (this.loading === '') ? 'loading' : ''

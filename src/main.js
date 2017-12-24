@@ -50,13 +50,14 @@ sync(store, router)
 firebase.initializeApp(store.state.config)
 // Start out app!
 // eslint-disable-next-line no-new
-firebase.auth().onAuthStateChanged(function (user) {
-  if (!app) {
-    app = new Vue({
-      el: '#root',
-      router,
-      store,
-      render: h => h(AppView)
-    })
-  }
-})
+firebase.auth().onAuthStateChanged(
+  function (user) {
+    if (!app) {
+      app = new Vue({
+        el: '#root',
+        router,
+        store,
+        render: h => h(AppView)
+      })
+    }
+  })

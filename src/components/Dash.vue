@@ -13,119 +13,24 @@
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
-            <!-- Messages-->
-            <li class="dropdown messages-menu">
-              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-envelope-o"></i>
-                <span class="label label-success">{{ userInfo.messages | count }}</span>
-              </a>
-              <ul class="dropdown-menu">
-                <li class="header">You have {{ userInfo.messages | count }} message(s)</li>
-                <li v-if="userInfo.messages.length > 0">
-                  <!-- inner menu: contains the messages -->
-                  <ul class="menu">
-                    <li>
-                      <!-- start message -->
-                      <a href="javascript:;">
-                        <!-- Message title and timestamp -->
-                        <h4>
-                          Support Team
-                          <small>
-                            <i class="fa fa-clock-o"></i> 5 mins</small>
-                        </h4>
-                        <!-- The message -->
-                        <p>Why not consider this a test message?</p>
-                      </a>
-                    </li>
-                    <!-- end message -->
-                  </ul>
-                  <!-- /.menu -->
-                </li>
-                <li class="footer" v-if="userInfo.messages.length > 0">
-                  <a href="javascript:;">See All Messages</a>
-                </li>
-              </ul>
-            </li>
-            <!-- /.messages-menu -->
-  
-            <!-- Notifications Menu -->
-            <li class="dropdown notifications-menu">
-              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-bell-o"></i>
-                <span class="label label-warning">{{ userInfo.notifications | count }}</span>
-              </a>
-              <ul class="dropdown-menu">
-                <li class="header">You have {{ userInfo.notifications | count }} notification(s)</li>
-                <li v-if="userInfo.notifications.length > 0">
-                  <!-- Inner Menu: contains the notifications -->
-                  <ul class="menu">
-                    <li>
-                      <!-- start notification -->
-                      <a href="javascript:;">
-                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                      </a>
-                    </li>
-                    <!-- end notification -->
-                  </ul>
-                </li>
-                <li class="footer" v-if="userInfo.notifications.length > 0">
-                  <a href="javascript:;">View all</a>
-                </li>
-              </ul>
-            </li>
-  
-            <!-- Tasks Menu -->
-            <li class="dropdown tasks-menu">
-              <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-flag-o"></i>
-                <span class="label label-danger">{{ userInfo.tasks | count }} </span>
-              </a>
-              <ul class="dropdown-menu">
-                <li class="header">You have {{ userInfo.tasks | count }} task(s)</li>
-                <li v-if="userInfo.tasks.length > 0">
-                  <!-- Inner menu: contains the tasks -->
-                  <ul class="menu">
-                    <li>
-                      <!-- Task item -->
-                      <a href="javascript:;">
-                        <!-- Task title and progress text -->
-                        <h3>
-                          Design some buttons
-                          <small class="pull-right">20%</small>
-                        </h3>
-                        <!-- The progress bar -->
-                        <div class="progress xs">
-                          <!-- Change the css width attribute to simulate progress -->
-                          <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                            <span class="sr-only">20% Complete</span>
-                          </div>
-                        </div>
-                      </a>
-                    </li>
-                    <!-- end task item -->
-                  </ul>
-                </li>
-                <li class="footer" v-if="userInfo.tasks.length > 0">
-                  <a href="javascript:;">View all tasks</a>
-                </li>
-              </ul>
-            </li>
-  
             <!-- User Account Menu -->
             <li class="dropdown user user-menu">
               <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
                 <!-- The user image in the navbar-->
-                <img v-bind:src="userData.avatar" class="user-image" alt="User Image">
+                <img v-bind:src="userData.photoURL" class="user-image" alt="User Image">
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                 <span class="hidden-xs">{{ userData.displayName }}</span>
               </a>
-            </li>
-          </ul>
+               <ul class="dropdown-menu">
+                <li class="header" v-on:click="logout">Logout</li>
+                </ul>
+              </li>
+            </ul>
         </div>
       </nav>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <sidebar :display-name="userData.displayName" :picture-url="userData.avatar" />
+    <sidebar :display-name="userData.displayName" :picture-url="userData.photoURL" />
   
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -133,7 +38,7 @@
       <section class="content-header">
         <h1>
           {{$route.name.toUpperCase() }}
-          <small>{{ $route.meta.description }}</small>
+          <!-- <small>{{ $route.meta.description }}</small> -->
         </h1>
         <ol class="breadcrumb">
           <li>
@@ -158,15 +63,11 @@
 </template>
 
 <script>
-// import firebase from 'firebase'
+import firebase from 'firebase'
 import { mapState } from 'vuex'
 import config from '../config'
 import Sidebar from './Sidebar'
 import 'hideseek'
-
-var currentUser = {displayName: 'Kiran Anto', photoURL: 'https://avatars2.githubusercontent.com/u/12209601?s=400&v=4', 'email': 'kirananto@gmail.com'}
-
-console.log(currentUser.displayName)
 
 export default {
   name: 'Dash',
@@ -181,22 +82,25 @@ export default {
         fixed_layout: config.fixedLayout,
         hide_logo: config.hideLogoOnMobile
       },
-      userData: {
-        displayName: currentUser.displayName,
-        avatar: currentUser.photoURL,
-        email: currentUser.email
-      },
       error: ''
     }
   },
   computed: {
     ...mapState([
       'userInfo'
-    ])
+    ]),
+    userData: function () {
+      return firebase.auth().currentUser
+    }
   },
   methods: {
-    changeloading () {
+    changeloading: function () {
       this.$store.commit('TOGGLE_SEARCHING')
+    },
+    logout: function () {
+      firebase.auth().signOut().then(() => {
+        this.$router.replace('login')
+      })
     }
   }
 }
