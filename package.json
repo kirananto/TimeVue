@@ -3,7 +3,7 @@
   "version": "0.6.0",
   "description": "A timetable generation tool",
   "author": "Kiran Anto <kirananto@gmail.com>",
-  "repository": "",
+  "repository": "https://github.com/kirananto/TimeVue.git",
   "license": "MIT",
   "scripts": {
     "dev": "node build/dev-server.js",
