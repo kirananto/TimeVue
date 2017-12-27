@@ -3,12 +3,11 @@
       <div class="row vertical-10p">
         <div class="container">
           <img src="/static/img/timeVue_without.svg" class="center-block logo">
-          <br>
-          <div class="text-center col-md-4 col-sm-offset-4">
+          <div class="text-center col-md-4 col-sm-offset-4 spacing-logo">
             <!-- login form -->
             <form class="ui form loginForm"  @submit.prevent="checkCreds">
 
-              <button type="submit" v-bind:class="'btn btn-primary g-button btn-lg ' + loading"><img src="/static/img/google_button.svg"/><span class="goog" >Sign In with Google</span></button>
+              <button type="submit" v-bind:class="'btn btn-primary g-button btn-lg ' + loading"><img src="https://cdn.rawgit.com/firebase/firebaseui-web/master/image/google.svg" viewBox="0 0 60 55" width="25px" /><span class="goog" >Sign In with Google</span></button>
             </form>
 
             <!-- errors -->
@@ -90,8 +89,15 @@ html, body, .container-table {
   background-color: white !important;
   border-color: white;
 }
+.g-button :hover {
+  border-color: white;
+}
 .goog {
   color: black;
+  padding-left: 1rem;
+}
+.spacing-logo {
+  margin-top: 5rem;
 }
 .container-table {
     display: table;
