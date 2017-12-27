@@ -5,13 +5,17 @@
           <div class="text-center col-md-4 col-sm-offset-4">
             <!-- details form -->
             <h1>Enter Details</h1><br>
-            <div class="input-group">
+            
+            <form class="ui form detailsForm"  @submit.prevent="submit">
+<div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                 <input class="form-control" name="username" placeholder="Username" type="text" v-model="username">
               </div>
-
-            <form class="ui form detailsForm"  @submit.prevent="submit">
-
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                <input class="form-control" name="username" placeholder="Subject" type="text" v-model="subject">
+              </div>
+              <input type="submit">
             </form>
 
             <!-- errors -->
@@ -23,18 +27,26 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+require('firebase/firestore')
 export default {
   name: 'Details',
   data (router) {
     return {
       section: 'Details',
       loading: '',
-      response: ''
+      response: '',
+      username: '',
+      subject: ''
     }
   },
   methods: {
     submit () {
-        // TODO: blank as of now
+      console.log('hello')
+      var db = firebase.firestore()
+      var currentUser = firebase.auth().currentUser
+      console.log(typeof currentUser.uid)
+      db.collection('users').doc(currentUser.uid).collection('UserData').add({username: this.username, subject: this.subject})
     },
     toggleLoading () {
       this.loading = (this.loading === '') ? 'loading' : ''

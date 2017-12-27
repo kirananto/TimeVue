@@ -11,6 +11,7 @@ import store from './store'
 // Import Helpers for filters
 import { domain, count, prettyDate, pluralize } from './filters'
 import firebase from 'firebase'
+require('firebase/firestore')
 // Import Views - Top level
 import AppView from './components/App.vue'
 
@@ -21,6 +22,10 @@ Vue.filter('prettyDate', prettyDate)
 Vue.filter('pluralize', pluralize)
 
 Vue.use(VueRouter)
+
+firebase.initializeApp(store.state.config)
+
+var db = firebase.firestore()
 
 let app
 // Routing logic
@@ -42,12 +47,24 @@ router.beforeEach((to, from, next) => {
       path: '/login',
       query: {redirect: to.fullPath}
     })
-  } else next()
+  } else if (requiresAuth && currentUser) {
+    db.collection('users').doc(currentUser.uid).collection('UserData').get().then((querySnapshot) => {
+      if (querySnapshot.exists) {
+        console.log(querySnapshot)
+        next()
+      } else {
+        next({
+          path: '/details',
+          query: {redirect: to.fullPath}
+        })
+      }
+    })
+  } else {
+    next()
+  }
 })
 
 sync(store, router)
-
-firebase.initializeApp(store.state.config)
 // Start out app!
 // eslint-disable-next-line no-new
 firebase.auth().onAuthStateChanged(

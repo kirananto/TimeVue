@@ -1,7 +1,7 @@
-<template>
+<template >
   <div class="container container-table">
       <div class="row vertical-10p">
-        <div class="container">
+        <div class="container login">
           <img src="/static/img/timeVue_without.svg" class="center-block logo">
           <div class="text-center col-md-4 col-sm-offset-4 spacing-logo">
             <!-- login form -->
@@ -81,9 +81,10 @@ export default {
 </script>
 
 <style >
+
 html, body, .container-table {
   height: 100%;
-  background-color: #ECEFF1 !important;
+  width: 100%;
 }
 .g-button {
   background-color: white !important;
