@@ -8,7 +8,7 @@
             <!-- login form -->
             <form class="ui form loginForm"  @submit.prevent="checkCreds">
 
-              <button type="submit" v-bind:class="'btn btn-primary white btn-lg ' + loading"><img src="/static/img/google_button.svg"/><span class="goog" >Sign In with Google</span></button>
+              <button type="submit" v-bind:class="'btn btn-primary g-button btn-lg ' + loading"><img src="/static/img/google_button.svg"/><span class="goog" >Sign In with Google</span></button>
             </form>
 
             <!-- errors -->
@@ -81,12 +81,12 @@ export default {
 }
 </script>
 
-<style>
+<style >
 html, body, .container-table {
   height: 100%;
   background-color: #ECEFF1 !important;
 }
-.white {
+.g-button {
   background-color: white !important;
   border-color: white;
 }
