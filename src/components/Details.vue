@@ -46,7 +46,13 @@ export default {
       var db = firebase.firestore()
       var currentUser = firebase.auth().currentUser
       console.log(typeof currentUser.uid)
-      db.collection('users').doc(currentUser.uid).collection('UserData').add({username: this.username, subject: this.subject})
+      db.collection('users').doc(currentUser.uid).set({userData: {username: this.username, subject: this.subject}})
+      .then(() => {
+        console.log('Document successfully written!')
+      })
+      .catch((error) => {
+        console.error('Error writing document: ', error)
+      })
     },
     toggleLoading () {
       this.loading = (this.loading === '') ? 'loading' : ''

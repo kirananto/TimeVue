@@ -1,13 +1,13 @@
 <template>
   <div :class="['wrapper', classes]">
     <header class="main-header">
-	<span class="logo-mini">
-		<a href="/"><img src="/static/img/timeVue_without.svg" alt="Logo" class="img-responsive center-block logo"></a>
-	</span>
+  <span class="logo-mini">
+              <a href="/"><img src="/static/img/timeVue_without.svg" alt="Logo" class="img-responsive center-block logo"></a>
+      </span>
       <!-- Header Navbar -->
       <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-        <a href="javascript:;" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <a href="javascript:;" class="sidebar-toggle" data-toggle="push-menu" role="button">
           <span class="sr-only">Toggle navigation</span>
         </a>
         <!-- Navbar Right Menu -->
@@ -22,13 +22,28 @@
                 <span class="hidden-xs">{{ userData.displayName }}</span>
               </a>
                <ul class="dropdown-menu">
-                <li class="header" v-on:click="logout">Logout</li>
-                </ul>
+                <li class="user-header">
+                <img v-bind:src="userData.photoURL" class="img-circle" alt="User Image">
+
+                <p>
+                  {{userData.displayName}}
+                  <small>Member since Nov. 2012</small>
+                </p>
+              </li>
+               <li class="user-footer">
+                <div class="pull-left">
+                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                </div>
+                <div class="pull-right">
+                  <a href="#" v-on:click="logout" class="btn btn-default btn-flat">Sign out</a>
+                </div>
               </li>
             </ul>
-        </div>
-      </nav>
-    </header>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
     <!-- Left side column. contains the logo and sidebar -->
     <sidebar :display-name="userData.displayName" :picture-url="userData.photoURL" />
   

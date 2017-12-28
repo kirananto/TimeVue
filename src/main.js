@@ -48,11 +48,13 @@ router.beforeEach((to, from, next) => {
       query: {redirect: to.fullPath}
     })
   } else if (requiresAuth && currentUser) {
-    db.collection('users').doc(currentUser.uid).collection('UserData').get().then((querySnapshot) => {
-      if (querySnapshot.exists) {
-        console.log(querySnapshot)
+    db.collection('users').doc(currentUser.uid).get()
+    .then((doc) => {
+      if (doc.exists) {
+        console.log(doc)
         next()
       } else {
+        console.log(currentUser.uid + '--' + doc.exists)
         next({
           path: '/details',
           query: {redirect: to.fullPath}
