@@ -21,7 +21,7 @@ const routes = [
   {
     path: '/details',
     component: DetailsView,
-    meta: {firstTime: true}
+    meta: {requiresAuth: true}
   },
   {
     path: '/',

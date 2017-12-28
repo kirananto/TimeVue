@@ -51,8 +51,11 @@ router.beforeEach((to, from, next) => {
     db.collection('users').doc(currentUser.uid).get()
     .then((doc) => {
       if (doc.exists) {
-        console.log(doc)
-        next()
+        if (to.fullPath === '/details') {
+          next('/')
+        } else {
+          next()
+        }
       } else {
         console.log(currentUser.uid + '--' + doc.exists)
         next({
@@ -62,7 +65,12 @@ router.beforeEach((to, from, next) => {
       }
     })
   } else {
-    next()
+    if (currentUser && to.fullPath === '/login') {
+      console.log('Already Logged In')
+      next('/')
+    } else {
+      next()
+    }
   }
 })
 
