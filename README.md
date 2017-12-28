@@ -1,19 +1,36 @@
 
 
+
 [![N|Solid](https://cdn.rawgit.com/kirananto/TimeVue/37997fc1/static/img/logo.png)](https://kirananto.com)
 
 # TimeVue
 
 timeVue is a online timetable generation application which is being developed as a part of a project. It is build completely using modern technologies.
 
-  - Front End - VueJs, VueX(*State Management*)
-  - Back End - NodeJs
-  - Database - Firestore
-  - Authentication - Firebase (Google 0Auth)
+  - VueJs - Front End Reactive Framework
+  - VueX - Central State Management
+  - NodeJs - Backend Serving and processing
+  - FireStore - NoSQL realtime database
+  - Firebase - Google 0Auth ( Authentication)
+  - AdminLTE - Dashboard components
+  - Bootstrap - Front end web framework
+  - Vue-Router - for routing in a SPA
+  - Webpack - duh to bundle the assets
+  
+## Browser Support
 
-##### You can contribute to this project by forking the repo and sending a pull request.
-And of course timeVue itself is open source with a [public repository][timevue]
- on GitHub.
+- Firefox (latest)
+- Chrome (latest)
+- Safari (latest)
+- Opera (latest)
+
+## Contribution
+Contribution are always **welcome and recommended**! Here is how:
+
+- Fork the repository ([here is the guide](https://help.github.com/articles/fork-a-repo/)).
+- Clone to your machine ```git clone https://github.com/YOUR_USERNAME/TimeVue.git```
+- Make your changes
+- Create a pull request
 
 ### Installation
 
@@ -48,7 +65,7 @@ First Tab:
 ```sh
 $ npm run dev
 ```
-(optional) Third:
+(optional) Second:
 ```sh
 $ karma test
 ```
