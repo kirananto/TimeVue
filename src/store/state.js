@@ -4,6 +4,10 @@ export default {
   serverURI: 'http://127.0.0.1:8080',
   user: null,
   token: null,
+  currentClass: {
+    branch: null,
+    semester: null
+  },
   userInfo: {
     messages: [{1: 'test', 2: 'test'}],
     notifications: [],
