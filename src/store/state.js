@@ -6,10 +6,11 @@ export default {
   token: null,
   currentClass: {
     branch: null,
-    semester: null
+    semester: null,
+    division: null
   },
   classes: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8'],
-  branches: ['CSE'],
+  branches: ['CSE', 'ME', 'CE', 'EEE', 'ECE', 'AEI', 'IT'],
   userInfo: {
     messages: [{1: 'test', 2: 'test'}],
     notifications: [],

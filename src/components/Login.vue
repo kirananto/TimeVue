@@ -103,10 +103,6 @@ html, body, .container-table {
     display: table;
     color: black;
 }
-.vertical-center-row {
-    display: table-cell;
-    vertical-align: middle;
-}
 .vertical-20p {
   padding-top: 20%;
 }
