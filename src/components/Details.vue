@@ -64,7 +64,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 html, body, .container-table {
   height: 100%;
   background-color: #ECEFF1 !important;

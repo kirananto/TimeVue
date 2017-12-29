@@ -80,7 +80,7 @@ export default {
 }
 </script>
 
-<style >
+<style scoped>
 
 html, body, .container-table {
   height: 100%;
