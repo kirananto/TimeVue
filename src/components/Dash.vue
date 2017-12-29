@@ -79,7 +79,6 @@
 <script>
 import firebase from 'firebase'
 import { mapState } from 'vuex'
-import config from '../config'
 import Sidebar from './Sidebar'
 import 'hideseek'
 
@@ -93,8 +92,8 @@ export default {
       // section: 'Dash',
       year: new Date().getFullYear(),
       classes: {
-        fixed_layout: config.fixedLayout,
-        hide_logo: config.hideLogoOnMobile
+        fixed_layout: false,
+        hide_logo: false
       },
       error: ''
     }

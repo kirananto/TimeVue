@@ -8,18 +8,10 @@ import VueRouter from 'vue-router'
 import { sync } from 'vuex-router-sync'
 import routes from './routes'
 import store from './store'
-// Import Helpers for filters
-import { domain, count, prettyDate, pluralize } from './filters'
 import firebase from 'firebase'
 require('firebase/firestore')
 // Import Views - Top level
 import AppView from './components/App.vue'
-
-// Import Install and register helper items
-Vue.filter('count', count)
-Vue.filter('domain', domain)
-Vue.filter('prettyDate', prettyDate)
-Vue.filter('pluralize', pluralize)
 
 Vue.use(VueRouter)
 
