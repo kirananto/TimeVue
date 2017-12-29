@@ -80,11 +80,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 html, body, .container-table {
   height: 100%;
-  width: 100%;
 }
 .g-button {
   background-color: white !important;
