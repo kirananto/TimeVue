@@ -8,6 +8,8 @@ export default {
     branch: null,
     semester: null
   },
+  classes: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8'],
+  branches: ['CSE'],
   userInfo: {
     messages: [{1: 'test', 2: 'test'}],
     notifications: [],
