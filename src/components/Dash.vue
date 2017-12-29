@@ -27,7 +27,6 @@
 
                 <p>
                   {{userData.displayName}}
-                  <small>Member since Nov. 2012</small>
                 </p>
               </li>
                <li class="user-footer">
