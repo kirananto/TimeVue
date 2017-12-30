@@ -6,17 +6,6 @@
         <span class="page">Dashboard</span>
       </a>
     </router-link>
-    <li class="header">SELECT BRANCH</li>
-    <div class="container">
-      <div class="row col-md-3">
-        <div v-for="(item,key) in this.$store.getters.branchList">
-          <div v-if="key%3 === 0"><br><br></div>
-          <button v-on:click="setbranch(item)" class="btn col-md-2 classbutton">  <strong>{{item}}</strong>
-          </button>
-        </div>
-      </div>
-    </div>
-    <br><br>  
     <li class="header">SELECT CLASS</li>
     <div class="container">
       <div class="row col-md-2">
@@ -28,8 +17,25 @@
       </div>
     </div>
     <br>
+    <li class="header">SELECT BRANCH</li>
+    <div class="container" v-if="this.$store.getters.getCurrentClass.semester">
+      <div class="row col-md-3">
+        <div v-for="(item,key) in this.$store.getters.branchList">
+          <div v-if="key%3 === 0"><br><br></div>
+          <button v-on:click="setbranch(item)" class="btn col-md-2 classbutton"><strong>{{item}}</strong>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div v-else>
+      <a>
+        <br>
+        <span class="select-item">Please select semester first</span>
+      </a>
+    </div>
+    <br>
     <li class="header">SELECT DIVISION</li>
-    <div class="container">
+    <div class="container" v-if="this.$store.getters.getCurrentClass.branch">
       <div class="row col-md-4">
         <div v-for="(item,key) in this.$store.getters.divisionList">
          <br><br>
@@ -37,6 +43,12 @@
           </button>
         </div>
       </div>
+    </div>
+    <div v-else>
+      <a>
+        <br>
+        <span class="select-item">Please select branch first</span>
+      </a>
     </div>
     <br>
     <router-link tag="li" class="pageLink" to="/setting">
@@ -82,6 +94,10 @@ export default {
   /* override default */
   .sidebar-menu>li>a {
     padding: 12px 15px 12px 15px;
+  }
+
+  .select-item {
+    margin-left: 3rem;
   }
 
   .classbutton {
