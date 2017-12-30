@@ -80,6 +80,7 @@
 import firebase from 'firebase'
 import { mapState } from 'vuex'
 import Sidebar from './Sidebar'
+require('firebase/firestore')
 import 'hideseek'
 
 export default {
@@ -105,6 +106,17 @@ export default {
     userData: function () {
       return firebase.auth().currentUser
     }
+  },
+  mounted () {
+    firebase.firestore().collection('config').doc('initialConfig').get().then(doc => {
+      if (doc.exists) {
+        this.$store.commit('TOGGLE_SET_CLASSES', doc.data())
+      } else {
+        console.log('No such document!')
+      }
+    }).catch(error => {
+      console.log('Error getting document:', error)
+    })
   },
   methods: {
     changeloading: function () {

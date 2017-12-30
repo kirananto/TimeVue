@@ -9,8 +9,10 @@ export default {
     semester: null,
     division: null
   },
-  classes: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8'],
-  branches: ['CSE', 'ME', 'CE', 'EEE', 'ECE', 'AEI', 'IT'],
+  classes: {
+    branches: null,
+    classes: null
+  },
   userInfo: {
     messages: [{1: 'test', 2: 'test'}],
     notifications: [],

@@ -1,9 +1,9 @@
 export default {
   classList: (state) => {
-    return state.classes
+    return state.classes.classes
   },
   branchList: state => {
-    return state.branches
+    return state.classes.branches
   },
   isCurrentClassSet: state => {
     if (state.currentClass.branch && state.currentClass.semester && state.currentClass.division) {

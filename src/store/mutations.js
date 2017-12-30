@@ -8,6 +8,9 @@ export default {
   TOGGLE_CLASS_BRANCH (state, branch) {
     state.currentClass.branch = branch
   },
+  TOGGLE_SET_CLASSES (state, classes) {
+    state.classes = classes
+  },
   TOGGLE_SEARCHING (state) {
     state.searching = (state.searching === '') ? 'loading' : ''
   },
