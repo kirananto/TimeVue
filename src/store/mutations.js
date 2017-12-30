@@ -22,5 +22,11 @@ export default {
   },
   SET_TOKEN (state, token) {
     state.token = token
+  },
+  PUSH_NOTIFICATION (state, notif) {
+    state.notifications.push(notif)
+  },
+  POP_NOTIFICATIONS (state) {
+    state.notifications.pop()
   }
 }

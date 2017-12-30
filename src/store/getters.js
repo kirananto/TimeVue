@@ -17,5 +17,8 @@ export default {
   },
   getCurrentClass: state => {
     return state.currentClass
+  },
+  getNotifications: state => {
+    return state.notifications
   }
 }

@@ -14,6 +14,14 @@ export default {
     classes: null,
     division: null
   },
+  notifications: [
+    {
+      title: null,
+      type: null,
+      icon: null,
+      body: null
+    }
+  ],
   userData: '',
   config: {
     apiKey: 'AIzaSyDm0aVHDnePLo4yvjIhmLuGrDJC4WOPnqQ',
