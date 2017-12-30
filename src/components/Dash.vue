@@ -74,7 +74,6 @@
 
 <script>
 import firebase from 'firebase'
-import { mapState } from 'vuex'
 import Sidebar from './Sidebar'
 require('firebase/firestore')
 import 'hideseek'
@@ -96,9 +95,6 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'userInfo'
-    ]),
     userData: function () {
       return firebase.auth().currentUser
     }

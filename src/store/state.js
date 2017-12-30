@@ -14,11 +14,6 @@ export default {
     classes: null,
     division: null
   },
-  userInfo: {
-    messages: [{1: 'test', 2: 'test'}],
-    notifications: [],
-    tasks: []
-  },
   userData: '',
   config: {
     apiKey: 'AIzaSyDm0aVHDnePLo4yvjIhmLuGrDJC4WOPnqQ',
