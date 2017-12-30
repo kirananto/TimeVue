@@ -9,20 +9,26 @@
     <li class="header">SELECT CLASS</li>
     <div class="container">
       <div class="row col-md-2">
-        <div v-for="(item,key) in this.$store.getters.classList">
+        <div v-for="(item,key) in classList">
           <div v-if="key%3 === 0"><br><br></div> 
-          <button v-on:click="setsem(item)"class="btn col-md-3 classbutton"> <strong>{{item}}</strong>
+          <button v-on:click="setsem(item)" 
+            class="btn col-md-3 classbutton" 
+            v-bind:class="{'classbutton-pressed': item === getCurrentClass.semester }"> 
+              <strong>{{item}}</strong>
           </button>
         </div>
       </div>
     </div>
     <br>
     <li class="header">SELECT BRANCH</li>
-    <div class="container" v-if="this.$store.getters.getCurrentClass.semester">
+    <div class="container" v-if="getCurrentClass.semester">
       <div class="row col-md-3">
-        <div v-for="(item,key) in this.$store.getters.branchList">
+        <div v-for="(item,key) in branchList">
           <div v-if="key%3 === 0"><br><br></div>
-          <button v-on:click="setbranch(item)" class="btn col-md-2 classbutton"><strong>{{item}}</strong>
+          <button v-on:click="setbranch(item)" 
+            class="btn col-md-2 classbutton"
+            v-bind:class="{'classbutton-pressed': item === getCurrentClass.branch }">
+              <strong>{{item}}</strong>
           </button>
         </div>
       </div>
@@ -35,11 +41,14 @@
     </div>
     <br>
     <li class="header">SELECT DIVISION</li>
-    <div class="container" v-if="this.$store.getters.getCurrentClass.branch">
+    <div class="container" v-if="getCurrentClass.branch">
       <div class="row col-md-4">
-        <div v-for="(item,key) in this.$store.getters.divisionList">
+        <div v-for="(item,key) in divisionList">
          <br><br>
-          <button v-on:click="setdiv(item)"class="btn col-md-6 classbutton">  <strong>{{item}}</strong>
+          <button v-on:click="setdiv(item)"
+            class="btn col-md-6 classbutton"
+            v-bind:class="{'classbutton-pressed': item === getCurrentClass.division }"> 
+              <strong>{{item}}</strong>
           </button>
         </div>
       </div>
@@ -67,6 +76,7 @@
 </template>
 <script>
 import firebase from 'firebase'
+import { mapGetters } from 'vuex'
 export default {
   name: 'SidebarName',
   methods: {
@@ -87,6 +97,14 @@ export default {
       console.log('SEtting division')
       this.$store.commit('TOGGLE_CLASS_DIV', div)
     }
+  },
+  computed: {
+    ...mapGetters([
+      'getCurrentClass',
+      'divisionList',
+      'classList',
+      'branchList'
+    ])
   }
 }
 </script>
@@ -102,6 +120,13 @@ export default {
 
   .classbutton {
     margin-left: 1rem;
+  }
+  .classbutton-pressed {
+    background-color: #00A65A;
+  }
+
+  .classbutton:hover {
+    background-color: #00A65A;
   }
 
   .sidebar-menu li.active>a>.fa-angle-left, .sidebar-menu li.active>a>.pull-right-container>.fa-angle-left {
