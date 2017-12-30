@@ -3,10 +3,10 @@
   <section class="content">
     <!-- Info boxes -->
     <div class="row">
-      <div class="alert alert-error alert-dismissible">
+      <div v-for="item in getNotifications" class="alert alert-dismissible" :class="item.type">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <h4><i class="icon fa fa-check"></i> Welcome to timeVue</h4>
-        check it out on github. <a href="https://github.com/kirananto/timeVue" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+        <h4><i class="icon fa" :class="item.icon"></i>{{item.title}}</h4>
+        <span v-html="item.body"></span>
       </div>
 
       <div class="col-md-12">
@@ -18,10 +18,10 @@
 
             <div class="box-body text-center">
               <!-- calendar group -->
-              <div class="vcenter" v-if="!this.$store.getters.isCurrentClassSet">
+              <div class="vcenter" v-if="!isCurrentClassSet">
               <h3 >  Please Select the class and semester </h3>
-              <h4>Is CurrentClass set ? {{this.$store.getters.isCurrentClassSet}}</h4>
-              <h4>Value : {{this.$store.getters.getCurrentClass}}</h4>
+              <h4>Is CurrentClass set ? {{isCurrentClassSet}}</h4>
+              <h4>Value : {{getCurrentClass}}</h4>
               <!-- /input-group -->
             </div>
             </div>
@@ -34,7 +34,18 @@
   </section>
   <!-- /.content -->
 </template>
+<script>
 
+import { mapGetters } from 'vuex'
+export default {
+  computed: {
+    ...mapGetters([
+      'getNotifications',
+      'isCurrentClassSet',
+      'getCurrentClass'])
+  }
+}
+</script>
 <style>
 .vcenter {
     display: inline-block;

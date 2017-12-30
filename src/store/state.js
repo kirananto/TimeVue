@@ -16,10 +16,10 @@ export default {
   },
   notifications: [
     {
-      title: null,
-      type: null,
-      icon: null,
-      body: null
+      title: 'Welcome to timeVue',
+      type: 'alert-success',
+      icon: 'fa-check',
+      body: 'check it out on github. <a href="https://github.com/kirananto/timeVue" target="_blank"><i class="fa fa-github fa-2x"></i></a>'
     }
   ],
   userData: '',
