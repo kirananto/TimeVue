@@ -27,7 +27,7 @@
               </li>
                <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <router-link to="/details" class="btn btn-default btn-flat">Profile</router-link>
                 </div>
                 <div class="pull-right">
                   <a href="#" v-on:click="logout" class="btn btn-default btn-flat">Sign out</a>
