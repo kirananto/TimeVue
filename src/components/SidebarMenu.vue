@@ -60,10 +60,10 @@
       </a>
     </div>
     <br>
-    <router-link tag="li" class="pageLink" to="/setting">
+    <router-link tag="li" class="pageLink" to="/details">
       <a>
-        <i class="fa fa-cog"></i>
-        <span class="page">Settings</span>
+        <i class="fa fa-user"></i>
+        <span class="page">Profile</span>
       </a>
     </router-link>
     <li>
