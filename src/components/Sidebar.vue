@@ -11,7 +11,7 @@
         </div>
         <div class="pull-left info">
           <div>
-            <p class="white">{{ displayName }}</p>
+            <p class="white"><strong>{{ displayName }}</strong></p>
           </div>
           <a href="javascript:;">
             <i class="fa fa-circle text-success"></i> Online
@@ -59,6 +59,6 @@ export default {
 </script>
 <style>
   .user-panel .image img {
-    border-radius: 50%;
+    border-radius: 15%;
   }
 </style>

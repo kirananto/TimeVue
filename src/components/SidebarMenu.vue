@@ -11,7 +11,7 @@
       <div class="row col-md-3">
         <div v-for="(item,key) in this.$store.getters.branchList">
           <div v-if="key%3 === 0"><br><br></div>
-          <button v-on:click="setbranch(item)" class="btn col-md-2 classbutton"> {{item}}
+          <button v-on:click="setbranch(item)" class="btn col-md-2 classbutton">  <strong>{{item}}</strong>
           </button>
         </div>
       </div>
@@ -22,7 +22,7 @@
       <div class="row col-md-2">
         <div v-for="(item,key) in this.$store.getters.classList">
           <div v-if="key%3 === 0"><br><br></div> 
-          <button v-on:click="setsem(item)"class="btn col-md-3 classbutton"> {{item}}
+          <button v-on:click="setsem(item)"class="btn col-md-3 classbutton"> <strong>{{item}}</strong>
           </button>
         </div>
       </div>
@@ -33,7 +33,7 @@
       <div class="row col-md-4">
         <div v-for="(item,key) in this.$store.getters.divisionList">
          <br><br>
-          <button v-on:click="setdiv(item)"class="btn col-md-6 classbutton"> {{item}}
+          <button v-on:click="setdiv(item)"class="btn col-md-6 classbutton">  <strong>{{item}}</strong>
           </button>
         </div>
       </div>
