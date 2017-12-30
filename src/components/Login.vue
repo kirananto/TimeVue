@@ -3,6 +3,8 @@
       <div class="row vertical-10p">
         <div class="container login">
           <img src="/static/img/timeVue_without.svg" class="center-block logo">
+
+            <h1 class="text-center timeVue-time">TIME<span class="timeVue-vue">VUE</span></h1>
           <div class="text-center col-md-4 col-sm-offset-4 spacing-logo">
             <!-- login form -->
             <form class="ui form loginForm"  @submit.prevent="checkCreds">
@@ -80,17 +82,28 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+@import url('/static/font/stylesheet.css');
 html, body, .container-table {
   height: 100%;
 }
 .g-button {
   background-color: white !important;
   border-color: white;
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
 }
-.g-button :hover {
-  border-color: white;
+.g-button:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.timeVue-time {
+  color: #35495E;
+  font-size: 8rem;
+  font-family: 'bebas_neue_regularregular';
+}
+.timeVue-vue {
+  color:#41B883;
+  font-family: 'bebas_neuethin';
 }
 .goog {
   color: black;

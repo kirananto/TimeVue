@@ -52,7 +52,6 @@ export default {
 <style>
 html, body, .container-table {
   height: 100%;
-  background-color: #ECEFF1 !important;
 }
 .container-table {
     display: table;
