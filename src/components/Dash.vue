@@ -100,6 +100,7 @@ export default {
     }
   },
   mounted () {
+    this.$store.commit('SET_USER', firebase.auth().currentUser)
     firebase.firestore().collection('config').doc('initialConfig').get().then(doc => {
       if (doc.exists) {
         this.$store.commit('TOGGLE_SET_CLASSES', doc.data())

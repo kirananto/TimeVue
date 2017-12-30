@@ -5,6 +5,7 @@ import NotFoundView from './components/404.vue'
 // Import Views - Dash
 import DashboardView from './components/views/Dashboard.vue'
 import DetailsView from './components/views/Details.vue'
+import ProfileView from './components/views/Profile.vue'
 // import SettingView from './components/views/Setting.vue'
 
 // Routes
@@ -24,11 +25,18 @@ const routes = [
         component: DashboardView,
         name: 'Dashboard',
         meta: {description: 'Overview of environment'}
-      }, {
+      },
+      {
         path: 'details',
         component: DetailsView,
         name: 'Details',
         meta: {description: 'Enter Details'}
+      },
+      {
+        path: 'profile',
+        component: ProfileView,
+        name: 'Profile',
+        meta: {description: 'Profile'}
       }
     ]
   }, {

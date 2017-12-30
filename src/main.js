@@ -44,7 +44,7 @@ router.beforeEach((to, from, next) => {
     .then((doc) => {
       if (doc.exists) {
         if (to.fullPath === '/details') {
-          next('/')
+          next('/profile')
         } else {
           next()
         }
