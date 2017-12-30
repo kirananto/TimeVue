@@ -11,7 +11,8 @@ export default {
   },
   classes: {
     branches: null,
-    classes: null
+    classes: null,
+    division: null
   },
   userInfo: {
     messages: [{1: 'test', 2: 'test'}],

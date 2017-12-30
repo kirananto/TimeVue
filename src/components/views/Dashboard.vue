@@ -39,9 +39,9 @@
 .vcenter {
     display: inline-block;
     vertical-align: middle;
-    padding-top: 9em;
+    padding-top: 14em;
     color: grey;
-    padding-bottom: 9em;
+    padding-bottom: 18em;
 }
 
 </style>

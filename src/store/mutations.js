@@ -5,6 +5,9 @@ export default {
   TOGGLE_CLASS_SEM (state, sem) {
     state.currentClass.semester = sem
   },
+  TOGGLE_CLASS_DIV (state, div) {
+    state.currentClass.division = div
+  },
   TOGGLE_CLASS_BRANCH (state, branch) {
     state.currentClass.branch = branch
   },

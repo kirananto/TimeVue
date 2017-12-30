@@ -28,6 +28,17 @@
       </div>
     </div>
     <br>
+    <li class="header">SELECT DIVISION</li>
+    <div class="container">
+      <div class="row col-md-4">
+        <div v-for="(item,key) in this.$store.getters.divisionList">
+         <br><br>
+          <button v-on:click="setdiv(item)"class="btn col-md-6 classbutton"> {{item}}
+          </button>
+        </div>
+      </div>
+    </div>
+    <br>
     <router-link tag="li" class="pageLink" to="/setting">
       <a>
         <i class="fa fa-cog"></i>
@@ -59,6 +70,10 @@ export default {
     setsem: function (sem) {
       console.log('SEtting semester')
       this.$store.commit('TOGGLE_CLASS_SEM', sem)
+    },
+    setdiv: function (div) {
+      console.log('SEtting division')
+      this.$store.commit('TOGGLE_CLASS_DIV', div)
     }
   }
 }
