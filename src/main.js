@@ -43,8 +43,14 @@ router.beforeEach((to, from, next) => {
     db.collection('users').doc(currentUser.uid).get()
     .then((doc) => {
       if (doc.exists) {
+        console.log(to.fullPath)
+        // console.log(store.getters.isisCurrentClassSet)
         if (to.fullPath === '/details') {
           next('/profile')
+        } else if (to.fullPath === '/' && store.getters.isCurrentClassSet) {
+          next('/timetable')
+        } else if (to.fullPath === '/timetable' && !store.getters.isCurrentClassSet) {
+          next('/')
         } else {
           next()
         }

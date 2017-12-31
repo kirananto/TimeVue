@@ -13,18 +13,12 @@
           <div class="box box-info">
             <!-- Input Addons -->
             <div class="box-header with-border">
+              <h3 class="box-title">TimeTable</h3>
             </div>
 
             <div class="box-body text-center">
               <!-- calendar group -->
-              <div class="vcenter">
-              <h3 >  Please Select the class and semester </h3>
-              <h4>Is CurrentClass set ? {{isCurrentClassSet}}</h4>
-              <h4>Semester: {{getCurrentClass.semester || 'Select First'}} </h4>
-              <h4>Branch: {{getCurrentClass.branch  || 'Select First'}}</h4>
-              <h4>Division : {{getCurrentClass.division  || 'Select First'}}</h4>
-              <!-- /input-group -->
-            </div>
+            
             </div>
             <!-- /.box-body -->
           </div>
@@ -41,19 +35,9 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
-      'getNotifications',
-      'isCurrentClassSet',
-      'getCurrentClass'])
+      'getNotifications'])
   }
 }
 </script>
 <style>
-.vcenter {
-    display: inline-block;
-    vertical-align: middle;
-    padding-top: 14em;
-    color: grey;
-    padding-bottom: 18em;
-}
-
 </style>

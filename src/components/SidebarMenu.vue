@@ -96,6 +96,7 @@ export default {
     setdiv: function (div) {
       console.log('SEtting division')
       this.$store.commit('TOGGLE_CLASS_DIV', div)
+      this.$router.replace('timetable')
     }
   },
   computed: {

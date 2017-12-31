@@ -6,6 +6,7 @@ import NotFoundView from './components/404.vue'
 import DashboardView from './components/views/Dashboard.vue'
 import DetailsView from './components/views/Details.vue'
 import ProfileView from './components/views/Profile.vue'
+import TimetableView from './components/views/Timetable.vue'
 // import SettingView from './components/views/Setting.vue'
 
 // Routes
@@ -37,6 +38,12 @@ const routes = [
         component: ProfileView,
         name: 'Profile',
         meta: {description: 'Profile'}
+      },
+      {
+        path: 'timetable',
+        component: TimetableView,
+        name: 'Timetable',
+        meta: {description: 'Timetable'}
       }
     ]
   }, {
