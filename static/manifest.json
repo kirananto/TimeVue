@@ -1,0 +1,25 @@
+{
+  "short_name": "timevue",
+  "name": "timeVue",
+  "icons": [
+    {
+      "src": "https://rawgit.com/kirananto/TimeVue/master/static/img/logo.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "https://rawgit.com/kirananto/TimeVue/master/static/img/logo.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "https://rawgit.com/kirananto/bharatham/TimeVue/master/static/img/logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "index.html?launcher=true",
+  "background_color": "#222D32",
+  "theme_color":"#222D32",
+  "display": "standalone" 
+}
