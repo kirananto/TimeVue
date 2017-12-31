@@ -82,8 +82,7 @@ export default {
 }
 </script>
 
-<style scoped>
-@import url('/static/font/stylesheet.css');
+<style>
 html, body, .container-table {
   height: 100%;
 }

@@ -12,19 +12,18 @@
       <div class="col-md-12">
           <div class="box box-info">
             <!-- Input Addons -->
-            <div class="box-header with-border">
-            </div>
 
             <div class="box-body text-center">
               <!-- calendar group -->
               <div class="vcenter">
-              <h3 >  Please Select the class and semester </h3>
-              <h4>Is CurrentClass set ? {{isCurrentClassSet}}</h4>
-              <h4>Semester: {{getCurrentClass.semester || 'Select First'}} </h4>
-              <h4>Branch: {{getCurrentClass.branch  || 'Select First'}}</h4>
-              <h4>Division : {{getCurrentClass.division  || 'Select First'}}</h4>
+                <h1 class="text-center timeVue-time">TIME<span class="timeVue-vue">VUE</span></h1>
+                <h3 >  Please Select the class and semester </h3>
+                <h4>Is CurrentClass set ? {{isCurrentClassSet}}</h4>
+                <h4>Semester: {{getCurrentClass.semester || 'Select First'}} </h4>
+                <h4>Branch: {{getCurrentClass.branch  || 'Select First'}}</h4>
+                <h4>Division : {{getCurrentClass.division  || 'Select First'}}</h4>
               <!-- /input-group -->
-            </div>
+              </div>
             </div>
             <!-- /.box-body -->
           </div>
@@ -47,13 +46,23 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .vcenter {
     display: inline-block;
     vertical-align: middle;
     padding-top: 14em;
     color: grey;
     padding-bottom: 18em;
+}
+
+.timeVue-time {
+  color: #35495E;
+  font-size: 10rem;
+  font-family: 'bebas_neue_regularregular';
+}
+.timeVue-vue {
+  color:#41B883;
+  font-family: 'bebas_neuethin';
 }
 
 </style>
