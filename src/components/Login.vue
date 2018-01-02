@@ -7,10 +7,13 @@
             <h1 class="text-center timeVue-time">TIME<span class="timeVue-vue">VUE</span></h1>
           <div class="text-center col-md-4 col-sm-offset-4 spacing-logo">
             <!-- login form -->
-            <form class="ui form loginForm"  @submit.prevent="checkCreds">
+            <div class="row">
+          
+              <button v-on:click="adminSignin" v-bind:class="'btn btn-primary g-button btn-lg ' + loading"><img src="https://cdn.rawgit.com/firebase/firebaseui-web/master/image/google.svg" viewBox="0 0 60 55" width="25px" /><span class="goog" >Admin Signin</span></button>
+           
+              <button  v-on:click="teacherSignin" v-bind:class="'btn btn-primary g-button btn-lg ' + loading"><img src="https://cdn.rawgit.com/firebase/firebaseui-web/master/image/google.svg" viewBox="0 0 60 55" width="25px" /><span class="goog" >Teacher Signin</span></button>
 
-              <button type="submit" v-bind:class="'btn btn-primary g-button btn-lg ' + loading"><img src="https://cdn.rawgit.com/firebase/firebaseui-web/master/image/google.svg" viewBox="0 0 60 55" width="25px" /><span class="goog" >Sign In with Google</span></button>
-            </form>
+          </div>
 
             <!-- errors -->
             <div v-if=response class="text-red"><p>{{value}}</p></div>
@@ -32,7 +35,7 @@ export default {
     }
   },
   methods: {
-    checkCreds () {
+    teacherSignin () {
       var provider = new firebase.auth.GoogleAuthProvider()
       this.toggleLoading()
       this.resetResponse()
@@ -72,6 +75,33 @@ export default {
           //   }
           // )
     },
+    adminSignin () {
+      var provider = new firebase.auth.GoogleAuthProvider()
+      this.toggleLoading()
+      this.resetResponse()
+      this.$store.commit('TOGGLE_LOADING')
+      this.toggleLoading()
+      /* Making API call to authenticate a user */
+
+      firebase.auth().signInWithPopup(provider)
+        .then((result) => {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          // var token = result.credential.accessToken
+          // The signed-in user info.
+          var user = result.user
+          console.log(user)
+          this.$store.commit('SET_USER', user)
+          this.$router.push('/teachers')
+          // ...
+        }).catch((error) => {
+            // Handle Errors here.
+          this.$store.commit('TOGGLE_LOADING')
+          console.log(error.message)
+          this.response = error.message
+          this.toggleLoading()
+            // ...
+        })
+    },
     toggleLoading () {
       this.loading = (this.loading === '') ? 'loading' : ''
     },
@@ -89,8 +119,9 @@ html, body, .container-table {
 .g-button {
   background-color: white !important;
   border-color: white;
-   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  margin-left: 1rem;
 }
 .g-button:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);

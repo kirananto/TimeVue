@@ -21,6 +21,7 @@
     "compression": "^1.7.1",
     "firebase": "^4.8.1",
     "hideseek": "^0.8.0",
+    "jquery": "^3.2.1",
     "vue": "^2.5.13",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",

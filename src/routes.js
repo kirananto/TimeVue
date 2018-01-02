@@ -7,6 +7,8 @@ import DashboardView from './components/views/Dashboard.vue'
 import DetailsView from './components/views/Details.vue'
 import ProfileView from './components/views/Profile.vue'
 import TimetableView from './components/views/Timetable.vue'
+import TeachersView from './components/views/Teachers.vue'
+import SubjectsView from './components/views/Subjects.vue'
 // import SettingView from './components/views/Setting.vue'
 
 // Routes
@@ -44,6 +46,18 @@ const routes = [
         component: TimetableView,
         name: 'Timetable',
         meta: {description: 'Timetable'}
+      },
+      {
+        path: 'teachers',
+        component: TeachersView,
+        name: 'Teachers',
+        meta: {description: 'Enter Teacher Details'}
+      },
+      {
+        path: 'subjects',
+        component: SubjectsView,
+        name: 'subjects',
+        meta: {description: 'Enter Subjects Details'}
       }
     ]
   }, {
