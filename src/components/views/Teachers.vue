@@ -12,7 +12,7 @@
               <!-- calendar group -->
               <div class="vcenter">
                  <div class="row">
-                    <input v-model="SubId"  type="text" placeholder="Enter Subject ID" >
+                    <input v-model="tid"  type="text" placeholder="Enter Teacher ID" >
 
                     <input v-model="tname"  type="text" placeholder="Teacher Name" >
 

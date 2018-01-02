@@ -10,19 +10,32 @@
 
             <div class="box-body text-center">
               <!-- calendar group -->
-              <div class="vcenter" v-if="isCurrentClassSet">
-                 
-                 <div class=" input-group">
-                    <input v-model="SubId" class="form-control" type="text" placeholder="Enter Subject ID" >
+              <div class="vcenter">
+                 <div class="row">
+                    <input v-model="subCode"  type="text" placeholder="Enter Subject ID" >
 
-                    <input v-model="tname" class="form-control" type="text" placeholder="Teacher Name" >
+                    <input v-model="division"  type="text" placeholder="division" >
 
-                    <input v-model="tbranch" class="form-control"  type="text" placeholder="Branch" >
-                    <div class="input-group-btn">
-                    <button v-on:click="addTeacher"><i class="fa fa-plus"></i></button>
-                    </div>
+                    <input v-model="tCode" type="text" placeholder="Teacher Code" >
+             
+                    <button v-on:click="addSubject" class="btn add-button"><i class="fa fa-plus"></i></button>
+             
                   </div>
-        
+                <!--   <h1>List of Teachers</h1>
+                  <table class="table text-center tab">
+                    <tr>
+                      <th>TeacherId</th>
+                      <th>Name</th>
+                      <th>Branch</th>
+                    </tr>
+                    <tr v-for="item in teachers">
+                      <td v-text="item.tid"></td>
+                      <td v-text="item.tname"></td>
+                      <td v-text="item.tbranch"></td>
+                    </tr>
+                  </table>
+                  <router-link to="subjects" class="btn rlink">Assign Subjects</router-link> -->
+
               <!-- /input-group -->
               </div>
             </div>
@@ -41,12 +54,19 @@
   export default {
     data: function () {
       return {
-
+        subCode: null,
+        division: null,
+        tCode: null
       }
     },
     computed: {
       ...mapGetters([
         'isCurrentClassSet'])
+    },
+    methods: {
+      addSubject: function () {
+        // TODO code for adding subject here 
+      }
     }
   }
 </script>
