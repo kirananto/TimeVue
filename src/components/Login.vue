@@ -13,7 +13,7 @@
             </form>
 
             <!-- errors -->
-            <div v-if=response class="text-red"><p>{{response}}</p></div>
+            <div v-if=response class="text-red"><p>{{value}}</p></div>
           </div>
         </div>
       </div>

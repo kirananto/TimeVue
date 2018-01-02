@@ -1,12 +1,20 @@
 export default {
-  classList: (state) => {
-    return state.classes.classes
-  },
+  classList: state => Object.keys(state.batch_details).sort(),
   branchList: state => {
-    return state.classes.branches
+    // user selected year
+    var branches = []
+    for (let arr of state.batch_details[state.currentClass.semester]) {
+      branches.push(arr.branch)
+    }
+    return branches
   },
   divisionList: state => {
-    return state.classes.division
+    var batches = state.batch_details[state.currentClass.semester].filter((obj) => obj.branch === state.currentClass.branch)[0].batches
+    var batchLis = []
+    for (let arr of batches) {
+      batchLis.push(arr.batchName)
+    }
+    return batchLis
   },
   isCurrentClassSet: state => {
     if (state.currentClass.branch && state.currentClass.semester && state.currentClass.division) {
@@ -15,13 +23,7 @@ export default {
       return false
     }
   },
-  getCurrentClass: state => {
-    return state.currentClass
-  },
-  getNotifications: state => {
-    return state.notifications
-  },
-  getUser: state => {
-    return state.user
-  }
+  getCurrentClass: state => state.currentClass,
+  getNotifications: state => state.notifications,
+  getUser: state => state.user
 }

@@ -95,9 +95,7 @@ export default {
     }
   },
   computed: {
-    userData: function () {
-      return firebase.auth().currentUser
-    }
+    userData: () => firebase.auth().currentUser
   },
   mounted () {
     this.$store.commit('SET_USER', firebase.auth().currentUser)
@@ -112,7 +110,7 @@ export default {
     })
   },
   methods: {
-    changeloading: function () {
+    changeloading: () => {
       this.$store.commit('TOGGLE_SEARCHING')
     },
     logout: function () {

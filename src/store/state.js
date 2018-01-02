@@ -14,6 +14,330 @@ export default {
     classes: null,
     division: null
   },
+  batch_details: {
+    y1: [
+      {
+        branch: 'CSE',
+        batches: [
+          {
+            batchName: 'Alpha',
+            timetable: [
+              [
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                }
+              ],
+              [
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                }
+              ],
+              [
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                }
+              ],
+              [
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                }
+              ],
+              [
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                }
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        branch: 'CE',
+        batches: [
+          {
+            batchName: 'Alpha',
+            timetable: [
+              [
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                }
+              ],
+              [
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                }
+              ],
+              [
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                }
+              ],
+              [
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                }
+              ],
+              [
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                },
+                {
+                  subjectCode: 'S12',
+                  teacherCode: 't12'
+                }
+              ]
+            ]
+          }
+        ]
+      }
+    ]
+  },
   notifications: [
     {
       title: 'Welcome to timeVue',
