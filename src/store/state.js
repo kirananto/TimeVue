@@ -348,11 +348,11 @@ export default {
   ],
   userData: '',
   config: {
-    apiKey: 'AIzaSyDm0aVHDnePLo4yvjIhmLuGrDJC4WOPnqQ',
-    authDomain: 'lofo-59afa.firebaseapp.com',
-    databaseURL: 'https://lofo-59afa.firebaseio.com',
-    projectId: 'lofo-59afa',
-    storageBucket: 'lofo-59afa.appspot.com',
-    messagingSenderId: '1014292022054'
+    apiKey: 'AIzaSyB1zJLXNuzP8KmKfahOzzKwzCYk57oOaXU',
+    authDomain: 'timevue-a3bfb.firebaseapp.com',
+    databaseURL: 'https://timevue-a3bfb.firebaseio.com',
+    projectId: 'timevue-a3bfb',
+    storageBucket: 'timevue-a3bfb.appspot.com',
+    messagingSenderId: '1090341141834'
   }
 }
