@@ -34,6 +34,7 @@ var router = new VueRouter({
 router.beforeEach((to, from, next) => {
   let currentUser = firebase.auth().currentUser
   let requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  let details = to.matched.some(record => record.meta.details)
   if (requiresAuth && !currentUser) {
     next({
       path: '/login',
@@ -55,11 +56,14 @@ router.beforeEach((to, from, next) => {
           next()
         }
       } else {
-        console.log(currentUser.uid + '--' + doc.exists)
-        next({
-          path: '/details',
-          query: {redirect: to.fullPath}
-        })
+        if (!details) {
+          console.log(currentUser.uid + '--' + doc.exists)
+          next({
+            path: '/details'
+          })
+        } else {
+          next()
+        }
       }
     })
   } else {

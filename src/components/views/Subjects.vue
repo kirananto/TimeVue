@@ -65,7 +65,7 @@
     },
     methods: {
       addSubject: function () {
-        // TODO code for adding subject here 
+        // TODO code for adding subject here
       }
     }
   }

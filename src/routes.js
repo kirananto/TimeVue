@@ -33,7 +33,7 @@ const routes = [
         path: 'details',
         component: DetailsView,
         name: 'Details',
-        meta: {description: 'Enter Details'}
+        meta: {description: 'Enter Details', details: true}
       },
       {
         path: 'profile',
