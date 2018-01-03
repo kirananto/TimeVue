@@ -1,4 +1,5 @@
 <template>
+ <form action=teacherselection.vue>
   <div class="container container-table">
       <div class="row vertical-10p">
         <div class="container">
@@ -6,24 +7,21 @@
             <!-- details form -->
             <h1>Enter Details</h1><br>
             
-            <form class="ui form detailsForm"  @submit.prevent="submit">
-<div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                <input class="form-control" name="username" placeholder="Username" type="text" v-model="username">
-              </div>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                <input class="form-control" name="username" placeholder="Subject" type="text" v-model="subject">
-              </div>
-              <input type="submit">
-            </form>
-
+              Teacher Code: <input type="text" placeholder="Enter Teacher Code" name="tcode"><br>
+              Teacher Name: <input type="text" placeholder="Enter Name" name="tname"><br>
+              <input type="submit" value="Submit">
+               <div class="clearfix">
+                  <br><br><br>
+                  
+               </div>
+            
             <!-- errors -->
             <div v-if=response class="text-red"><p>{{response}}</p></div>
           </div>
         </div>
       </div>
   </div>
+ </form>
 </template>
 
 <script>
