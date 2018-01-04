@@ -6,7 +6,7 @@
         <span class="page">Dashboard</span>
       </a>
     </router-link>
-    <li class="header">SELECT CLASS</li>
+    <li class="header">SELECT YEAR</li>
     <div class="container">
       <div class="row col-md-2">
         <div v-for="(item,key) in classList">
@@ -76,6 +76,7 @@
 </template>
 <script>
 import firebase from 'firebase'
+require('firebase/firestore')
 import { mapGetters } from 'vuex'
 export default {
   name: 'SidebarName',
@@ -97,7 +98,22 @@ export default {
       console.log('SEtting division')
       this.$store.commit('TOGGLE_CLASS_DIV', div)
       this.$router.replace('timetable')
+    },
+    loadclasses: function () {
+      var classes = []
+      console.log('entering function')
+      firebase.firestore().collection('classes').get().then(querySnapshot => {
+        console.log('----')
+        querySnapshot.forEach(doc => {
+          classes.push(doc.id.substring(4))
+          // console.log(doc.id)
+        })
+        this.$store.commit('SET_CLASSLIST', classes)
+      })
     }
+  },
+  mounted () {
+    this.loadclasses()
   },
   computed: {
     ...mapGetters([

@@ -28,5 +28,14 @@ export default {
   },
   POP_NOTIFICATIONS (state) {
     state.notifications.pop()
+  },
+  SET_CLASSLIST (state, classList) {
+    state.classList = classList
+  },
+  SET_BRANCHLIST (state, branchList) {
+    state.branchList = branchList
+  },
+  SET_DIVLIST (state, divisionList) {
+    state.divisionList = divisionList
   }
 }

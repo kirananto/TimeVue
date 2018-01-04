@@ -9,11 +9,9 @@ export default {
     semester: null,
     division: null
   },
-  classes: {
-    branches: null,
-    classes: null,
-    division: null
-  },
+  branchList: [],
+  classList: [],
+  divisionList: [],
   batch_details: {
     y1: [
       {
