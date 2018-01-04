@@ -8,9 +8,9 @@
     </router-link>
     <li class="header">SELECT YEAR</li>
     <div class="container">
-      <div class="row col-md-2">
+      <div class="row col-md-4">
         <div v-for="(item,key) in classList">
-          <div v-if="key%3 === 0"><br><br></div> 
+          <div v-if="key%2 === 0"><br><br></div> 
           <button v-on:click="setsem(item)" 
             class="btn col-md-3 classbutton" 
             v-bind:class="{'classbutton-pressed': item === getCurrentClass.semester }"> 
@@ -23,6 +23,10 @@
     <li class="header">SELECT BRANCH</li>
     <div class="container" v-if="getCurrentClass.semester">
       <div class="row col-md-3">
+        <a v-if="branchloading">
+        <br>
+        <span class="select-item">Loading...</span>
+        </a>
         <div v-for="(item,key) in branchList">
           <div v-if="key%3 === 0"><br><br></div>
           <button v-on:click="setbranch(item)" 
@@ -39,10 +43,15 @@
         <span class="select-item">Please select semester first</span>
       </a>
     </div>
+
     <br>
     <li class="header">SELECT DIVISION</li>
     <div class="container" v-if="getCurrentClass.branch">
       <div class="row col-md-4">
+        <a v-if="divloading">
+        <br>
+        <span class="select-item">Loading...</span>
+        </a>
         <div v-for="(item,key) in divisionList">
          <br><br>
           <button v-on:click="setdiv(item)"
@@ -80,6 +89,12 @@ require('firebase/firestore')
 import { mapGetters } from 'vuex'
 export default {
   name: 'SidebarName',
+  data () {
+    return {
+      branchloading: null,
+      divloading: null
+    }
+  },
   methods: {
     logout: function () {
       firebase.auth().signOut().then(() => {
@@ -89,10 +104,12 @@ export default {
     setbranch: function (branch) {
       console.log('SEtting Branch')
       this.$store.commit('TOGGLE_CLASS_BRANCH', branch)
+      this.loaddivisions()
     },
     setsem: function (sem) {
       console.log('SEtting semester')
       this.$store.commit('TOGGLE_CLASS_SEM', sem)
+      this.loadbranches()
     },
     setdiv: function (div) {
       console.log('SEtting division')
@@ -101,18 +118,42 @@ export default {
     },
     loadclasses: function () {
       var classes = []
-      console.log('entering function')
       firebase.firestore().collection('classes').get().then(querySnapshot => {
-        console.log('----')
         querySnapshot.forEach(doc => {
-          classes.push(doc.id.substring(4))
+          classes.push(doc.id)
           // console.log(doc.id)
         })
         this.$store.commit('SET_CLASSLIST', classes)
       })
+    },
+    loadbranches: function () {
+      var branches = []
+      this.$store.commit('SET_BRANCHLIST', branches)
+      this.branchloading = true
+      firebase.firestore().collection('classes').doc(this.getCurrentClass.semester).collection('branches').get().then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          branches.push(doc.id)
+          // console.log(doc.id)
+        })
+        this.branchloading = false
+        this.$store.commit('SET_BRANCHLIST', branches)
+      })
+    },
+    loaddivisions: function () {
+      var divisions = []
+      this.$store.commit('SET_DIVLIST', divisions)
+      this.divloading = true
+      firebase.firestore().collection('classes').doc(this.getCurrentClass.semester).collection('branches').doc(this.getCurrentClass.branch).collection('divisions').get().then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          divisions.push(doc.id)
+          // console.log(doc.id)
+        })
+        this.divloading = false
+        this.$store.commit('SET_DIVLIST', divisions)
+      })
     }
   },
-  mounted () {
+  created () {
     this.loadclasses()
   },
   computed: {
