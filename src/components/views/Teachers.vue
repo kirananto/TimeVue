@@ -34,7 +34,8 @@
                       <td v-text="item.tbranch"></td>
                     </tr>
                   </table>
-                  <router-link to="subjects" class="btn rlink">Assign Subjects</router-link>
+                  <router-link to="subjects" class="btn rlink"><i class="fa fa-arrow-right" aria-hidden="true"></i>
+Assign Subjects</router-link>
               <!-- /input-group -->
               </div>
             </div>
@@ -105,6 +106,7 @@ export default {
   border-radius: 1rem;
   background-color: #F0F0F0;
   padding: 7rem; 
+  color:grey;
 }
 
 .rlink {

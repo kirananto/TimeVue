@@ -70,3 +70,26 @@
     }
   }
 </script>
+<style scoped>
+  .vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    padding-top: 14em;
+    color: grey;
+    padding-bottom: 18em;
+}
+input[type=text] {
+    border: none;
+    background-color: #F0F0F0;
+    height: 5rem;
+    border-radius: 1rem;
+    padding-left: 2rem;
+}
+.add-button {
+    height: 5rem;
+    border-radius: 1rem;
+    width: 7rem;
+    background-color: #222D32;
+}
+
+</style>
