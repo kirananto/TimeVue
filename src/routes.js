@@ -1,6 +1,7 @@
 import DashView from './components/Dash.vue'
 import LoginView from './components/Login.vue'
 import NotFoundView from './components/404.vue'
+import AccessDenied from './components/AccessDenied.vue'
 
 // Import Views - Dash
 import DashboardView from './components/views/Dashboard.vue'
@@ -16,6 +17,10 @@ const routes = [
   {
     path: '/login',
     component: LoginView
+  },
+  {
+    path: '/accessdenied',
+    component: AccessDenied
   },
   {
     path: '/',
@@ -51,13 +56,13 @@ const routes = [
         path: 'teachers',
         component: TeachersView,
         name: 'Teachers',
-        meta: {description: 'Enter Teacher Details'}
+        meta: {description: 'Enter Teacher Details', requireAdmin: true}
       },
       {
         path: 'subjects',
         component: SubjectsView,
         name: 'subjects',
-        meta: {description: 'Enter Subjects Details'}
+        meta: {description: 'Enter Subjects Details', requireAdmin: true}
       }
     ]
   }, {

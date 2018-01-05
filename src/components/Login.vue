@@ -9,9 +9,8 @@
             <!-- login form -->
             <div class="row">
           
-              <button v-on:click="adminSignin" v-bind:class="'btn btn-primary g-button btn-lg ' + loading"><img src="https://cdn.rawgit.com/firebase/firebaseui-web/master/image/google.svg" viewBox="0 0 60 55" width="25px" /><span class="goog" >Admin Signin</span></button>
-           
-              <button  v-on:click="teacherSignin" v-bind:class="'btn btn-primary g-button btn-lg ' + loading"><img src="https://cdn.rawgit.com/firebase/firebaseui-web/master/image/google.svg" viewBox="0 0 60 55" width="25px" /><span class="goog" >Teacher Signin</span></button>
+              <button v-on:click="signin" v-bind:class="'btn btn-primary g-button btn-lg ' + loading"><img src="https://cdn.rawgit.com/firebase/firebaseui-web/master/image/google.svg" viewBox="0 0 60 55" width="25px" /><span class="goog" >Signin with Google</span></button>
+          
 
           </div>
 
@@ -25,6 +24,7 @@
 
 <script>
 import firebase from 'firebase'
+require('firebase/firestore')
 export default {
   name: 'Login',
   data (router) {
@@ -35,7 +35,7 @@ export default {
     }
   },
   methods: {
-    teacherSignin () {
+    signin () {
       var provider = new firebase.auth.GoogleAuthProvider()
       this.toggleLoading()
       this.resetResponse()
@@ -48,50 +48,23 @@ export default {
           // This gives you a Google Access Token. You can use it to access the Google API.
           // var token = result.credential.accessToken
           // The signed-in user info.
-          var user = result.user
-          console.log(user)
-          this.$store.commit('SET_USER', user)
-          this.$router.push('/')
-          // ...
-        }).catch((error) => {
-            // Handle Errors here.
-          this.$store.commit('TOGGLE_LOADING')
-          console.log(error.message)
-          this.response = error.message
-          this.toggleLoading()
-            // ...
-        })
-
-          // firebase.auth().signInWithEmailAndPassword(username, password).then(
-          //   (user) => {
-          //     this.$store.commit('SET_USER', user)
-          //     this.$router.push('/')
-          //   },
-          //   (err) => {
-          //     this.$store.commit('TOGGLE_LOADING')
-          //     console.log(err.message)
-          //     this.response = err.message
-          //     this.toggleLoading()
-          //   }
-          // )
-    },
-    adminSignin () {
-      var provider = new firebase.auth.GoogleAuthProvider()
-      this.toggleLoading()
-      this.resetResponse()
-      this.$store.commit('TOGGLE_LOADING')
-      this.toggleLoading()
-      /* Making API call to authenticate a user */
-
-      firebase.auth().signInWithPopup(provider)
-        .then((result) => {
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          // var token = result.credential.accessToken
-          // The signed-in user info.
-          var user = result.user
-          console.log(user)
-          this.$store.commit('SET_USER', user)
-          this.$router.push('/teachers')
+          firebase.firestore().doc(`users/${result.user.uid}`).get()
+          .then((doc) => {
+            var user = result.user
+            if (doc.exists) {
+              user.isAdmin = doc.data().isAdmin
+              this.$store.commit('SET_USER', user)
+              if (doc.data().isAdmin) {
+                this.$router.push('/teachers')
+              } else {
+                this.$router.push('/')
+              }
+            } else {
+              user.isAdmin = false
+              this.$store.commit('SET_USER', user)
+              this.$router.push('/')
+            }
+          })
           // ...
         }).catch((error) => {
             // Handle Errors here.
