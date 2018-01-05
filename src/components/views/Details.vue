@@ -5,14 +5,14 @@
             <!-- details form -->
             <div class="box-body text-center">
             <div class="row">
-              <v-select :value.sync="teacherdetails.tcode" :options="tcodes" class="tcode"></v-select>
+              <v-select v-model="tcode" :options="tcodes" class="tcode"></v-select>
               <!-- <div class="input-group">
                     <input v-model="teacherdetails.tcode"  type="text" length="100" placeholder="Enter Teacher Code" >
               </div> -->
             </div>
             <div class="row">
               <div class="input-group">
-                    <input v-model="teacherdetails.tname"  type="text" placeholder="Enter Teacher Name" >
+                    <input v-model="tname"  type="text" placeholder="Enter Teacher Name" >
               </div>
             </div>
             <div class="row">
@@ -32,6 +32,7 @@
 import firebase from 'firebase'
 require('firebase/firestore')
 import vSelect from 'vue-select'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Details',
   components: {
@@ -39,27 +40,61 @@ export default {
   },
   data (router) {
     return {
-      teacherdetails: {
-        tcode: null,
-        tname: null
-      }
+      tcode: null,
+      tname: null,
+      tbranch: null,
+      teachers: []
+    }
+  },
+  mounted () {
+    var userRef = firebase.firestore().collection('teachers')
+    userRef.onSnapshot((querySnapshot) => {
+      this.teachers = []
+      querySnapshot.forEach((doc) => {
+        this.teachers.push({
+          tcode: doc.id,
+          tname: doc.data().tname,
+          tbranch: doc.data().tbranch
+        })
+        console.log('fetched data')
+      })
+    })
+  },
+  watch: {
+    tcode: function () {
+      console.log('hello')
+      var t = this.teachers.filter((teacher) => teacher.tcode === this.tcode)
+      this.tname = t[0].tname
+      this.tbranch = t[0].tbranch
     }
   },
   computed: {
     tcodes: function () {
-      return ['T001', 'T002']
-      // TODO dummy data to be replaced with value from database
-    }
+      let tcodes = []
+      for (let a of this.teachers) {
+        tcodes.push(a.tcode)
+      }
+      return tcodes
+    },
+    ...mapGetters([
+      'getUser'])
   },
   methods: {
     submit: function () {
-      var branchRef = firebase.firestore().collection('classes').doc('yearOne').collection('branches').doc('CSE')
-      branchRef.get().then((querySnapshot) => {
-        // querySnapshot.forEach((doc) => {
-        console.log(querySnapshot.id + ' => ' + querySnapshot.data())
-        // })
+      firebase.firestore().collection('teachers').doc(this.tcode).set({
+        tname: this.tname,
+        tbranch: this.tbranch
+      }).then((success) => {
+        console.log('data pushed to teachers')
       })
-      // console.log(this.teacherdetails.tcode)
+      firebase.firestore().collection('users').doc(this.getUser.uid).set({
+        tcode: this.tcode,
+        tname: this.tname,
+        tbranch: this.tbranch
+      }).then((success) => {
+        console.log('data pushed to the user')
+      })
+      // TODO push teacher details
     }
   }
 }

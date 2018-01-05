@@ -60,7 +60,8 @@ export default {
     }
   },
   mounted () {
-    firebase.firestore().collection('teachers').onSnapshot((querySnapshot) => {
+    var userRef = firebase.firestore().collection('teachers')
+    userRef.onSnapshot((querySnapshot) => {
       this.teachers = []
       querySnapshot.forEach((doc) => {
         this.teachers.push({tid: doc.id, tname: doc.data().tname, tbranch: doc.data().tbranch})

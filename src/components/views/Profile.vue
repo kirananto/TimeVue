@@ -13,6 +13,16 @@
             <!-- details form -->
             
             <h1>More Details</h1>
+            <div class="text-left container details">
+              <div class="row">
+                <strong class="col-md-2 label1 ">Teacher Code :  </strong>
+                <span class="col-md-2 content1" v-text="tcode"></span>
+              </div>
+              <div class="row">
+                <strong class="col-md-2">Branch :  </strong>
+                <span class="col-md-2" v-text="tbranch"></span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -20,8 +30,8 @@
 </template>
 
 <script>
-// import firebase from 'firebase'
-// require('firebase/firestore')
+import firebase from 'firebase'
+require('firebase/firestore')
 import { mapGetters } from 'vuex'
 export default {
   name: 'Profile',
@@ -31,7 +41,8 @@ export default {
       loading: '',
       response: '',
       username: '',
-      subject: ''
+      tcode: '',
+      tbranch: ''
     }
   },
   methods: {
@@ -45,6 +56,18 @@ export default {
   computed: {
     ...mapGetters([
       'getUser'])
+  },
+  created () {
+    firebase.firestore().collection('users').doc(this.getUser.uid).get()
+      .then((doc) => {
+        this.tcode = doc.data().tcode
+        this.tbranch = doc.data().tbranch
+      })
+      .catch((err) => {
+        console.log(err)
+        this.tcode = 'Sorry No Data'
+        this.tbranch = 'Sorry No Data'
+      })
   }
 }
 </script>
@@ -58,8 +81,21 @@ html, body, .container-table {
     color: black;
 }
 
+.details {
+  font-size: 2rem;
+}
+
+h1 {
+  margin-bottom: 5rem;
+  font-family: bebas_neue_regularregular;
+}
+
+h4 {
+  margin-left: 3rem;
+}
+
 .card {
-  background-color: #fff;
+  background-color: #FAF9F7;
   margin-left: 1rem;
   margin-bottom: 3rem;
   padding-bottom: 3rem;

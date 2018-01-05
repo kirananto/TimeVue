@@ -33,6 +33,7 @@ var router = new VueRouter({
 // Some middleware to help us ensure the user is authenticated.
 router.beforeEach((to, from, next) => {
   let currentUser = firebase.auth().currentUser
+  store.commit('SET_USER', currentUser)
   let requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   let details = to.matched.some(record => record.meta.details)
   console.log(to.fullPath)
@@ -44,7 +45,7 @@ router.beforeEach((to, from, next) => {
   } else if (requiresAuth && currentUser) {
     db.collection('users').doc(currentUser.uid).get()
     .then((doc) => {
-      if (!doc.exists) {
+      if (doc.exists) {
         console.log(to.fullPath)
         // console.log(store.getters.isisCurrentClassSet)
         if (to.fullPath === '/details') {
