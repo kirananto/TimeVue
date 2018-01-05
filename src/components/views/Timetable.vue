@@ -30,12 +30,24 @@
   <!-- /.content -->
 </template>
 <script>
-
 import { mapGetters } from 'vuex'
 export default {
+  data () {
+    return {
+      timetable: [
+        [{
+          subcode: null,
+          tcode: null
+        }
+        ]
+      ]
+    }
+  },
   computed: {
     ...mapGetters([
       'getNotifications'])
+  },
+  mounted () {
   }
 }
 </script>

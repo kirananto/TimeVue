@@ -86,6 +86,7 @@
 <script>
 import firebase from 'firebase'
 require('firebase/firestore')
+var db = null
 import { mapGetters } from 'vuex'
 export default {
   name: 'SidebarName',
@@ -118,7 +119,8 @@ export default {
     },
     loadclasses: function () {
       var classes = []
-      firebase.firestore().collection('classes').get().then(querySnapshot => {
+      db = firebase.firestore()
+      db.collection('classes').get().then(querySnapshot => {
         querySnapshot.forEach(doc => {
           classes.push(doc.id)
           // console.log(doc.id)
@@ -130,8 +132,9 @@ export default {
       var branches = []
       this.$store.commit('SET_BRANCHLIST', branches)
       this.branchloading = true
-      firebase.firestore().collection('classes').doc(this.getCurrentClass.semester).collection('branches').get().then(querySnapshot => {
-        querySnapshot.forEach(doc => {
+      db.collection(`classes/${this.getCurrentClass.semester}/branches`).get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
           branches.push(doc.id)
           // console.log(doc.id)
         })
@@ -143,8 +146,10 @@ export default {
       var divisions = []
       this.$store.commit('SET_DIVLIST', divisions)
       this.divloading = true
-      firebase.firestore().collection('classes').doc(this.getCurrentClass.semester).collection('branches').doc(this.getCurrentClass.branch).collection('divisions').get().then(querySnapshot => {
-        querySnapshot.forEach(doc => {
+      var currentbranch = `classes/${this.getCurrentClass.semester}/branches/${this.getCurrentClass.branch}/divisions`
+      db.collection(currentbranch).get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
           divisions.push(doc.id)
           // console.log(doc.id)
         })
