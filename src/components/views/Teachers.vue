@@ -21,6 +21,18 @@
                     <button v-on:click="addTeacher" class="btn add-button"><i class="fa fa-plus"></i></button>
              
                   </div>
+                  <h2> Or</h2>
+                  <h3> Upload list as CSV file</h3>
+                  <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <span class="btn btn-default btn-file chosefile">
+                      <span>Choose file</span>
+                      <input type="file" @change="onFileChange" />
+                    </span>
+                    <span v-text="filename" class="filemsg"></span>
+                    <button v-on:click="uploadfromcsv" class="btn add-button upload">
+                      <span>Upload</span>
+                    </button>
+                  </div>
                   <h1>List of Teachers</h1>
                   <table class="table text-center tab">
                     <tr>
@@ -51,18 +63,22 @@ Assign Subjects</router-link>
 <script>
 import firebase from 'firebase'
 require('firebase/firestore')
+import csv from 'csv'
+var db = null
 export default {
   data: function () {
     return {
       tid: null,
       tname: null,
       tbranch: null,
-      teachers: []
+      teachers: [],
+      file: null,
+      filename: 'No File Choosen'
     }
   },
   mounted () {
-    var userRef = firebase.firestore().collection('teachers')
-    userRef.onSnapshot((querySnapshot) => {
+    db = firebase.firestore()
+    db.collection('teachers').onSnapshot((querySnapshot) => {
       this.teachers = []
       querySnapshot.forEach((doc) => {
         this.teachers.push({tid: doc.id, tname: doc.data().tname, tbranch: doc.data().tbranch})
@@ -72,7 +88,7 @@ export default {
   },
   methods: {
     addTeacher: function () {
-      firebase.firestore().collection('teachers').doc(this.tid).set({
+      db.collection('teachers').doc(this.tid).set({
         tname: this.tname,
         tbranch: this.tbranch
       }).then((success) => {
@@ -82,6 +98,39 @@ export default {
       this.tname = null
       this.tbranch = null
       // TODO: push to firebase
+    },
+    onFileChange (e) {
+      var files = e.target.files || e.dataTransfer.files
+      if (!files.length) {
+        return
+      }
+      this.file = files[0]
+      this.filename = this.file.name
+    },
+    uploadfromcsv () {
+      // console.log(this.file.name)
+      var reader = new FileReader()
+      var fileinput = null
+      reader.onload = function (e) {
+        fileinput = reader.result
+        var batch = db.batch()
+        csv.parse(fileinput, function (err, data) {
+          if (data) {
+            data.forEach((teacher) => {
+              console.log(teacher[0])
+              batch.set(db.collection('teachers').doc(teacher[0]), {tname: teacher[1], tbranch: null})
+            })
+            batch.commit().then((success) => {
+              console.log('success')
+            })
+            // console.log(data[0])
+          }
+          if (err) {
+            console.log(err)
+          }
+        })
+      }
+      reader.readAsText(this.file)
     }
   }
 }
@@ -90,7 +139,7 @@ export default {
 .vcenter {
     display: inline-block;
     vertical-align: middle;
-    padding-top: 14em;
+    padding-top: 7em;
     color: grey;
     padding-bottom: 18em;
 }
@@ -102,6 +151,22 @@ export default {
     background-color: #222D32;
 }
 
+.filemsg {
+  margin-left: 1rem;
+}
+
+.chosefile {
+  border-color: white;
+  border-radius: 1rem;
+}
+.upload {
+  margin-left: 7rem;
+  height: 4rem;
+  width: 15rem;
+}
+.upload > span {
+  color: white;
+}
 .tab {
   border-radius: 1rem;
   background-color: #F0F0F0;
