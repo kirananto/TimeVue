@@ -34,13 +34,14 @@
                     </button>
                   </div>
                   <h1>List of Teachers</h1>
-                  <table class="table text-center tab">
-                    <tr>
-                      <th>TeacherId</th>
+                  <table class="table text-left tab">
+                    <tr class="table-header">
+                      <th>Teacher Id</th>
                       <th>Name</th>
                       <th>Branch</th>
                     </tr>
-                    <tr v-for="item in teachers">
+                    <br>
+                    <tr v-for="item in teachers" class="table-item">
                       <td v-text="item.tid"></td>
                       <td v-text="item.tname"></td>
                       <td v-text="item.tbranch"></td>
@@ -151,6 +152,14 @@ export default {
     background-color: #222D32;
 }
 
+.table-header {
+  height: 4rem;
+  font-family: bebas_neue_regularregular;
+  font-size: 3rem;
+}
+.table-item {
+  height: 3rem;
+}
 .filemsg {
   margin-left: 1rem;
 }
@@ -167,11 +176,11 @@ export default {
 .upload > span {
   color: white;
 }
+
 .tab {
   border-radius: 1rem;
-  background-color: #F0F0F0;
-  padding: 7rem; 
-  color:grey;
+  background-color: white;
+  /*color:grey;*/
 }
 
 .rlink {
