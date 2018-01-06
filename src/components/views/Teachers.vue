@@ -64,7 +64,7 @@ Assign Subjects</router-link>
 <script>
 import firebase from 'firebase'
 require('firebase/firestore')
-import csv from 'csv'
+import parse from 'csv-parse'
 var db = null
 export default {
   data: function () {
@@ -115,13 +115,14 @@ export default {
       reader.onload = function (e) {
         fileinput = reader.result
         var batch = db.batch()
-        csv.parse(fileinput, function (err, data) {
+        parse(fileinput, (err, data) => {
           if (data) {
             data.forEach((teacher) => {
               console.log(teacher[0])
               batch.set(db.collection('teachers').doc(teacher[0]), {tname: teacher[1], tbranch: null})
             })
-            batch.commit().then((success) => {
+            batch.commit()
+            .then((success) => {
               console.log('success')
             })
             // console.log(data[0])
