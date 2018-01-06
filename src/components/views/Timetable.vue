@@ -19,6 +19,81 @@
             <div class="box-body text-center">
               <!-- calendar group -->
             
+            <div class="timetable">
+              <div class="row">
+                <button class="btn sub mainbutton"></button>
+                <button class="btn sub mainbutton">Hour1</button>
+                <button class="btn sub mainbutton">Hour2</button>
+                <button class="btn sub mainbutton">Hour3</button>
+                <button class="btn sub mainbutton">Hour4</button>
+                <button class="btn sub mainbutton">Hour5</button>
+                <button class="btn sub mainbutton">Hour6</button>
+                <button class="btn sub mainbutton">Hour7</button>
+              </div>
+              <div class="row">
+                <button class="btn sub mainbutton">Monday</button>
+                <button class="btn sub"></button>
+                <button class="btn sub">
+                  <span class="subject">STLD</span>
+                  <span class="tcode">SMN</span>
+                </button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+              </div>
+              <div class="row">
+                <button class="btn sub mainbutton">Monday</button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub  text-center">
+                  <span class="subject">STLD</span>
+                  <span class="tcode">SMN</span>
+                </button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+              </div>
+              <div class="row">
+                <button class="btn sub mainbutton">Monday</button>
+                <button class="btn sub">
+                  <span class="subject">STLD</span>
+                  <span class="tcode">SMN</span>
+                </button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+              </div>
+              <div class="row">
+                <button class="btn sub mainbutton">Monday</button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub">
+                  <span class="subject">STLD</span>
+                  <span class="tcode">SMN</span>
+                </button>
+                <button class="btn sub"></button>
+              </div>
+              <div class="row">
+                <button class="btn sub mainbutton">Monday</button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+                <button class="btn sub"></button>
+              </div>
+
+            </div>
             </div>
             <!-- /.box-body -->
           </div>
@@ -51,5 +126,35 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss" scoped>
+$h: 7rem;
+$w: 13rem;
+.sub {
+  height: $h;
+  width: $w;
+  border-radius: 1rem;
+  margin: .5rem;
+  
+  &:hover {
+    background-color: #00A65A;
+  }
+}
+
+.subject {
+  font-weight: bold;
+  font-family: bebas_neue_regularregular;
+  font-size: 2.6rem;
+}
+
+.tcode {
+  display: block;
+  margin-left: 3rem;
+
+}
+.mainbutton {  
+  background-color: #00A65A;
+  font-weight: bold;
+  font-family: bebas_neue_regularregular;
+  font-size: 3rem;
+}
 </style>
