@@ -103,17 +103,17 @@ export default {
       })
     },
     setbranch: function (branch) {
-      console.log('SEtting Branch')
+      // console.log('SEtting Branch')
       this.$store.commit('TOGGLE_CLASS_BRANCH', branch)
       this.loaddivisions()
     },
     setsem: function (sem) {
-      console.log('SEtting semester')
+      // console.log('SEtting semester')
       this.$store.commit('TOGGLE_CLASS_SEM', sem)
       this.loadbranches()
     },
     setdiv: function (div) {
-      console.log('SEtting division')
+      // console.log('SEtting division')
       this.$store.commit('TOGGLE_CLASS_DIV', div)
       this.$router.replace('timetable')
     },

@@ -83,7 +83,6 @@ export default {
       this.teachers = []
       querySnapshot.forEach((doc) => {
         this.teachers.push({tid: doc.id, tname: doc.data().tname, tbranch: doc.data().tbranch})
-        console.log('fetched data')
       })
     })
   },

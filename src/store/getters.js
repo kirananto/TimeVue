@@ -11,5 +11,6 @@ export default {
   },
   getCurrentClass: state => state.currentClass,
   getNotifications: state => state.notifications,
-  getUser: state => state.user
+  getUser: state => state.user,
+  getFirebaseConfig: state => state.config
 }

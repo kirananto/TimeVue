@@ -15,7 +15,7 @@ import AppView from './components/App.vue'
 
 Vue.use(VueRouter)
 
-firebase.initializeApp(store.state.config)
+firebase.initializeApp(store.getters.getFirebaseConfig)
 
 var db = firebase.firestore()
 
