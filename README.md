@@ -16,6 +16,9 @@ timeVue is a online timetable generation application which is being developed as
   - Bootstrap - Front end web framework
   - Vue-Router - for routing in a SPA
   - Webpack - duh to bundle the assets
+  - Compression - To serve gzip compressed pages
+  - Babel - Transpiler to convert ES6
+  - csvtojson - to process csv files
   
 ## Browser Support
 
