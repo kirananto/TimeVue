@@ -40,7 +40,7 @@ router.beforeEach((to, from, next) => {
   let requiresAuth = to.matched.some(record => record.meta.requiresAuth)
   let details = to.matched.some(record => record.meta.details)
   let requireAdmin = to.matched.some(record => record.meta.requireAdmin)
-  console.log(to.fullPath)
+  // console.log(to.fullPath)
   if (requiresAuth && !currentUser) {
     next({
       path: '/login',
@@ -59,7 +59,7 @@ router.beforeEach((to, from, next) => {
       db.collection('users').doc(currentUser.uid).get()
       .then((doc) => {
         if (doc.exists) {
-          console.log(to.fullPath)
+          // console.log(to.fullPath)
           // console.log(store.getters.isisCurrentClassSet)
           if (to.fullPath === '/details') {
             next('/profile')
