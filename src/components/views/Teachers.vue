@@ -108,14 +108,11 @@ export default {
       this.filename = this.file.name
     },
     uploadfromcsv () {
-      var reader = new FileReader()
-      var fileinput = null
+      const reader = new FileReader()
       reader.onload = function (e) {
-        fileinput = reader.result
-        var batch = db.batch()
-        console.log(fileinput)
+        const batch = db.batch()
         csv({noheader: true})
-        .fromString(fileinput)
+        .fromString(reader.result)
         .on('csv', (csvRow) => {
           batch.set(db.collection('teachers').doc(csvRow[0]), {tname: csvRow[1], tbranch: null})
         })

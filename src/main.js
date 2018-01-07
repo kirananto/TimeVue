@@ -25,7 +25,7 @@ var router = new VueRouter({
   routes,
   mode: 'history',
   linkExactActiveClass: 'active',
-  scrollBehavior: function (to, from, savedPosition) {
+  scrollBehavior: (to, from, savedPosition) => {
     return savedPosition || { x: 0, y: 0 }
   }
 })

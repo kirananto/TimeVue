@@ -47,7 +47,7 @@ export default {
     }
   },
   mounted () {
-    var userRef = firebase.firestore().collection('teachers')
+    const userRef = firebase.firestore().collection('teachers')
     userRef.onSnapshot((querySnapshot) => {
       this.teachers = []
       querySnapshot.forEach((doc) => {
@@ -56,14 +56,12 @@ export default {
           tname: doc.data().tname,
           tbranch: doc.data().tbranch
         })
-        console.log('fetched data')
       })
     })
   },
   watch: {
     tcode: function () {
-      console.log('hello')
-      var t = this.teachers.filter((teacher) => teacher.tcode === this.tcode)
+      const t = this.teachers.filter((teacher) => teacher.tcode === this.tcode)
       this.tname = t[0].tname
       this.tbranch = t[0].tbranch
     }

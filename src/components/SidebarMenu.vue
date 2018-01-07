@@ -118,7 +118,7 @@ export default {
       this.$router.replace('timetable')
     },
     loadclasses: function () {
-      var classes = []
+      const classes = []
       db = firebase.firestore()
       db.collection('classes').get().then(querySnapshot => {
         querySnapshot.forEach(doc => {
@@ -129,7 +129,7 @@ export default {
       })
     },
     loadbranches: function () {
-      var branches = []
+      const branches = []
       this.$store.commit('SET_BRANCHLIST', branches)
       this.branchloading = true
       db.collection(`classes/${this.getCurrentClass.semester}/branches`).get()
@@ -143,10 +143,10 @@ export default {
       })
     },
     loaddivisions: function () {
-      var divisions = []
+      const divisions = []
       this.$store.commit('SET_DIVLIST', divisions)
       this.divloading = true
-      var currentbranch = `classes/${this.getCurrentClass.semester}/branches/${this.getCurrentClass.branch}/divisions`
+      const currentbranch = `classes/${this.getCurrentClass.semester}/branches/${this.getCurrentClass.branch}/divisions`
       db.collection(currentbranch).get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
