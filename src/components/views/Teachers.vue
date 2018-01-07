@@ -175,7 +175,7 @@ export default {
 .tab {
   border-radius: 1rem;
   background-color: white;
-  /*color:grey;*/
+  color:grey;
 }
 
 .rlink {
