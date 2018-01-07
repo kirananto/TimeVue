@@ -64,7 +64,7 @@ Assign Subjects</router-link>
 <script>
 import firebase from 'firebase'
 require('firebase/firestore')
-import parse from 'csv-parse'
+import csv from 'csvtojson'
 var db = null
 export default {
   data: function () {
@@ -109,27 +109,21 @@ export default {
       this.filename = this.file.name
     },
     uploadfromcsv () {
-      // console.log(this.file.name)
       var reader = new FileReader()
       var fileinput = null
       reader.onload = function (e) {
         fileinput = reader.result
         var batch = db.batch()
-        parse(fileinput, (err, data) => {
-          if (data) {
-            data.forEach((teacher) => {
-              console.log(teacher[0])
-              batch.set(db.collection('teachers').doc(teacher[0]), {tname: teacher[1], tbranch: null})
-            })
-            batch.commit()
-            .then((success) => {
-              console.log('success')
-            })
-            // console.log(data[0])
-          }
-          if (err) {
-            console.log(err)
-          }
+        console.log(fileinput)
+        csv({noheader: true})
+        .fromString(fileinput)
+        .on('csv', (csvRow) => {
+          batch.set(db.collection('teachers').doc(csvRow[0]), {tname: csvRow[1], tbranch: null})
+        })
+        .on('done', () => {
+          batch.commit().then((success) => {
+            console.log('Success')
+          })
         })
       }
       reader.readAsText(this.file)
