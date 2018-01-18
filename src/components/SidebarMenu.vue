@@ -110,6 +110,8 @@ export default {
     setsem: function (sem) {
       // console.log('SEtting semester')
       this.$store.commit('TOGGLE_CLASS_SEM', sem)
+      this.$store.commit('SET_BRANCHLIST', null)
+      this.$store.commit('SET_DIVLIST', null)
       this.loadbranches()
     },
     setdiv: function (div) {
