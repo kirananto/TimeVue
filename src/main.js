@@ -8,12 +8,14 @@ import VueRouter from 'vue-router'
 import { sync } from 'vuex-router-sync'
 import routes from './routes'
 import store from './store'
+import VueParticles from 'vue-particles'
 import firebase from 'firebase'
 require('firebase/firestore')
 // Import Views - Top level
 import AppView from './components/App.vue'
 
 Vue.use(VueRouter)
+Vue.use(VueParticles)
 
 firebase.initializeApp(store.getters.getFirebaseConfig)
 

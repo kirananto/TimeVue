@@ -9,7 +9,8 @@
     <li class="header">SELECT YEAR</li>
     <div class="container">
       <div class="row col-md-4">
-        <div v-for="(item,key) in classList">
+        <div v-for="(item,key) in classList"
+        :key="key">
           <div v-if="key%2 === 0"><br><br></div> 
           <button v-on:click="setsem(item)" 
             class="btn col-md-3 classbutton" 
@@ -27,7 +28,8 @@
         <br>
         <span class="select-item">Loading...</span>
         </a>
-        <div v-for="(item,key) in branchList">
+        <div v-for="(item,key) in branchList"
+        :key="key">
           <div v-if="key%3 === 0"><br><br></div>
           <button v-on:click="setbranch(item)" 
             class="btn col-md-2 classbutton"
@@ -52,7 +54,8 @@
         <br>
         <span class="select-item">Loading...</span>
         </a>
-        <div v-for="(item,key) in divisionList">
+        <div v-for="(item,key) in divisionList"
+        :key="key">
          <br><br>
           <button v-on:click="setdiv(item)"
             class="btn col-md-6 classbutton"
