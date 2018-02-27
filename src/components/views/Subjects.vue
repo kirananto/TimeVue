@@ -27,7 +27,7 @@
                       </option>
                     </select>
 
-                     <select v-model="selecteDivision"  placeholder="Select Class">
+                     <select v-model="selectedDivision"  placeholder="Select Class">
                       <option v-for="(option,key) in divisions" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
@@ -35,8 +35,29 @@
 
                     <table>
                       <thead>
-                        <td>SUBJECT NAME</td>
+                        <tr>
+                          <th>SUBJECT NAME</th>
+                          <th>HOURS</th>
+                          <th>TEACHER</th>
+                        </tr>
                       </thead>
+                      <tr>
+                        <td>
+                          {{tabledata}} 
+                        </td>
+                        <td>
+                          <input type="text" name="HOURS">
+                        </td>
+                        <td>
+                          <v-select v-model="selected" :options="teachers">
+                          <select v-model="teachers"  placeholder="Select Teacher">
+                          <option v-for="(option,key) in teachers" :key="key" v-bind:value="option">
+                            {{ option }}
+                          </option>  
+                          </select>
+                          </v-select>
+                        </td>
+                      </tr>                   
                     </table>
                     <!-- <input v-model="tCode" type="text" placeholder="Teacher Code" >
              
@@ -72,10 +93,14 @@
 </template>
 
 <script>
+  import vSelect from 'vue-select'
   import { mapGetters } from 'vuex'
   import firebase from 'firebase'
   require('firebase/firestore')
   export default {
+    components: {
+      vSelect
+    },
     data: function () {
       return {
         subCode: null,
@@ -83,15 +108,33 @@
         tCode: null,
         branches: null,
         divisions: null,
+        teachers: null,
         selectedClass: null,
         selectedBranch: null,
-        selecteDivision: null
+        selectedDivision: null,
+        tabledata: null,
+        selected: null
       }
     },
     computed: {
       ...mapGetters([
         'isCurrentClassSet',
         'classList'])
+    },
+    mounted () {
+      // db = firebase.firestore()
+      firebase.firestore().collection('teachers').onSnapshot((querySnapshot) => {
+        this.teachers = []
+        querySnapshot.forEach((doc) => {
+          this.teachers.push({
+            tid: doc.id,
+            label: doc.data().tname,
+            tname: doc.data().tname,
+            tbranch: doc.data().tbranch
+          })
+        })
+        console.log(this.teachers)
+      })
     },
     methods: {
       addSubject: function () {
@@ -119,6 +162,22 @@
               this.divisions.push(doc.id)
             })
           })
+      },
+      selectedDivision: function (val) {
+        this.tabledata = []
+        console.log('fetching')
+        firebase.firestore().collection(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${val}/subjects`)
+        .get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            this.tabledata.push({
+              Name: doc.data().Name
+              // Hours: doc.data().Hours
+              // Teachers: doc.data().Teachers
+            })
+            console.log(doc.data())
+          })
+          // console.log(this.tabledata)
+        }).catch(err => console.log(err))
       }
     }
   }
