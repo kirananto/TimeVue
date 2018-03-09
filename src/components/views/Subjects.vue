@@ -16,34 +16,35 @@
                   
                  <div class="row">
                    <!-- {{classList}} -->
-                   <select v-model="selectedClass"  placeholder="Select Class">
+                   <select v-model="selectedClass" class="selecCl" placeholder="Select Class">
                       <option v-for="(option,key) in classList" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
                     </select>
-                    <select v-model="selectedBranch"  placeholder="Select Branch">
+                    <select v-model="selectedBranch"  class="selecCl" placeholder="Select Branch">
                       <option v-for="(option,key) in branches" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
                     </select>
 
-                     <select v-model="selectedDivision"  placeholder="Select Class">
+                     <select v-model="selectedDivision"  class="selecCl" placeholder="Select Class">
                       <option v-for="(option,key) in divisions" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
                     </select>
-
-                    <table>
+                    
+                    <table class="table tble table-responsive">
                       <thead>
                         <tr>
-                          <th>SUBJECT NAME</th>
-                          <th>HOURS</th>
-                          <th>TEACHER</th>
+                          <th scope="col"> SUBJECT NAME</th>
+                          <th scope="col"> HOURS</th>
+                          <th scope="col"> TEACHER</th>
                         </tr>
                       </thead>
+                      <tbody>
                       <tr>
                         <td>
-                          {{tabledata}} 
+                          {{tabledata[0].Name}} 
                         </td>
                         <td>
                           <input type="text" name="HOURS">
@@ -57,7 +58,8 @@
                           </select>
                           </v-select>
                         </td>
-                      </tr>                   
+                      </tr> 
+                      </tbody>                  
                     </table>
                     <!-- <input v-model="tCode" type="text" placeholder="Teacher Code" >
              
@@ -192,7 +194,7 @@
 input[type=text] {
     border: none;
     background-color: #F0F0F0;
-    height: 5rem;
+    height: 4rem !important;
     border-radius: 1rem;
     padding-left: 2rem;
 }
@@ -223,6 +225,14 @@ select {
     content:'2';  
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.selecCl {
+  margin-left: 2rem;
+}
+
+.tble {
+  width: 120rem;
 }
 
 .add-button {
