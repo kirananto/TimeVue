@@ -41,7 +41,7 @@
                       <th>Branch</th>
                     </tr>
                     <br>
-                    <tr v-for="(key,item) in teachers" :key="key" class="table-item">
+                    <tr v-for="(item,key) in teachers" :key="key" class="table-item">
                       <td v-text="item.tid"></td>
                       <td v-text="item.tname"></td>
                       <td v-text="item.tbranch"></td>
