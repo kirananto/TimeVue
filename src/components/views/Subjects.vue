@@ -38,6 +38,7 @@
                         <tr>
                           <th scope="col"> SUBJECT NAME</th>
                           <th scope="col"> HOURS</th>
+                          <th scope="col"> TYPE</th>
                           <th scope="col"> TEACHER</th>
                         </tr>
                       </thead>
@@ -50,7 +51,13 @@
                           <input type="text" v-model="item.Hours" name="HOURS">
                         </td>
                         <td>
-                          <v-select v-model="selected" :options="teachers">
+                          <select v-model="item.Type">
+                            <option value="Theory">Theory</option>
+                            <option value="Lab">Lab</option>
+                          </select>
+                        </td>
+                        <td>
+                          <v-select v-model="item.Teacher" :options="teachers">
                           <select v-model="teachers"  placeholder="Select Teacher">
                           <option v-for="(option,key) in teachers" :key="key" v-bind:value="option">
                             {{ option }}
@@ -59,6 +66,8 @@
                           </v-select>
                         </td>
                       </tr> 
+                       <button v-on:click="assignTeacher" class="btn btn-primary" align="center">Confirm
+                          </button>
                       </tbody>                  
                     </table>
                     <!-- <input v-model="tCode" type="text" placeholder="Teacher Code" >
@@ -141,6 +150,19 @@
     methods: {
       addSubject: function () {
         // TODO code for adding subject here
+      },
+      assignTeacher: function () {
+        var batch = firebase.firestore().batch()
+        console.log(this.tabledata)
+        this.tabledata.forEach(data => {
+          batch.update(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}`), {
+            Name: data.Name,
+            Hours: parseInt(data.Hours),
+            Type: data.Type,
+            Teachers: [firebase.firestore().doc(`/teachers/${data.Teacher.tid}`)]
+          })
+        })
+        batch.commit().then(success => console.log('batch write success'))
       }
     },
     watch: {
@@ -172,7 +194,8 @@
         .get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             this.tabledata.push({
-              Name: doc.data().Name
+              Name: doc.data().Name,
+              Id: doc.id
               // Hours: doc.data().Hours
               // Teachers: doc.data().Teachers
             })
