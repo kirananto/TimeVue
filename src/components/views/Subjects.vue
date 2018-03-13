@@ -42,12 +42,12 @@
                         </tr>
                       </thead>
                       <tbody>
-                      <tr>
+                      <tr v-for="(item,key) in tabledata" :key="key">
                         <td>
-                          {{tabledata[0].Name}} 
+                          {{item.Name}} 
                         </td>
                         <td>
-                          <input type="text" name="HOURS">
+                          <input type="text" v-model="item.Hours" name="HOURS">
                         </td>
                         <td>
                           <v-select v-model="selected" :options="teachers">
