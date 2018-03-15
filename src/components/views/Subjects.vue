@@ -155,13 +155,24 @@
         var batch = firebase.firestore().batch()
         console.log(this.tabledata)
         this.tabledata.forEach(data => {
+          // update subject data
           batch.update(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}`), {
             Name: data.Name,
             Hours: parseInt(data.Hours),
-            Type: data.Type,
-            Teachers: [firebase.firestore().doc(`/teachers/${data.Teacher.tid}`)]
+            Type: data.Type
+          })
+
+          // push teacher to subjects database
+          batch.set(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}/Teachers/${data.Teacher.tid}`), {
+            Name: firebase.firestore().doc(`/teachers/${data.Teacher.tid}`)
+          })
+
+          // push subjects to teachers
+          batch.set(firebase.firestore().doc(`/teachers/${data.Teacher.tid}/Subjects/${data.Id}`), {
+            Name: firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}`)
           })
         })
+
         batch.commit().then(success => console.log('batch write success'))
       }
     },
