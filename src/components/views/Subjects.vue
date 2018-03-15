@@ -148,9 +148,6 @@
       })
     },
     methods: {
-      addSubject: function () {
-        // TODO code for adding subject here
-      },
       assignTeacher: function () {
         var batch = firebase.firestore().batch()
         console.log(this.tabledata)
