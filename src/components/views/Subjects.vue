@@ -48,7 +48,7 @@
                           {{item.Name}} 
                         </td>
                         <td>
-                          <input type="text" v-model="item.Hours" name="HOURS">
+                          <input type="number" v-model="item.Hours" name="HOURS">
                         </td>
                         <td>
                           <select v-model="item.Type">
