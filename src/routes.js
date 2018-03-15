@@ -10,7 +10,7 @@ import ProfileView from './components/views/Profile.vue'
 import TimetableView from './components/views/Timetable.vue'
 import TeachersView from './components/views/Teachers.vue'
 import SubjectsView from './components/views/Subjects.vue'
-import SubjectListView from './components/views/SubjectListView.vue'
+import SubjectListView from './components/views/Subjectlist.vue'
 // import SettingView from './components/views/Setting.vue'
 
 // Routes

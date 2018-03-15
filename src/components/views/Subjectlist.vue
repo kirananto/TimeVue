@@ -48,36 +48,25 @@
   <!-- /.content -->
 </template>
 <script type="text/javascript">
-  import vSelect from 'vue-select'
-  import { mapGetters } from 'vuex'
-  import firebase from 'firebase'
-  require('firebase/firestore')
-  export default {
-    components: {
-      vSelect
-    },
-    data: function () {
-      return {
-
-      }
+import firebase from 'firebase'
+require('firebase/firestore')
+export default {
+  data: function () {
+    return {
+      teacherDetails: null
     }
-    computed: {
-      ...mapGetters([
-        'isCurrentClassSet',
-        'classList'])
-    },
-    mounted () {
-      firebase.firestore().doc(`users/${firebase.auth().currentUser.uid}`).get().then(doc => {
-        firebase.firestore().doc(`teachers/${doc.data().tcode}`).get().then(docum => {
-          console.log(docum.data())
-        })
+  },
+  mounted () {
+    firebase.firestore().doc(`users/${firebase.auth().currentUser.uid}`).get().then(doc => {
+      firebase.firestore().doc(`teachers/${doc.data().tcode}`).get().then(docum => {
+        this.teacherDetails = docum.id
       })
-      
-
-    },
-    methods: {
-      fetchsubjects: function () {
-        firebase.firestore().collection(`teachers/$)
-      }
+    })
+  },
+  methods: {
+    fetchsubjects: function () {
+      // firebase.firestore().collection(`teachers/${this.teacherDetails}/Subjects`)
     }
+  }
+}
 </script>
