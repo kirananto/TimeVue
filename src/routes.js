@@ -10,6 +10,7 @@ import ProfileView from './components/views/Profile.vue'
 import TimetableView from './components/views/Timetable.vue'
 import TeachersView from './components/views/Teachers.vue'
 import SubjectsView from './components/views/Subjects.vue'
+import SubjectListView from './components/views/SubjectListView.vue'
 // import SettingView from './components/views/Setting.vue'
 
 // Routes
@@ -45,6 +46,12 @@ const routes = [
         component: ProfileView,
         name: 'Profile',
         meta: {description: 'Profile'}
+      },
+      {
+        path: 'subjectlistview',
+        component: SubjectListView,
+        name: 'SubjectListView',
+        meta: {description: 'Subjects List View'}
       },
       {
         path: 'timetable',
