@@ -5,9 +5,12 @@
           <div class="text-center col-md-12 card ">
             <h1>SELECT CLASS</h1>
             <center>
-            <button v-for="(item,key) in subjects" :key="key" class="btn btn-primary subject-button"  align="center">
+
+              <!-- check for passing props -->
+            <router-link v-for="(item,key) in subjects" :key="key"  :to="{ path:'/timetable', params: {subject: '/timetable'}}" class="btn btn-primary subject-button"  align="center">
               {{item.subject}} || {{item.className}} -  {{item.branchName}} - {{item.divisionName}}
-            </button>
+            </router-link>
+            <!-- check for passing props -->
             </center>
           </div>
         </div>
@@ -37,7 +40,9 @@ export default {
                 className: doc.data().Name.path.split('/')[1],
                 branchName: doc.data().Name.path.split('/')[3],
                 divisionName: doc.data().Name.path.split('/')[5],
-                subject: doc1.data().Name
+                subject: doc1.data().Name,
+                hours: doc1.data().Hours,
+                type: doc1.data().Type
               })
             })
           })

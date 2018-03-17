@@ -44,7 +44,7 @@
                 <button class="btn sub"></button>
               </div>
               <div class="row">
-                <button class="btn sub mainbutton">Monday</button>
+                <button class="btn sub mainbutton">Tuesday</button>
                 <button class="btn sub"></button>
                 <button class="btn sub"></button>
                 <button class="btn sub"></button>
@@ -57,7 +57,7 @@
                 <button class="btn sub"></button>
               </div>
               <div class="row">
-                <button class="btn sub mainbutton">Monday</button>
+                <button class="btn sub mainbutton">Wednesday</button>
                 <button class="btn sub">
                   <span class="subject">STLD</span>
                   <span class="tcode">SMN</span>
@@ -70,7 +70,7 @@
                 <button class="btn sub"></button>
               </div>
               <div class="row">
-                <button class="btn sub mainbutton">Monday</button>
+                <button class="btn sub mainbutton">Thursday</button>
                 <button class="btn sub"></button>
                 <button class="btn sub"></button>
                 <button class="btn sub"></button>
@@ -83,7 +83,7 @@
                 <button class="btn sub"></button>
               </div>
               <div class="row">
-                <button class="btn sub mainbutton">Monday</button>
+                <button class="btn sub mainbutton">Friday</button>
                 <button class="btn sub"></button>
                 <button class="btn sub"></button>
                 <button class="btn sub"></button>
@@ -107,14 +107,14 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
+  props: ['subject'],
   data () {
     return {
       timetable: [
         [{
           subcode: null,
           tcode: null
-        }
-        ]
+        }]
       ]
     }
   },
@@ -123,6 +123,7 @@ export default {
       'getNotifications'])
   },
   mounted () {
+    console.log(this.subject)
   }
 }
 </script>
