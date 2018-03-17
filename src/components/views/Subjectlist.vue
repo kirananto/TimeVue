@@ -14,7 +14,7 @@
               <button v-on:click="fetchSubjects" class="btn btn-primary" align="center">Confirm
               </button>
               <div>
-                <tr v-for="item in subjects">
+                <tr v-for="(item,key) in subjects" :key="key">
                   <td>
                     {{item.subject}}
                   </td>
