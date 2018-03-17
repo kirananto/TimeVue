@@ -1,47 +1,22 @@
 <template>
-  <!-- Main content -->
-  <section class="content">
-    <!-- Info boxes -->
-    <div class="row">
-
-      <div class="col-md-12">
-          <div class="box box-info">
-            <!-- Input Addons -->
-
-            <div class="box-body text-center">
-              <!-- calendar group -->
-              <h1>SELECT CLASS</h1>
-              <button v-on:click="fetchSubjects" class="btn btn-primary" align="center">Confirm
-              </button>
-              <div>
-                <tr v-for="(item,key) in subjects" :key="key">
-                  <td>
-                    {{item.subject}}
-                  </td>
-                  <td>
-                    {{item.className}}
-                  <td>
-                    {{item.branchName}}
-                  </td>
-                  <td>
-                    {{item.divisionName}}
-                  </td>
-                </tr>
-              </div>
-              <div class="vcenter">   
-                <div class="row">
-                </div>    
-              <!-- /input-group -->
-              </div>
-            </div>
-            <!-- /.box-body -->
+  <div class="container container-table">
+      <div class="row vertical-10p">
+        <div class="container">
+          <div class="text-center col-md-12 card ">
+            <h1>SELECT CLASS</h1>
+            <center>
+            <button v-for="(item,key) in subjects" :key="key" class="btn btn-primary subject-button"  align="center">
+              {{item.subject}} || {{item.className}} -  {{item.branchName}} - {{item.divisionName}}
+            </button>
+            </center>
           </div>
         </div>
-    </div>
-    <!-- /.row -->
-  </section>
-  <!-- /.content -->
+      </div>
+  </div>
 </template>
+
+
+
 <script type="text/javascript">
 import firebase from 'firebase'
 require('firebase/firestore')
@@ -55,26 +30,31 @@ export default {
   mounted () {
     firebase.firestore().doc(`users/${firebase.auth().currentUser.uid}`).get().then(doc => {
       firebase.firestore().doc(`teachers/${doc.data().tcode}`).get().then(docum => {
-        this.teacherDetails = docum.id
-      })
-    })
-  },
-  methods: {
-    fetchSubjects: function () {
-      this.subjects = []
-      firebase.firestore().collection(`teachers/${this.teacherDetails}/Subjects`).get().then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          doc.data().Name.get().then(doc1 => {
-            this.subjects.push({
-              className: doc.data().Name.path.split('/')[1],
-              branchName: doc.data().Name.path.split('/')[3],
-              divisionName: doc.data().Name.path.split('/')[5],
-              subject: doc1.data().Name
+        firebase.firestore().collection(`teachers/${docum.id}/Subjects`).get().then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            doc.data().Name.get().then(doc1 => {
+              this.subjects.push({
+                className: doc.data().Name.path.split('/')[1],
+                branchName: doc.data().Name.path.split('/')[3],
+                divisionName: doc.data().Name.path.split('/')[5],
+                subject: doc1.data().Name
+              })
             })
           })
         })
       })
-    }
+    })
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.subject-button {
+  margin-top: 2rem;
+  display: block;
+}
+
+.vcenter {
+  margin-bottom: 10rem;
+}
+</style>
