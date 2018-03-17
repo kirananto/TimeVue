@@ -15,26 +15,8 @@
               <div class="vcenter">
                   
                  <div class="row">
-                   <!-- {{classList}} -->
-                   <select v-model="selectedClass" class="selecCl" placeholder="Select Class">
-                      <option v-for="(option,key) in classList" :key="key" v-bind:value="option">
-                        {{ option }}
-                      </option>
-                    </select>
-                    <select v-model="selectedBranch"  class="selecCl" placeholder="Select Branch">
-                      <option v-for="(option,key) in branches" :key="key" v-bind:value="option">
-                        {{ option }}
-                      </option>
-                    </select>
-
-                     <select v-model="selectedDivision"  class="selecCl" placeholder="Select Class">
-                      <option v-for="(option,key) in divisions" :key="key" v-bind:value="option">
-                        {{ option }}
-                      </option>
-                    </select>
                   </div>
-                  <!--<router-link to="subjects" class="btn rlink">Assign Subjects</router-link> -->
-
+               
               <!-- /input-group -->
               </div>
             </div>
