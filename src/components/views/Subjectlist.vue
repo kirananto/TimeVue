@@ -65,7 +65,11 @@ export default {
   },
   methods: {
     fetchsubjects: function () {
-      // firebase.firestore().collection(`teachers/${this.teacherDetails}/Subjects`)
+       firebase.firestore().collection(`teachers/${this.teacherDetails}/Subjects`).get().then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            console.log('each data fetched')
+          })
+       })
     }
   }
 }
