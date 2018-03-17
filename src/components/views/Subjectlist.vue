@@ -11,19 +11,32 @@
             <div class="box-body text-center">
               <!-- calendar group -->
               <h1>SELECT CLASS</h1>
-              
-              <div class="vcenter">
-                  
-                 <div class="row">
-                  </div>
-               
+              <button v-on:click="fetchSubjects" class="btn btn-primary" align="center">Confirm
+              </button>
+              <div>
+                <tr v-for="item in subjects">
+                  <td>
+                    {{item.subject}}
+                  </td>
+                  <td>
+                    {{item.className}}
+                  <td>
+                    {{item.branchName}}
+                  </td>
+                  <td>
+                    {{item.divisionName}}
+                  </td>
+                </tr>
+              </div>
+              <div class="vcenter">   
+                <div class="row">
+                </div>    
               <!-- /input-group -->
               </div>
             </div>
             <!-- /.box-body -->
           </div>
         </div>
-
     </div>
     <!-- /.row -->
   </section>
@@ -35,7 +48,8 @@ require('firebase/firestore')
 export default {
   data: function () {
     return {
-      teacherDetails: null
+      teacherDetails: null,
+      subjects: []
     }
   },
   mounted () {
@@ -46,12 +60,20 @@ export default {
     })
   },
   methods: {
-    fetchsubjects: function () {
-       firebase.firestore().collection(`teachers/${this.teacherDetails}/Subjects`).get().then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            console.log('each data fetched')
+    fetchSubjects: function () {
+      this.subjects = []
+      firebase.firestore().collection(`teachers/${this.teacherDetails}/Subjects`).get().then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          doc.data().Name.get().then(doc1 => {
+            this.subjects.push({
+              className: doc.data().Name.path.split('/')[1],
+              branchName: doc.data().Name.path.split('/')[3],
+              divisionName: doc.data().Name.path.split('/')[5],
+              subject: doc1.data().Name
+            })
           })
-       })
+        })
+      })
     }
   }
 }

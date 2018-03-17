@@ -48,9 +48,9 @@ const routes = [
         meta: {description: 'Profile'}
       },
       {
-        path: 'subjectlistview',
+        path: 'subjectlist',
         component: SubjectListView,
-        name: 'SubjectListView',
+        name: 'SubjectList',
         meta: {description: 'Subjects List View'}
       },
       {
