@@ -16,19 +16,19 @@
                   
                  <div class="row">
                    <!-- {{classList}} -->
-                   <select v-model="selectedClass" class="selecCl" placeholder="Select Class"  style="min-width:20%;">
+                   <select v-model="selectedClass" class="selecCl">
                       <option value="" disabled selected hidden>Select Class</option>
                       <option v-for="(option,key) in classList" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
                     </select>
-                    <select v-model="selectedBranch"  class="selecCl" placeholder="Select Branch" style="min-width:20%;">
+                    <select v-model="selectedBranch"  class="selecCl" placeholder="Select Branch" >
                       <option v-for="(option,key) in branches" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
                     </select>
 
-                     <select v-model="selectedDivision"  class="selecCl" placeholder="Select Class" style="min-width:20%;">
+                     <select v-model="selectedDivision"  class="selecCl" placeholder="Select Class">
                       <option v-for="(option,key) in divisions" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
@@ -53,6 +53,7 @@
                         </td>
                         <td>
                           <select v-model="item.Type">
+                            <option value="" selected hidden>Select Type</option>
                             <option value="Theory">Theory</option>
                             <option value="Lab">Lab</option>
                           </select>
@@ -261,10 +262,12 @@ select {
 
 .selecCl {
   margin-left: 2rem;
+  min-width: 15rem;
 }
 
 .tble {
-  width: 120rem;
+  width: 100rem;
+  max-width: 80rem;
 }
 
 .add-button {
