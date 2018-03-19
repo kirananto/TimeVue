@@ -24,13 +24,13 @@
             <div class="timetable">
               <div class="row">
                 <button class="btn sub mainbutton"></button>
-                <button class="btn sub mainbutton">Hour1</button>
-                <button class="btn sub mainbutton">Hour2</button>
-                <button class="btn sub mainbutton">Hour3</button>
-                <button class="btn sub mainbutton">Hour4</button>
-                <button class="btn sub mainbutton">Hour5</button>
-                <button class="btn sub mainbutton">Hour6</button>
-                <button class="btn sub mainbutton">Hour7</button>
+                <button class="btn sub mainbutton2">Hour1</button>
+                <button class="btn sub mainbutton2">Hour2</button>
+                <button class="btn sub mainbutton2">Hour3</button>
+                <button class="btn sub mainbutton2">Hour4</button>
+                <button class="btn sub mainbutton2">Hour5</button>
+                <button class="btn sub mainbutton2">Hour6</button>
+                <button class="btn sub mainbutton2">Hour7</button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Monday</button>
@@ -123,15 +123,21 @@ export default {
   computed: {
     ...mapGetters([
       'getNotifications'])
+  },
+  methods: {
+
+  },
+  mounted: {
+
   }
 }
 </script>
 <style lang="scss" scoped>
 $h: 7rem;
-$w: 13rem;
+$w: 10rem;
 .sub {
   height: $h;
-  width: $w;
+  min-width: $w;
   border-radius: 1rem;
   margin: .5rem;
   
@@ -152,6 +158,14 @@ $w: 13rem;
 
 }
 .mainbutton {  
+  background-color: #00A65A;
+  font-weight: bold;
+  width: 14rem;
+  font-family: bebas_neue_regularregular;
+  font-size: 3rem;
+}
+
+.mainbutton2 {  
   background-color: #00A65A;
   font-weight: bold;
   font-family: bebas_neue_regularregular;
