@@ -21,7 +21,7 @@
             <div class="box-body text-center">
               <!-- calendar group -->
             
-            <div class="timetable">
+            <div class="timetable" v-if="classTimetable['monday'][0]">
               <div class="row">
                 <button class="btn sub mainbutton"></button>
                 <button class="btn sub mainbutton2">Hour1</button>
@@ -68,6 +68,9 @@
                 </button>
               </div>
       
+            </div>
+            <div v-else class="timetable">
+              Loading....!!
             </div>
 
             <button v-on:click="tryData" class="btn sub mainbutton"> SUBMIT </button>
