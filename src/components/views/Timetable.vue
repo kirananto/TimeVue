@@ -107,9 +107,9 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  props: ['subject'],
   data () {
     return {
+      subject: null,
       timetable: [
         [{
           subcode: null,
@@ -123,7 +123,8 @@ export default {
       'getNotifications'])
   },
   mounted () {
-    console.log(this.subject)
+    this.subject = JSON.parse(this.$route.params.subject.toString())
+    console.log(this.subject.className)
   }
 }
 </script>

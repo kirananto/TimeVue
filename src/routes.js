@@ -54,7 +54,7 @@ const routes = [
         meta: {description: 'Subjects List View'}
       },
       {
-        path: 'timetable',
+        path: 'timetable/:subject',
         component: TimetableView,
         name: 'Timetable',
         meta: {description: 'Timetable'}

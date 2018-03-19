@@ -7,7 +7,7 @@
             <center>
 
               <!-- check for passing props -->
-            <router-link v-for="(item,key) in subjects" :key="key"  :to="{ path:'/timetable', params: {subject: '/timetable'}}" class="btn btn-primary subject-button"  align="center">
+            <router-link v-for="(item,key) in subjects" :key="key"  :to="{ path:`/timetable/${JSON.stringify(item)}` }" class="btn btn-primary subject-button"  align="center">
               {{item.subject}} || {{item.className}} -  {{item.branchName}} - {{item.divisionName}}
             </router-link>
             <!-- check for passing props -->
