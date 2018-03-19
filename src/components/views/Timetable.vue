@@ -34,68 +34,43 @@
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Monday</button>
-                <button class="btn sub"></button>
-                <button class="btn sub">
-                  <span class="subject">STLD</span>
-                  <span class="tcode">SMN</span>
+                <button v-for="(item,key) in classTimetable.monday" :key="key"  class="btn sub">
+                  <span class="subject">{{item.subcode}}</span>
+                  <span class="tcode">{{item.tcode}}</span>
                 </button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Tuesday</button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub  text-center">
-                  <span class="subject">STLD</span>
-                  <span class="tcode">SMN</span>
+                <button v-for="(item,key) in classTimetable.tuesday" :key="key"  class="btn sub">
+                  <span class="subject">{{item.subcode}}</span>
+                  <span class="tcode">{{item.tcode}}</span>
                 </button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Wednesday</button>
-                <button class="btn sub">
-                  <span class="subject">STLD</span>
-                  <span class="tcode">SMN</span>
+                <button v-for="(item,key) in classTimetable.wednesday" :key="key"  class="btn sub">
+                  <span class="subject">{{item.subcode}}</span>
+                  <span class="tcode">{{item.tcode}}</span>
                 </button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Thursday</button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub">
-                  <span class="subject">STLD</span>
-                  <span class="tcode">SMN</span>
+                <button v-for="(item,key) in classTimetable.thursday" :key="key"  class="btn sub">
+                  <span class="subject">{{item.subcode}}</span>
+                  <span class="tcode">{{item.tcode}}</span>
                 </button>
-                <button class="btn sub"></button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Friday</button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
-                <button class="btn sub"></button>
+                <button v-for="(item,key) in classTimetable.friday" :key="key"  class="btn sub">
+                  <span class="subject">{{item.subcode}}</span>
+                  <span class="tcode">{{item.tcode}}</span>
+                </button>
               </div>
-
+      
             </div>
+
+            <button v-on:click="tryData" class="btn sub mainbutton"> SUBMIT </button>
             </div>
             <!-- /.box-body -->
           </div>
@@ -114,7 +89,13 @@ export default {
   data () {
     return {
       subject: JSON.parse(this.$route.params.subject.toString()),
-      classTimetable: [],
+      classTimetable: {
+        monday: [],
+        tuesday: [],
+        thursday: [],
+        wednesday: [],
+        friday: []
+      },
       teacherTimetable: []
     }
   },
@@ -123,17 +104,20 @@ export default {
       'getNotifications'])
   },
   methods: {
+    tryData: function () {
+      this.classTimetable['monday'].forEach(d => console.log(d))
+    }
   },
   mounted () {
     const location = `/classes/${this.subject.className}/branches/${this.subject.branchName}/divisions/${this.subject.divisionName}/timeTable`
     const timetableRef = firebase.firestore().collection(location)
     timetableRef.onSnapshot(timetableSnapshot => {
-      this.classTimetable = []
       timetableSnapshot.forEach(dayDoc => {
-        console.log(dayDoc.id)
+        // console.log(dayDoc.id)
         timetableRef.doc(dayDoc.id).collection(`hours`).onSnapshot(dailyHours => {
           dailyHours.forEach(hourDoc => {
-            console.log(hourDoc.data())
+            this.classTimetable[dayDoc.id][(hourDoc.id - 1)] = {subcode: hourDoc.data().subcode, tcode: hourDoc.data().tcode}
+            // console.log(hourDoc.data())
           })
         })
       })
