@@ -16,18 +16,19 @@
                   
                  <div class="row">
                    <!-- {{classList}} -->
-                   <select v-model="selectedClass" class="selecCl" placeholder="Select Class">
+                   <select v-model="selectedClass" class="selecCl" placeholder="Select Class"  style="min-width:20%;">
+                      <option value="" disabled selected hidden>Select Class</option>
                       <option v-for="(option,key) in classList" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
                     </select>
-                    <select v-model="selectedBranch"  class="selecCl" placeholder="Select Branch">
+                    <select v-model="selectedBranch"  class="selecCl" placeholder="Select Branch" style="min-width:20%;">
                       <option v-for="(option,key) in branches" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
                     </select>
 
-                     <select v-model="selectedDivision"  class="selecCl" placeholder="Select Class">
+                     <select v-model="selectedDivision"  class="selecCl" placeholder="Select Class" style="min-width:20%;">
                       <option v-for="(option,key) in divisions" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
