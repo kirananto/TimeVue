@@ -108,16 +108,14 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import firebase from 'firebase'
+require('firebase/firestore')
 export default {
   data () {
     return {
       subject: JSON.parse(this.$route.params.subject.toString()),
-      timetable: [
-        [{
-          subcode: null,
-          tcode: null
-        }]
-      ]
+      classTimetable: [],
+      teacherTimetable: []
     }
   },
   computed: {
@@ -125,10 +123,15 @@ export default {
       'getNotifications'])
   },
   methods: {
-
   },
-  mounted: {
-
+  mounted () {
+    firebase.firestore().collection(`classes/${this.subject.className}/branches/${this.subject.branchName}/divisons/${this.subject.divisionName}/timeTable`).onSnapshot()
+    .then(querySnapshot => {
+      this.classTimetable = []
+      querySnapshot.forEach(doc => {
+        console.log(doc.data())
+      })
+    })
   }
 }
 </script>
