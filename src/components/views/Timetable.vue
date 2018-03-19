@@ -3,17 +3,19 @@
   <section class="content">
     <!-- Info boxes -->
     <div class="row">
-      <div v-for="(key,item) in getNotifications" :key="key" class="alert alert-dismissible" :class="item.type">
+      <!-- <div v-for="(key,item) in getNotifications" :key="key" class="alert alert-dismissible" :class="item.type">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h4><i class="icon fa" :class="item.icon"></i>{{item.title}}</h4>
         <span v-html="item.body"></span>
-      </div>
+      </div> -->
 
       <div class="col-md-12">
           <div class="box box-info">
             <!-- Input Addons -->
             <div class="box-header with-border">
-              <h3 class="box-title">TimeTable</h3>
+              <h3 class="box-title"><strong> Timetable for {{this.subject.className}} {{this.subject.branchName}} {{this.subject.divisionName}}</strong></h3>
+    <h4><strong>Subject : </strong>{{this.subject.subject}}</h4>
+    <h4><strong>No of Hours: </strong>{{this.subject.hours}}</h4>
             </div>
 
             <div class="box-body text-center">
@@ -109,7 +111,7 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      subject: null,
+      subject: JSON.parse(this.$route.params.subject.toString()),
       timetable: [
         [{
           subcode: null,
@@ -121,10 +123,6 @@ export default {
   computed: {
     ...mapGetters([
       'getNotifications'])
-  },
-  mounted () {
-    this.subject = JSON.parse(this.$route.params.subject.toString())
-    console.log(this.subject.className)
   }
 }
 </script>
