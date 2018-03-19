@@ -67,13 +67,18 @@
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
               </div>
-      
+
+
+                <button v-on:click="tryData" class="btn sub mainbutton"> SUBMIT </button>
+
             </div>
             <div v-else class="timetable">
-              Loading....!!
+              <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+
+              <h2> Loading  your Timetable</h2>
+              <h3> Please wait..!</h3>
             </div>
 
-            <button v-on:click="tryData" class="btn sub mainbutton"> SUBMIT </button>
             </div>
             <!-- /.box-body -->
           </div>
