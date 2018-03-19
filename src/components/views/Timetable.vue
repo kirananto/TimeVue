@@ -125,14 +125,17 @@ export default {
   methods: {
   },
   mounted () {
-    var location = `/classes/${this.subject.className}/branches/${this.subject.branchName}/divisions/${this.subject.divisionName}/timeTable`
-    firebase.firestore().collection(location).onSnapshot(querySnapshot => {
+    const location = `/classes/${this.subject.className}/branches/${this.subject.branchName}/divisions/${this.subject.divisionName}/timeTable`
+    const timetableRef = firebase.firestore().collection(location)
+    timetableRef.onSnapshot(timetableSnapshot => {
       this.classTimetable = []
-      querySnapshot.forEach(doc => {
-        console.log(doc.data().hours)
-        // doc.forEach(d => {
-        //   console.log(d.id)
-        // })
+      timetableSnapshot.forEach(dayDoc => {
+        console.log(dayDoc.id)
+        timetableRef.doc(dayDoc.id).collection(`hours`).onSnapshot(dailyHours => {
+          dailyHours.forEach(hourDoc => {
+            console.log(hourDoc.data())
+          })
+        })
       })
     })
   }
