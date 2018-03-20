@@ -21,7 +21,7 @@
             <div class="box-body text-center">
               <!-- calendar group -->
             
-            <div class="timetable" v-if="classTimetable['monday'][0]">
+            <div class="timetable" v-if="loaded>=35">
               <div class="row">
                 <button class="btn sub mainbutton"></button>
                 <button class="btn sub mainbutton2">Hour1</button>
@@ -104,6 +104,7 @@ export default {
         wednesday: [],
         friday: []
       },
+      loaded: 0,
       teacherTimetable: []
     }
   },
@@ -126,6 +127,8 @@ export default {
           dailyHours.forEach(hourDoc => {
             this.classTimetable[dayDoc.id][(hourDoc.id - 1)] = {subcode: hourDoc.data().subcode, tcode: hourDoc.data().tcode}
             // console.log(hourDoc.data())
+            this.loaded++
+            console.log(this.loaded)
           })
         })
       })
