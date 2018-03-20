@@ -56,7 +56,9 @@ export default {
 <style lang="scss" scoped>
 .subject-button {
   margin-top: 2rem;
+  max-width: 65rem;
   display: block;
+
 }
 
 .vcenter {

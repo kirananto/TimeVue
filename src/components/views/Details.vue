@@ -12,7 +12,7 @@
             </div>
             <div class="row">
               <div class="input-group">
-                    <input v-model="tname"  type="text" placeholder="Enter Teacher Name" >
+                    <input v-model="tname"  type="text" placeholder="Teacher Name" >
               </div>
             </div>
             <div class="row">
