@@ -127,8 +127,8 @@ export default {
     // variable initialization
     const classLocation = `/classes/${this.subject.className}/branches/${this.subject.branchName}/divisions/${this.subject.divisionName}/timeTable`
     const classTimetableRef = firebase.firestore().collection(classLocation)
-    // const teacherLocation = `/teachers/${this.subject.tcode}/timeTable/days`
-    // const teacherTimeTableRef = firebase.firestore().collection(teacherLocation)
+    const teacherLocation = `/teachers/${this.subject.tcode}/timeTable`
+    const teacherTimeTableRef = firebase.firestore().collection(teacherLocation)
 
     // fetching class timetable
     classTimetableRef.onSnapshot(timetableSnapshot => {
@@ -146,11 +146,20 @@ export default {
     })
 
     // fetching teacher timetable
-    // teacherTimeTableRef.onSnapshot(teacherTimetableSnapshot => {
-    //   teacherTimetableSnapshot.forEach(doc => {
-
-    //   })
-    // })
+    teacherTimeTableRef.onSnapshot(teacherTimetableSnapshot => {
+      teacherTimetableSnapshot.forEach(dayDoc => {
+        teacherTimeTableRef.doc(dayDoc.id).collection('hours').onSnapshot(dailyHours => {
+          dailyHours.forEach(hourDoc => {
+            // console.log(hourDoc.id + '----')
+            this.teacherTimetable[dayDoc.id][(hourDoc.id - 1)] = {
+              subcode: hourDoc.data().subcode,
+              tcode: hourDoc.data().tcode
+            }
+            // console.log(this.teacherTimetable[dayDoc.id][(hourDoc.id - 1)])
+          })
+        })
+      })
+    })
   }
 }
 </script>
