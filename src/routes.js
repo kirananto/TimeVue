@@ -8,6 +8,7 @@ import DashboardView from './components/views/Dashboard.vue'
 import DetailsView from './components/views/Details.vue'
 import ProfileView from './components/views/Profile.vue'
 import TimetableView from './components/views/Timetable.vue'
+import ViewTimetable from './components/views/ViewTimetable.vue'
 import TeachersView from './components/views/Teachers.vue'
 import SubjectsView from './components/views/Subjects.vue'
 import SubjectListView from './components/views/Subjectlist.vue'
@@ -58,6 +59,12 @@ const routes = [
         component: TimetableView,
         name: 'Timetable',
         meta: {description: 'Timetable'}
+      },
+      {
+        path: 'viewtimetable/:subject',
+        component: ViewTimetable,
+        name: 'ViewTimetable',
+        meta: {description: 'View Timetable'}
       },
       {
         path: 'teachers',
