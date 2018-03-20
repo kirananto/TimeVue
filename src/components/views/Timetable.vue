@@ -14,8 +14,7 @@
             <!-- Input Addons -->
             <div class="box-header with-border">
               <h3 class="box-title"><strong> Timetable for {{subject.className}} {{subject.branchName}} {{subject.divisionName}}</strong></h3>
-    <h4><strong>Subject : </strong>{{subject.subject}}</h4>
-    <h4><strong>No of Hours: </strong>{{subject.hours}}</h4>
+              <h4><strong>Subject : </strong>{{subject.subject}} &nbsp;&nbsp;&nbsp;<strong>No of Hours: </strong>{{subject.hours}} &nbsp;&nbsp;&nbsp; <strong>Your Teacher Code: </strong>{{subject.tcode}}</h4>
             </div>
 
             <div class="box-body text-center">
