@@ -105,7 +105,13 @@ export default {
         friday: []
       },
       loaded: 0,
-      teacherTimetable: []
+      teacherTimetable: {
+        monday: [],
+        tuesday: [],
+        thursday: [],
+        wednesday: [],
+        friday: []
+      }
     }
   },
   computed: {
@@ -118,15 +124,18 @@ export default {
     }
   },
   mounted () {
-    const location = `/classes/${this.subject.className}/branches/${this.subject.branchName}/divisions/${this.subject.divisionName}/timeTable`
-    const timetableRef = firebase.firestore().collection(location)
-    timetableRef.onSnapshot(timetableSnapshot => {
+    const classLocation = `/classes/${this.subject.className}/branches/${this.subject.branchName}/divisions/${this.subject.divisionName}/timeTable`
+    const classTimetableRef = firebase.firestore().collection(classLocation)
+    const teacherLocation = `/teachers/${this.subject.tcode}/timeTable/days`
+    console.log(teacherLocation)
+    classTimetableRef.onSnapshot(timetableSnapshot => {
       timetableSnapshot.forEach(dayDoc => {
-        // console.log(dayDoc.id)
-        timetableRef.doc(dayDoc.id).collection(`hours`).onSnapshot(dailyHours => {
+        classTimetableRef.doc(dayDoc.id).collection(`hours`).onSnapshot(dailyHours => {
           dailyHours.forEach(hourDoc => {
-            this.classTimetable[dayDoc.id][(hourDoc.id - 1)] = {subcode: hourDoc.data().subcode, tcode: hourDoc.data().tcode}
-            // console.log(hourDoc.data())
+            this.classTimetable[dayDoc.id][(hourDoc.id - 1)] = {
+              subcode: hourDoc.data().subcode,
+              tcode: hourDoc.data().tcode
+            }
             this.loaded++
             console.log(this.loaded)
           })
