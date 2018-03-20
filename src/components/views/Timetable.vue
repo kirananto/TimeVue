@@ -13,9 +13,9 @@
           <div class="box box-info">
             <!-- Input Addons -->
             <div class="box-header with-border">
-              <h3 class="box-title"><strong> Timetable for {{this.subject.className}} {{this.subject.branchName}} {{this.subject.divisionName}}</strong></h3>
-    <h4><strong>Subject : </strong>{{this.subject.subject}}</h4>
-    <h4><strong>No of Hours: </strong>{{this.subject.hours}}</h4>
+              <h3 class="box-title"><strong> Timetable for {{subject.className}} {{subject.branchName}} {{subject.divisionName}}</strong></h3>
+    <h4><strong>Subject : </strong>{{subject.subject}}</h4>
+    <h4><strong>No of Hours: </strong>{{subject.hours}}</h4>
             </div>
 
             <div class="box-body text-center">
@@ -104,6 +104,7 @@ export default {
         wednesday: [],
         friday: []
       },
+      selectedCount: 0,
       loaded: 0,
       teacherTimetable: {
         monday: [],
@@ -126,15 +127,30 @@ export default {
       this.classTimetable['monday'].forEach(d => console.log(d))
     },
     softLock: function (day, index, item) {
-      var loc = `${this.classLocation}/${day}/hours/${index}`
-      if (this.classTimetable[day][index - 1].softLock === true) {
-        firebase.firestore().doc(loc).update({
-          softLock: false
-        }).then(success => console.log('success' + day + ' ----' + index))
+      if (item.subcode === '' && item.tcode === '' && (this.subject.hours >= this.selectedCount)) {
+        var loc = `${this.classLocation}/${day}/hours/${index}`
+        if (this.classTimetable[day][index - 1].softLock === true) {
+          this.selectedCount--
+          firebase.firestore().doc(loc).update({
+            softLock: false,
+            softLockDetails: null
+          }).then(success => {
+            console.log('successfully removed lock')
+          })
+        } else {
+          this.selectedCount++
+          firebase.firestore().doc(loc).update({
+            softLock: true,
+            softLockDetails: {
+              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+              tcode: this.subject.tcode,
+              subcode: this.subject.subcode
+            }
+          }).then(success => {
+            console.log('successfully softlocked')
+          })
+        }
       } else {
-        firebase.firestore().doc(loc).update({
-          softLock: true
-        }).then(success => console.log('success'))
       }
     }
   },

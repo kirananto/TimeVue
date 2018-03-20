@@ -40,6 +40,7 @@ export default {
                 className: subdoc.data().Name.path.split('/')[1],
                 branchName: subdoc.data().Name.path.split('/')[3],
                 divisionName: subdoc.data().Name.path.split('/')[5],
+                subcode: subdoc.data().Name.path.split('/')[7],
                 subject: doc1.data().Name,
                 tcode: doc.data().tcode,
                 hours: doc1.data().Hours,
