@@ -34,13 +34,14 @@ export default {
     firebase.firestore().doc(`users/${firebase.auth().currentUser.uid}`).get().then(doc => {
       firebase.firestore().doc(`teachers/${doc.data().tcode}`).get().then(docum => {
         firebase.firestore().collection(`teachers/${docum.id}/Subjects`).get().then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            doc.data().Name.get().then(doc1 => {
+          querySnapshot.forEach(subdoc => {
+            subdoc.data().Name.get().then(doc1 => {
               this.subjects.push({
-                className: doc.data().Name.path.split('/')[1],
-                branchName: doc.data().Name.path.split('/')[3],
-                divisionName: doc.data().Name.path.split('/')[5],
+                className: subdoc.data().Name.path.split('/')[1],
+                branchName: subdoc.data().Name.path.split('/')[3],
+                divisionName: subdoc.data().Name.path.split('/')[5],
                 subject: doc1.data().Name,
+                tcode: doc.data().tcode,
                 hours: doc1.data().Hours,
                 type: doc1.data().Type
               })

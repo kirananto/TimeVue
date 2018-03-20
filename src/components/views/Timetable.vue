@@ -21,7 +21,7 @@
             <div class="box-body text-center">
               <!-- calendar group -->
             
-            <div class="timetable" v-if="classTimetable['monday'][0]">
+            <div class="timetable" v-if="loaded>=35">
               <div class="row">
                 <button class="btn sub mainbutton"></button>
                 <button class="btn sub mainbutton2">Hour1</button>
@@ -34,35 +34,35 @@
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Monday</button>
-                <button v-for="(item,key) in classTimetable.monday" :key="key"  class="btn sub">
+                <button v-for="(item,key) in classTimetable.monday" :key="key" v-on:click="softLock('monday',key + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Tuesday</button>
-                <button v-for="(item,key) in classTimetable.tuesday" :key="key"  class="btn sub">
+                <button v-for="(item,key) in classTimetable.tuesday" :key="key" v-on:click="softLock('tuesday',key + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Wednesday</button>
-                <button v-for="(item,key) in classTimetable.wednesday" :key="key"  class="btn sub">
+                <button v-for="(item,key) in classTimetable.wednesday" :key="key"  v-on:click="softLock('wednesday',key + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Thursday</button>
-                <button v-for="(item,key) in classTimetable.thursday" :key="key"  class="btn sub">
+                <button v-for="(item,key) in classTimetable.thursday" :key="key" v-on:click="softLock('thursday',key + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Friday</button>
-                <button v-for="(item,key) in classTimetable.friday" :key="key"  class="btn sub">
+                <button v-for="(item,key) in classTimetable.friday" :key="key" v-on:click="softLock('friday',key + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
@@ -104,28 +104,71 @@ export default {
         wednesday: [],
         friday: []
       },
-      teacherTimetable: []
+      loaded: 0,
+      teacherTimetable: {
+        monday: [],
+        tuesday: [],
+        thursday: [],
+        wednesday: [],
+        friday: []
+      }
     }
   },
   computed: {
     ...mapGetters([
-      'getNotifications'])
+      'getNotifications']),
+    classLocation: function () {
+      return `/classes/${this.subject.className}/branches/${this.subject.branchName}/divisions/${this.subject.divisionName}/timeTable`
+    }
   },
   methods: {
     tryData: function () {
       this.classTimetable['monday'].forEach(d => console.log(d))
+    },
+    softLock: function (day, index, item) {
+      var loc = `${this.classLocation}/${day}/hours/${index}`
+      if (this.classTimetable[day][index - 1].softLock === true) {
+        firebase.firestore().doc(loc).update({
+          softLock: false
+        }).then(success => console.log('success' + day + ' ----' + index))
+      } else {
+        firebase.firestore().doc(loc).update({
+          softLock: true
+        }).then(success => console.log('success'))
+      }
     }
   },
   mounted () {
-    const location = `/classes/${this.subject.className}/branches/${this.subject.branchName}/divisions/${this.subject.divisionName}/timeTable`
-    const timetableRef = firebase.firestore().collection(location)
-    timetableRef.onSnapshot(timetableSnapshot => {
+    // variable initialization
+    const classTimetableRef = firebase.firestore().collection(this.classLocation)
+    const teacherLocation = `/teachers/${this.subject.tcode}/timeTable`
+    const teacherTimeTableRef = firebase.firestore().collection(teacherLocation)
+
+    // fetching class timetable
+    classTimetableRef.onSnapshot(timetableSnapshot => {
       timetableSnapshot.forEach(dayDoc => {
-        // console.log(dayDoc.id)
-        timetableRef.doc(dayDoc.id).collection(`hours`).onSnapshot(dailyHours => {
+        classTimetableRef.doc(dayDoc.id).collection(`hours`).onSnapshot(dailyHours => {
           dailyHours.forEach(hourDoc => {
-            this.classTimetable[dayDoc.id][(hourDoc.id - 1)] = {subcode: hourDoc.data().subcode, tcode: hourDoc.data().tcode}
-            // console.log(hourDoc.data())
+            this.classTimetable[dayDoc.id][(hourDoc.id - 1)] = {
+              subcode: hourDoc.data().subcode,
+              tcode: hourDoc.data().tcode,
+              softLock: hourDoc.data().softLock
+            }
+            this.loaded++
+          })
+        })
+      })
+    })
+
+    // fetching teacher timetable
+    teacherTimeTableRef.onSnapshot(teacherTimetableSnapshot => {
+      teacherTimetableSnapshot.forEach(dayDoc => {
+        teacherTimeTableRef.doc(dayDoc.id).collection('hours').onSnapshot(dailyHours => {
+          dailyHours.forEach(hourDoc => {
+            this.teacherTimetable[dayDoc.id][(hourDoc.id - 1)] = {
+              subcode: hourDoc.data().subcode,
+              tcode: hourDoc.data().tcode
+            }
           })
         })
       })
@@ -147,6 +190,9 @@ $w: 10rem;
   }
 }
 
+.softLocked {
+  background-color: rgb(228, 212, 70);
+}
 .subject {
   font-weight: bold;
   font-family: bebas_neue_regularregular;
