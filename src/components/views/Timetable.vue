@@ -69,7 +69,7 @@
               </div>
 
 
-                <button v-on:click="tryData" class="btn sub mainbutton"> SUBMIT </button>
+                <button v-on:click="submit" class="btn sub mainbutton"> SUBMIT </button>
 
             </div>
             <div v-else class="timetable">
@@ -92,6 +92,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import firebase from 'firebase'
+import swal from 'sweetalert'
 require('firebase/firestore')
 export default {
   data () {
@@ -122,8 +123,8 @@ export default {
     }
   },
   methods: {
-    tryData: function () {
-      this.classTimetable['monday'].forEach(d => console.log(d))
+    submit: function () {
+      swal('Successfully submitted', 'Thank you for early submission', 'success')
     },
     // Function to apply softlock when a user clicks the respective hour
     // params
