@@ -116,8 +116,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'getNotifications']),
+    ...mapGetters(['getNotifications']),
     classLocation: function () {
       return `/classes/${this.subject.className}/branches/${this.subject.branchName}/divisions/${this.subject.divisionName}/timeTable`
     }
@@ -126,6 +125,11 @@ export default {
     tryData: function () {
       this.classTimetable['monday'].forEach(d => console.log(d))
     },
+    // Function to apply softlock when a user clicks the respective hour
+    // params
+    //  day - corresponding day
+    //  index - the corresponding hour
+    //  item - details of the hour selected
     softLock: function (day, index, item) {
       if (item.subcode === '' && item.tcode === '' && (this.subject.hours >= this.selectedCount)) {
         var loc = `${this.classLocation}/${day}/hours/${index}`
@@ -209,6 +213,7 @@ $w: 10rem;
 .softLocked {
   background-color: rgb(228, 212, 70);
 }
+
 .subject {
   font-weight: bold;
   font-family: bebas_neue_regularregular;
