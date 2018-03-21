@@ -24,7 +24,7 @@
     "hideseek": "^0.8.0",
     "jquery": "^3.2.1",
     "sweetalert": "^2.1.0",
-    "vue": "^2.5.13",
+    "vue": "^2.5.16",
     "vue-particles": "^1.0.9",
     "vue-router": "^3.0.1",
     "vue-select": "github:sagalbot/vue-select",
