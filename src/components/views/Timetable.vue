@@ -153,16 +153,21 @@ export default {
       if (item.subcode === '' && item.tcode === '' && (this.subject.hours >= this.selectedCount)) {
         var loc = `${this.classLocation}/${day}/hours/${index}`
         if (this.classTimetable[day][index - 1].softLock === true) {
-          this.selectedCount--
-          this.selectedHours[day] = this.selectedHours[day].filter(function (data) {
-            return data.index !== index
-          })
-          firebase.firestore().doc(loc).update({
-            softLock: false,
-            softLockDetails: null
-          }).then(success => {
-            console.log('successfully removed lock')
-          })
+          // console.log(this.classTimetable[day][index - 1].softLockDetails)
+          if (this.classTimetable[day][index - 1].softLockDetails.tcode === this.subject.tcode) {
+            this.selectedCount--
+            this.selectedHours[day] = this.selectedHours[day].filter(function (data) {
+              return data.index !== index
+            })
+            firebase.firestore().doc(loc).update({
+              softLock: false,
+              softLockDetails: null
+            }).then(success => {
+              console.log('successfully removed lock')
+            })
+          } else {
+            swal('Sorry', 'You can only remove your hours', 'error')
+          }
         } else {
           this.selectedCount++
           this.selectedHours[day].push({
@@ -185,6 +190,7 @@ export default {
           })
         }
       } else {
+        swal('Sorry', 'You cannot modify these', 'error')
       }
     }
   },
@@ -202,7 +208,8 @@ export default {
             this.classTimetable[dayDoc.id][(hourDoc.id - 1)] = {
               subcode: hourDoc.data().subcode,
               tcode: hourDoc.data().tcode,
-              softLock: hourDoc.data().softLock
+              softLock: hourDoc.data().softLock,
+              softLockDetails: hourDoc.data().softLockDetails
             }
             this.loaded++
           })
