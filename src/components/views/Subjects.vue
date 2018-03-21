@@ -63,10 +63,19 @@
                           <select v-model="teachers"  placeholder="Select Teacher">
                           <option v-for="(option,key) in teachers" :key="key" v-bind:value="option">
                             {{ option }}
-                          </option>  
+                          </option>
                           </select>
                           </v-select>
                         </td>
+                        <td>
+                        <button id="button1" onclick="addTeacher('name1')">+ 
+                        </button>
+                        <select id="name1" v-model="teachers" class="teach" placeholder="Select Teacher">
+                          <option v-for="(option,key) in teachers" :key="key" v-bind:value="option">
+                            {{ option }}
+                          </option>>
+                        </select>
+                      </td>
                       </tr> 
                        <button v-on:click="assignTeacher" class="btn btn-primary" align="center">Confirm
                           </button>
@@ -173,6 +182,23 @@
         })
 
         batch.commit().then(success => console.log('batch write success'))
+      },
+      addTeacher: function (id) {
+        var element = document.getElementById(id)
+        this.emitEvent(element, 'mousedown')
+      },
+      emitEvent: function (element, eventName) {
+        var worked = false
+        if (document.createEvent) { // all browsers
+          var e = document.createEvent('MouseEvents')
+          e.initMouseEvent(eventName, true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+          worked = element.dispatchEvent(e)
+        } else if (element.fireEvent) { // ie
+          worked = element.fireEvent('on' + eventName)
+        }
+        if (!worked) { // unknown browser / error
+          alert("It didn't worked in your browser.")
+        }
       }
     },
     watch: {
@@ -268,6 +294,11 @@ select {
 .tble {
   width: 100rem;
   max-width: 80rem;
+}
+
+.teach {
+  width: 100rem;
+  max-width: 70rem;
 }
 
 .add-button {
