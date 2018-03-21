@@ -150,7 +150,7 @@ export default {
     //  index - the corresponding hour
     //  item - details of the hour selected
     softLock: function (day, index, item) {
-      if (item.subcode === '' && item.tcode === '' && (this.subject.hours >= this.selectedCount)) {
+      if (item.hardLock === false && (this.subject.hours >= this.selectedCount)) {
         var loc = `${this.classLocation}/${day}/hours/${index}`
         if (this.classTimetable[day][index - 1].softLock === true) {
           // console.log(this.classTimetable[day][index - 1].softLockDetails)
@@ -161,7 +161,9 @@ export default {
             })
             firebase.firestore().doc(loc).update({
               softLock: false,
-              softLockDetails: null
+              softLockDetails: null,
+              tcode: '',
+              subcode: ''
             }).then(success => {
               console.log('successfully removed lock')
             })
@@ -180,6 +182,9 @@ export default {
           })
           firebase.firestore().doc(loc).update({
             softLock: true,
+            hardLock: false,
+            tcode: this.subject.tcode,
+            subcode: this.subject.subcode,
             softLockDetails: {
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
               tcode: this.subject.tcode,
