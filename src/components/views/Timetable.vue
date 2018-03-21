@@ -135,7 +135,9 @@ export default {
       for (var day in this.selectedHours) {
         if (this.selectedHours.hasOwnProperty(day)) {
           this.selectedHours[day].forEach(hour => {
-            console.log(hour.index)
+            firebase.firestore().collection(this.classLocation).doc(day).collection('hours').doc(hour.index.toString()).set(hour).then(success => {
+              console.log('success')
+            })
           })
         }
       }
@@ -152,13 +154,8 @@ export default {
         var loc = `${this.classLocation}/${day}/hours/${index}`
         if (this.classTimetable[day][index - 1].softLock === true) {
           this.selectedCount--
-          this.selectedHours[day].push({
-            index: index,
-            subcode: this.subject.subcode,
-            tcode: this.subject.tcode,
-            softLock: false,
-            hardLock: true,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          this.selectedHours[day] = this.selectedHours[day].filter(function (data) {
+            return data.index !== index
           })
           firebase.firestore().doc(loc).update({
             softLock: false,
@@ -168,8 +165,13 @@ export default {
           })
         } else {
           this.selectedCount++
-          this.selectedHours[day] = this.selectedHours[day].filter(function (data) {
-            return data.index !== index
+          this.selectedHours[day].push({
+            index: index,
+            subcode: this.subject.subcode,
+            tcode: this.subject.tcode,
+            softLock: false,
+            hardLock: true,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
           })
           firebase.firestore().doc(loc).update({
             softLock: true,
