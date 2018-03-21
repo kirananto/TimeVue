@@ -178,6 +178,7 @@ export default {
             tcode: this.subject.tcode,
             softLock: false,
             hardLock: true,
+            softLockDetails: null,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
           })
           firebase.firestore().doc(loc).update({
@@ -207,9 +208,13 @@ export default {
 
     // fetching class timetable
     classTimetableRef.onSnapshot(timetableSnapshot => {
+      this.selectedCount = 0
       timetableSnapshot.forEach(dayDoc => {
         classTimetableRef.doc(dayDoc.id).collection(`hours`).onSnapshot(dailyHours => {
           dailyHours.forEach(hourDoc => {
+            if ((hourDoc.data().subcode === this.subject.subcode) && (hourDoc.data().tcode === this.subject.tcode) && ((hourDoc.data().softLock === true) || (hourDoc.data().hardLock === true))) {
+              this.selectedCount++
+            }
             this.classTimetable[dayDoc.id][(hourDoc.id - 1)] = {
               subcode: hourDoc.data().subcode,
               tcode: hourDoc.data().tcode,
