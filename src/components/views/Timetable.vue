@@ -150,49 +150,65 @@ export default {
     //  index - the corresponding hour
     //  item - details of the hour selected
     softLock: function (day, index, item) {
-      if (item.hardLock === false && (this.subject.hours >= this.selectedCount)) {
-        var loc = `${this.classLocation}/${day}/hours/${index}`
-        if (this.classTimetable[day][index - 1].softLock === true) {
-          // console.log(this.classTimetable[day][index - 1].softLockDetails)
-          if (this.classTimetable[day][index - 1].softLockDetails.tcode === this.subject.tcode) {
-            this.selectedCount--
-            this.selectedHours[day] = this.selectedHours[day].filter(function (data) {
-              return data.index !== index
-            })
-            firebase.firestore().doc(loc).update({
-              softLock: false,
-              softLockDetails: null,
-              tcode: '',
-              subcode: ''
-            }).then(success => {
-              console.log('successfully removed lock')
-            })
+      this.selectedCount = 0
+      if (item.hardLock === false) {
+        var cannotSelect = false
+        if ((this.classTimetable[day][index - 2].softLock === true) || this.classTimetable[day][index].softLock === true) {
+          cannotSelect = true
+          console.log('first')
+        }
+        if (cannotSelect === false) {
+          console.log('second')
+          var loc = `${this.classLocation}/${day}/hours/${index}`
+          if (this.classTimetable[day][index - 1].softLock === true) {
+            // console.log(this.classTimetable[day][index - 1].softLockDetails)
+            if (this.classTimetable[day][index - 1].softLockDetails.tcode === this.subject.tcode) {
+              // this.selectedCount--
+              this.selectedHours[day] = this.selectedHours[day].filter(function (data) {
+                return data.index !== index
+              })
+              firebase.firestore().doc(loc).update({
+                softLock: false,
+                softLockDetails: null,
+                tcode: '',
+                subcode: ''
+              }).then(success => {
+                console.log('successfully removed lock')
+              })
+            } else {
+              swal('Sorry', 'You can only remove your hours', 'error')
+            }
           } else {
-            swal('Sorry', 'You can only remove your hours', 'error')
+            if (this.subject.hours >= this.selectedCount) {
+              // this.selectedCount++
+              this.selectedHours[day].push({
+                index: index,
+                subcode: this.subject.subcode,
+                tcode: this.subject.tcode,
+                softLock: false,
+                hardLock: true,
+                softLockDetails: null,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+              })
+              firebase.firestore().doc(loc).update({
+                softLock: true,
+                hardLock: false,
+                tcode: this.subject.tcode,
+                subcode: this.subject.subcode,
+                softLockDetails: {
+                  timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                  tcode: this.subject.tcode,
+                  subcode: this.subject.subcode
+                }
+              }).then(success => {
+                console.log('successfully softlocked')
+              })
+            } else {
+              swal('Sorry', `Sorry You can only select ${this.subject.hours} Hours`, 'error')
+            }
           }
         } else {
-          this.selectedCount++
-          this.selectedHours[day].push({
-            index: index,
-            subcode: this.subject.subcode,
-            tcode: this.subject.tcode,
-            softLock: false,
-            hardLock: true,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-          })
-          firebase.firestore().doc(loc).update({
-            softLock: true,
-            hardLock: false,
-            tcode: this.subject.tcode,
-            subcode: this.subject.subcode,
-            softLockDetails: {
-              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-              tcode: this.subject.tcode,
-              subcode: this.subject.subcode
-            }
-          }).then(success => {
-            console.log('successfully softlocked')
-          })
+          swal('Sorry', 'Sorry cannot select nearby Hours', 'error')
         }
       } else {
         swal('Sorry', 'You cannot modify these', 'error')
@@ -210,6 +226,9 @@ export default {
       timetableSnapshot.forEach(dayDoc => {
         classTimetableRef.doc(dayDoc.id).collection(`hours`).onSnapshot(dailyHours => {
           dailyHours.forEach(hourDoc => {
+            if ((hourDoc.data().subcode === this.subject.subcode) && (hourDoc.data().tcode === this.subject.tcode) && ((hourDoc.data().softLock === true) || (hourDoc.data().hardLock === true))) {
+              this.selectedCount++
+            }
             this.classTimetable[dayDoc.id][(hourDoc.id - 1)] = {
               subcode: hourDoc.data().subcode,
               tcode: hourDoc.data().tcode,
