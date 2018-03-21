@@ -3,19 +3,18 @@
   <section class="content">
     <!-- Info boxes -->
     <div class="row">
-      <!-- <div v-for="(key,item) in getNotifications" :key="key" class="alert alert-dismissible" :class="item.type">
+      <div v-for="(key,item) in getNotifications" :key="key" class="alert alert-dismissible" :class="item.type">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h4><i class="icon fa" :class="item.icon"></i>{{item.title}}</h4>
         <span v-html="item.body"></span>
-      </div> -->
+      </div>
 
       <div class="col-md-12">
           <div class="box box-info">
             <!-- Input Addons -->
             <div class="box-header with-border">
               <h3 class="box-title"><strong> Timetable for {{subject.className}} {{subject.branchName}} {{subject.divisionName}}</strong></h3>
-    <h4><strong>Subject : </strong>{{subject.subject}}</h4>
-    <h4><strong>No of Hours: </strong>{{subject.hours}}</h4>
+              <h4><strong>Subject : </strong>{{subject.subject}} &nbsp;&nbsp;&nbsp;<strong>No of Hours: </strong>{{subject.hours}} &nbsp;&nbsp;&nbsp; <strong>Your Teacher Code: </strong>{{subject.tcode}}</h4>
             </div>
 
             <div class="box-body text-center">
@@ -105,6 +104,13 @@ export default {
         wednesday: [],
         friday: []
       },
+      selectedHours: {
+        monday: [],
+        tuesday: [],
+        thursday: [],
+        wednesday: [],
+        friday: []
+      },
       selectedCount: 0,
       loaded: 0,
       teacherTimetable: {
@@ -124,6 +130,18 @@ export default {
   },
   methods: {
     submit: function () {
+      // var batch = firebase.firestore().batch
+      // subjectRef = firebase.firestore().collection(this.classLocation)
+      for (var day in this.selectedHours) {
+        if (this.selectedHours.hasOwnProperty(day)) {
+          this.selectedHours[day].forEach(hour => {
+            firebase.firestore().collection(this.classLocation).doc(day).collection('hours').doc(hour.index.toString()).set(hour).then(success => {
+              console.log('success')
+            })
+          })
+        }
+      }
+      // batch.set(subjectRef.collection('monday/hours'))
       swal('Successfully submitted', 'Thank you for early submission', 'success')
     },
     // Function to apply softlock when a user clicks the respective hour
@@ -135,15 +153,31 @@ export default {
       if (item.subcode === '' && item.tcode === '' && (this.subject.hours >= this.selectedCount)) {
         var loc = `${this.classLocation}/${day}/hours/${index}`
         if (this.classTimetable[day][index - 1].softLock === true) {
-          this.selectedCount--
-          firebase.firestore().doc(loc).update({
-            softLock: false,
-            softLockDetails: null
-          }).then(success => {
-            console.log('successfully removed lock')
-          })
+          // console.log(this.classTimetable[day][index - 1].softLockDetails)
+          if (this.classTimetable[day][index - 1].softLockDetails.tcode === this.subject.tcode) {
+            this.selectedCount--
+            this.selectedHours[day] = this.selectedHours[day].filter(function (data) {
+              return data.index !== index
+            })
+            firebase.firestore().doc(loc).update({
+              softLock: false,
+              softLockDetails: null
+            }).then(success => {
+              console.log('successfully removed lock')
+            })
+          } else {
+            swal('Sorry', 'You can only remove your hours', 'error')
+          }
         } else {
           this.selectedCount++
+          this.selectedHours[day].push({
+            index: index,
+            subcode: this.subject.subcode,
+            tcode: this.subject.tcode,
+            softLock: false,
+            hardLock: true,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          })
           firebase.firestore().doc(loc).update({
             softLock: true,
             softLockDetails: {
@@ -156,6 +190,7 @@ export default {
           })
         }
       } else {
+        swal('Sorry', 'You cannot modify these', 'error')
       }
     }
   },
@@ -173,7 +208,8 @@ export default {
             this.classTimetable[dayDoc.id][(hourDoc.id - 1)] = {
               subcode: hourDoc.data().subcode,
               tcode: hourDoc.data().tcode,
-              softLock: hourDoc.data().softLock
+              softLock: hourDoc.data().softLock,
+              softLockDetails: hourDoc.data().softLockDetails
             }
             this.loaded++
           })
