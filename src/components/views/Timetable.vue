@@ -213,6 +213,7 @@ export default {
             this.classTimetable[dayDoc.id][(hourDoc.id - 1)] = {
               subcode: hourDoc.data().subcode,
               tcode: hourDoc.data().tcode,
+              hardLock: hourDoc.data().hardLock,
               softLock: hourDoc.data().softLock,
               softLockDetails: hourDoc.data().softLockDetails
             }
