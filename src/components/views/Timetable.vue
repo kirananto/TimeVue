@@ -3,7 +3,7 @@
   <section class="content">
     <!-- Info boxes -->
     <div class="row">
-      <div v-for="(key,item) in getNotifications" :key="key" class="alert alert-dismissible" :class="item.type">
+      <div v-for="(item,key) in getNotifications" :key="key" class="alert alert-dismissible" :class="item.type">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h4><i class="icon fa" :class="item.icon"></i>{{item.title}}</h4>
         <span v-html="item.body"></span>
@@ -33,35 +33,35 @@
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Monday</button>
-                <button v-for="(item,key) in classTimetable.monday" :key="key" v-on:click="softLock('monday',key + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
+                <button v-for="(item,keyMon) in classTimetable.monday" :key="keyMon" v-on:click="softLock('monday',keyMon + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Tuesday</button>
-                <button v-for="(item,key) in classTimetable.tuesday" :key="key" v-on:click="softLock('tuesday',key + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
+                <button v-for="(item,keyTue) in classTimetable.tuesday" :key="keyTue" v-on:click="softLock('tuesday',keyTue + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Wednesday</button>
-                <button v-for="(item,key) in classTimetable.wednesday" :key="key"  v-on:click="softLock('wednesday',key + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
+                <button v-for="(item,keyWed) in classTimetable.wednesday" :key="keyWed"  v-on:click="softLock('wednesday',keyWed + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Thursday</button>
-                <button v-for="(item,key) in classTimetable.thursday" :key="key" v-on:click="softLock('thursday',key + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
+                <button v-for="(item,keyThu) in classTimetable.thursday" :key="keyThu" v-on:click="softLock('thursday',keyThu + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Friday</button>
-                <button v-for="(item,key) in classTimetable.friday" :key="key" v-on:click="softLock('friday',key + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
+                <button v-for="(item,keyFri) in classTimetable.friday" :key="keyFri" v-on:click="softLock('friday',keyFri + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
