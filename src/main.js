@@ -20,7 +20,7 @@ Vue.use(VueParticles)
 
 firebase.initializeApp(store.getters.getFirebaseConfig)
 
-// var db = firebase.firestore()
+var db = firebase.firestore()
 
 let app
 // Routing logic
@@ -34,66 +34,66 @@ var router = new VueRouter({
 })
 
 // Some middleware to help us ensure the user is authenticated.
-// router.beforeEach((to, from, next) => {
-//   let currentUser = firebase.auth().currentUser
-//   if (!store.getters.getUser && currentUser) {
-//     currentUser.isAdmin = false
-//     store.commit('SET_USER', currentUser)
-//   }
-//   let requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-//   let details = to.matched.some(record => record.meta.details)
-//   let requireAdmin = to.matched.some(record => record.meta.requireAdmin)
-//   // console.log(to.fullPath)
-//   if (requiresAuth && !currentUser) {
-//     next({
-//       path: '/login',
-//       query: {redirect: to.fullPath}
-//     })
-//   } else if (requiresAuth && currentUser) {
-//     if (requireAdmin) {
-//       if (store.getters.getUser.isAdmin) {
-//         next()
-//       } else {
-//         next({
-//           path: '/accessdenied'
-//         })
-//       }
-//     } else {
-//       db.collection('users').doc(currentUser.uid).get()
-//       .then((doc) => {
-//         if (doc.exists) {
-//           // console.log(to.fullPath)
-//           // console.log(store.getters.isisCurrentClassSet)
-//           if (to.fullPath === '/details') {
-//             next('/profile')
-//           } else if (to.fullPath === '/' && store.getters.isCurrentClassSet) {
-//             next('/timetable')
-//           } else if (to.fullPath === '/timetable' && !store.getters.isCurrentClassSet) {
-//             next('/')
-//           } else {
-//             next()
-//           }
-//         } else {
-//           if (!details) {
-//             console.log(currentUser.uid + '--' + doc.exists)
-//             next({
-//               path: '/details'
-//             })
-//           } else {
-//             next()
-//           }
-//         }
-//       })
-//     }
-//   } else {
-//     if (currentUser && to.fullPath === '/login') {
-//       console.log('Already Logged In')
-//       next('/')
-//     } else {
-//       next()
-//     }
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  let currentUser = firebase.auth().currentUser
+  if (!store.getters.getUser && currentUser) {
+    currentUser.isAdmin = false
+    store.commit('SET_USER', currentUser)
+  }
+  let requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+  let details = to.matched.some(record => record.meta.details)
+  let requireAdmin = to.matched.some(record => record.meta.requireAdmin)
+  // console.log(to.fullPath)
+  if (requiresAuth && !currentUser) {
+    next({
+      path: '/login',
+      query: {redirect: to.fullPath}
+    })
+  } else if (requiresAuth && currentUser) {
+    if (requireAdmin) {
+      if (store.getters.getUser.isAdmin) {
+        next()
+      } else {
+        next({
+          path: '/accessdenied'
+        })
+      }
+    } else {
+      db.collection('users').doc(currentUser.uid).get()
+      .then((doc) => {
+        if (doc.exists) {
+          // console.log(to.fullPath)
+          // console.log(store.getters.isisCurrentClassSet)
+          if (to.fullPath === '/details') {
+            next('/profile')
+          } else if (to.fullPath === '/' && store.getters.isCurrentClassSet) {
+            next('/timetable')
+          } else if (to.fullPath === '/timetable' && !store.getters.isCurrentClassSet) {
+            next('/')
+          } else {
+            next()
+          }
+        } else {
+          if (!details) {
+            console.log(currentUser.uid + '--' + doc.exists)
+            next({
+              path: '/details'
+            })
+          } else {
+            next()
+          }
+        }
+      })
+    }
+  } else {
+    if (currentUser && to.fullPath === '/login') {
+      console.log('Already Logged In')
+      next('/')
+    } else {
+      next()
+    }
+  }
+})
 
 sync(store, router)
 // Start out app!
