@@ -125,8 +125,15 @@ export default {
     },
     setdiv: function (div) {
       // console.log('SEtting division')
+      var item = {
+        className: this.getCurrentClass.semester,
+        branchName: this.getCurrentClass.branch,
+        divisionName: this.getCurrentClass.div
+      }
       this.$store.commit('TOGGLE_CLASS_DIV', div)
-      this.$router.replace('timetable')
+      this.$router.push({
+        path: `/viewtimetable/${JSON.stringify(item)}`
+      })
     },
     loadclasses: function () {
       const classes = []

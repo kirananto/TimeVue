@@ -243,17 +243,17 @@ export default {
     const teacherLocation = `/teachers/${this.subject.tcode}/timeTable`
     const teacherTimeTableRef = firebase.firestore().collection(teacherLocation)
 
-    for (var day in this.classTimetable) {
-      if (this.classTimetable.hasOwnProperty(day)) {
-        this.classTimetable[day].forEach(hour => {
-          firebase.firestore().collection(this.classLocation).doc(day).collection('hours').doc(hour.index.toString()).update({
-            day: day
-          }).then(success => {
-            console.log('success')
-          })
-        })
-      }
-    }
+    // for (var day in this.classTimetable) {
+    //   if (this.classTimetable.hasOwnProperty(day)) {
+    //     this.classTimetable[day].forEach(hour => {
+    //       firebase.firestore().collection(this.classLocation).doc(day).collection('hours').doc(hour.index.toString()).update({
+    //         day: day
+    //       }).then(success => {
+    //         console.log('success')
+    //       })
+    //     })
+    //   }
+    // }
 
     // fetching class timetable
     for (var dayDoc in this.classTimetable) {
