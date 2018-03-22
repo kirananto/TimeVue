@@ -174,10 +174,15 @@
               q.forEach(d => {
                 batch.delete(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${d.data().subject}/Teachers/${d.id}`))
               })
+              if (counter !== this.tabledata.length) {
+                console.log(counter)
+                resolve()
+              }
             })
             // push teacher to subjects database
             batch.set(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}/Teachers/${data.Teacher.tid}`), {
-              Name: firebase.firestore().doc(`/teachers/${data.Teacher.tid}`)
+              Name: firebase.firestore().doc(`/teachers/${data.Teacher.tid}`),
+              subject: data.Id
             })
 
             // push subjects to teachers
@@ -185,9 +190,6 @@
               Name: firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}`)
             })
           })
-          while (counter !== this.tabledata.length) {
-            resolve()
-          }
         })
         p.then(success => batch.commit().then(success => console.log('batch write success')))
       },
