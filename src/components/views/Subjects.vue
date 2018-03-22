@@ -67,14 +67,11 @@
                           </select>
                           </v-select>
                         </td>
-                        <td>
                         <td></td>
                         
                         <td>
                           <i class="fas fa-plus-circle" v-on:click="addTeacher"></i>
                         </td>
-                      
-                      </td>
                       </tr> 
                        <button v-on:click="assignTeacher" class="btn btn-primary" align="center">Confirm
                           </button>
