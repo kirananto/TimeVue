@@ -69,8 +69,8 @@
                         </td>
                         <td></td>
                         
-                        <td>
-                          <i class="fas fa-plus-circle" v-on:click="addTeacher"></i>
+                        <td v-on:click="addTeacher">
+                          <i class="fa fa-plus-circle plusbutton" ></i>
                         </td>
                       </tr> 
                        <button v-on:click="assignTeacher" class="btn btn-primary" align="center">Confirm
@@ -194,9 +194,6 @@
         p.then(success => batch.commit().then(success => console.log('batch write success')))
       },
       addTeacher: function () {
-        this.Teacher.push({
-          Teacher: null
-        })
         console.log('this is keyer')
       }
     },
@@ -307,6 +304,9 @@ select {
     background-color: #222D32;
 }
 
+.plusbutton {
+  width: 5rem;
+}
 .bottom_circle {
   margin-top: 0rem;
 }
