@@ -20,6 +20,14 @@
 
 <style scoped>
 h1,h4 {
-  color: black;
+  color: white;
+}
+
+h1 {
+  font-size: 15rem;
+}
+
+h4 {
+  font-size: 3rem;
 }
 </style>
