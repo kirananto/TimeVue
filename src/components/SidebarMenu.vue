@@ -6,6 +6,12 @@
         <span class="page">Dashboard</span>
       </a>
     </router-link>
+    <router-link tag="li" class="pageLink" to="/teachertimetable">
+      <a>
+        <i class="fa fa-calendar"></i>
+        <span class="page">Teacher Timetable</span>
+      </a>
+    </router-link>
     <li class="header">SELECT YEAR</li>
     <div class="container">
       <div class="row col-md-4">

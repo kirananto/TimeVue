@@ -12,6 +12,7 @@ import ViewTimetable from './components/views/ViewTimetable.vue'
 import TeachersView from './components/views/Teachers.vue'
 import SubjectsView from './components/views/Subjects.vue'
 import SubjectListView from './components/views/Subjectlist.vue'
+import TeacherTimetable from './components/views/TeacherTimetable.vue'
 // import SettingView from './components/views/Setting.vue'
 
 // Routes
@@ -65,6 +66,12 @@ const routes = [
         component: ViewTimetable,
         name: 'ViewTimetable',
         meta: {description: 'View Timetable'}
+      },
+      {
+        path: 'teachertimetable',
+        component: TeacherTimetable,
+        name: 'teachertimetable',
+        meta: {description: 'View Teachers Timetable'}
       },
       {
         path: 'teachers',
