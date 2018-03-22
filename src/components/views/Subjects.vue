@@ -58,7 +58,7 @@
                             <option value="Lab">Lab</option>
                           </select>
                         </td>
-                        <td>
+                        <td >
                           <v-select v-model="item.Teacher" :options="teachers">
                           <select v-model="teachers"  placeholder="Select Teacher">
                           <option v-for="(option,key) in teachers" :key="key" v-bind:value="option">
@@ -68,13 +68,12 @@
                           </v-select>
                         </td>
                         <td>
-                        <button id="button1" onclick="addTeacher('name1')">+ 
-                        </button>
-                        <select id="name1" v-model="teachers" class="teach" placeholder="Select Teacher">
-                          <option v-for="(option,key) in teachers" :key="key" v-bind:value="option">
-                            {{ option }}
-                          </option>>
-                        </select>
+                        <td></td>
+                        
+                        <td>
+                          <i class="fas fa-plus-circle" v-on:click="addTeacher"></i>
+                        </td>
+                      
                       </td>
                       </tr> 
                        <button v-on:click="assignTeacher" class="btn btn-primary" align="center">Confirm
@@ -162,43 +161,44 @@
       assignTeacher: function () {
         var batch = firebase.firestore().batch()
         console.log(this.tabledata)
-        this.tabledata.forEach(data => {
-          // update subject data
-          batch.update(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}`), {
-            Name: data.Name,
-            Hours: parseInt(data.Hours),
-            Type: data.Type
-          })
+        var counter = 0
+        var p = new Promise((resolve, reject) => {
+          this.tabledata.forEach(data => {
+            // update subject data
+            console.log(data.Name)
+            batch.update(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}`), {
+              Name: data.Name,
+              Hours: parseInt(data.Hours),
+              Type: data.Type
+            })
 
-          // push teacher to subjects database
-          batch.set(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}/Teachers/${data.Teacher.tid}`), {
-            Name: firebase.firestore().doc(`/teachers/${data.Teacher.tid}`)
-          })
+            firebase.firestore().collection(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}/Teachers`).get().then(q => {
+              counter++
+              q.forEach(d => {
+                batch.delete(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${d.data().subject}/Teachers/${d.id}`))
+              })
+            })
+            // push teacher to subjects database
+            batch.set(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}/Teachers/${data.Teacher.tid}`), {
+              Name: firebase.firestore().doc(`/teachers/${data.Teacher.tid}`)
+            })
 
-          // push subjects to teachers
-          batch.set(firebase.firestore().doc(`/teachers/${data.Teacher.tid}/Subjects/${data.Id}`), {
-            Name: firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}`)
+            // push subjects to teachers
+            batch.set(firebase.firestore().doc(`/teachers/${data.Teacher.tid}/Subjects/${data.Id}`), {
+              Name: firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}`)
+            })
           })
+          while (counter !== this.tabledata.length) {
+            resolve()
+          }
         })
-
-        batch.commit().then(success => console.log('batch write success'))
+        p.then(success => batch.commit().then(success => console.log('batch write success')))
       },
-      addTeacher: function (id) {
-        var element = document.getElementById(id)
-        this.emitEvent(element, 'mousedown')
-      },
-      emitEvent: function (element, eventName) {
-        var worked = false
-        if (document.createEvent) { // all browsers
-          var e = document.createEvent('MouseEvents')
-          e.initMouseEvent(eventName, true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
-          worked = element.dispatchEvent(e)
-        } else if (element.fireEvent) { // ie
-          worked = element.fireEvent('on' + eventName)
-        }
-        if (!worked) { // unknown browser / error
-          alert("It didn't worked in your browser.")
-        }
+      addTeacher: function () {
+        this.Teacher.push({
+          Teacher: null
+        })
+        console.log('this is keyer')
       }
     },
     watch: {
@@ -306,6 +306,10 @@ select {
     border-radius: 1rem;
     width: 7rem;
     background-color: #222D32;
+}
+
+.bottom_circle {
+  margin-top: 0rem;
 }
 
 </style>
