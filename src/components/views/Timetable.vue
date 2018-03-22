@@ -111,7 +111,13 @@ export default {
         wednesday: [],
         friday: []
       },
-      selectedCount: 0,
+      selectedCount: {
+        monday: [0, 0, 0, 0, 0, 0, 0],
+        tuesday: [0, 0, 0, 0, 0, 0, 0],
+        thursday: [0, 0, 0, 0, 0, 0, 0],
+        wednesday: [0, 0, 0, 0, 0, 0, 0],
+        friday: [0, 0, 0, 0, 0, 0, 0]
+      },
       loaded: 0,
       teacherTimetable: {
         monday: [],
@@ -119,7 +125,8 @@ export default {
         thursday: [],
         wednesday: [],
         friday: []
-      }
+      },
+      totalSelectedCount: 0
     }
   },
   computed: {
@@ -128,6 +135,12 @@ export default {
       return `/classes/${this.subject.className}/branches/${this.subject.branchName}/divisions/${this.subject.divisionName}/timeTable`
     }
   },
+  // watch: {
+  //   selectedCount: function (val) {
+  //     console.log('h')
+  //     this.totalSelectedCount = this.selectedCount.monday.reduce((sum, x) => sum + x) + this.selectedCount.tuesday.reduce((sum, x) => sum + x) + this.selectedCount.wednesday.reduce((sum, x) => sum + x) + this.selectedCount.thursday.reduce((sum, x) => sum + x) + this.selectedCount.friday.reduce((sum, x) => sum + x)
+  //   }
+  // },
   methods: {
     submit: function () {
       // var batch = firebase.firestore().batch
@@ -150,36 +163,37 @@ export default {
     //  index - the corresponding hour
     //  item - details of the hour selected
     softLock: function (day, index, item) {
-      this.selectedCount = 0
       if (item.hardLock === false) {
+        this.selectedCount[day][index - 1] = 0
+        this.totalSelectedCount = this.selectedCount.monday.reduce((sum, x) => sum + x) + this.selectedCount.tuesday.reduce((sum, x) => sum + x) + this.selectedCount.wednesday.reduce((sum, x) => sum + x) + this.selectedCount.thursday.reduce((sum, x) => sum + x) + this.selectedCount.friday.reduce((sum, x) => sum + x)
         var cannotSelect = false
         if ((this.classTimetable[day][index - 2].softLock === true) || this.classTimetable[day][index].softLock === true) {
           cannotSelect = true
-          console.log('first')
+          // console.log('first')
         }
-        if (cannotSelect === false) {
-          console.log('second')
-          var loc = `${this.classLocation}/${day}/hours/${index}`
-          if (this.classTimetable[day][index - 1].softLock === true) {
-            // console.log(this.classTimetable[day][index - 1].softLockDetails)
-            if (this.classTimetable[day][index - 1].softLockDetails.tcode === this.subject.tcode) {
-              // this.selectedCount--
-              this.selectedHours[day] = this.selectedHours[day].filter(function (data) {
-                return data.index !== index
-              })
-              firebase.firestore().doc(loc).update({
-                softLock: false,
-                softLockDetails: null,
-                tcode: '',
-                subcode: ''
-              }).then(success => {
-                console.log('successfully removed lock')
-              })
-            } else {
-              swal('Sorry', 'You can only remove your hours', 'error')
-            }
+        // console.log('second')
+        var loc = `${this.classLocation}/${day}/hours/${index}`
+        if (this.classTimetable[day][index - 1].softLock === true) {
+          // console.log(this.classTimetable[day][index - 1].softLockDetails)
+          if (this.classTimetable[day][index - 1].softLockDetails.tcode === this.subject.tcode) {
+            // this.selectedCount--
+            this.selectedHours[day] = this.selectedHours[day].filter(function (data) {
+              return data.index !== index
+            })
+            firebase.firestore().doc(loc).update({
+              softLock: false,
+              softLockDetails: null,
+              tcode: '',
+              subcode: ''
+            }).then(success => {
+              console.log('successfully removed lock')
+            })
           } else {
-            if (this.subject.hours >= this.selectedCount) {
+            swal('Sorry', 'You can only remove your hours', 'error')
+          }
+        } else {
+          if (cannotSelect === false) {
+            if (this.subject.hours > this.totalSelectedCount) {
               // this.selectedCount++
               this.selectedHours[day].push({
                 index: index,
@@ -206,9 +220,9 @@ export default {
             } else {
               swal('Sorry', `Sorry You can only select ${this.subject.hours} Hours`, 'error')
             }
+          } else {
+            swal('Sorry', 'Sorry cannot select nearby Hours', 'error')
           }
-        } else {
-          swal('Sorry', 'Sorry cannot select nearby Hours', 'error')
         }
       } else {
         swal('Sorry', 'You cannot modify these', 'error')
@@ -221,26 +235,42 @@ export default {
     const teacherLocation = `/teachers/${this.subject.tcode}/timeTable`
     const teacherTimeTableRef = firebase.firestore().collection(teacherLocation)
 
+    for (var day in this.classTimetable) {
+      if (this.classTimetable.hasOwnProperty(day)) {
+        this.classTimetable[day].forEach(hour => {
+          firebase.firestore().collection(this.classLocation).doc(day).collection('hours').doc(hour.index.toString()).update({
+            day: day
+          }).then(success => {
+            console.log('success')
+          })
+        })
+      }
+    }
+
     // fetching class timetable
-    classTimetableRef.onSnapshot(timetableSnapshot => {
-      timetableSnapshot.forEach(dayDoc => {
-        classTimetableRef.doc(dayDoc.id).collection(`hours`).onSnapshot(dailyHours => {
+    for (var dayDoc in this.classTimetable) {
+      if (this.classTimetable.hasOwnProperty(dayDoc)) {
+        classTimetableRef.doc(dayDoc).collection(`hours`).onSnapshot(dailyHours => {
           dailyHours.forEach(hourDoc => {
+            // console.log(hourDoc.data().tcode + hourDoc.data().day + hourDoc.id + '-----')
             if ((hourDoc.data().subcode === this.subject.subcode) && (hourDoc.data().tcode === this.subject.tcode) && ((hourDoc.data().softLock === true) || (hourDoc.data().hardLock === true))) {
-              this.selectedCount++
+              this.selectedCount[hourDoc.data().day][(hourDoc.id - 1)] = 1
+              this.totalSelectedCount = this.selectedCount.monday.reduce((sum, x) => sum + x) + this.selectedCount.tuesday.reduce((sum, x) => sum + x) + this.selectedCount.wednesday.reduce((sum, x) => sum + x) + this.selectedCount.thursday.reduce((sum, x) => sum + x) + this.selectedCount.friday.reduce((sum, x) => sum + x)
+              // console.log('selected' + hourDoc.data().tcode + hourDoc.data().day + hourDoc.id + '-----')
             }
-            this.classTimetable[dayDoc.id][(hourDoc.id - 1)] = {
+            this.classTimetable[hourDoc.data().day][(hourDoc.id - 1)] = {
               subcode: hourDoc.data().subcode,
               tcode: hourDoc.data().tcode,
               hardLock: hourDoc.data().hardLock,
               softLock: hourDoc.data().softLock,
               softLockDetails: hourDoc.data().softLockDetails
             }
+            // console.log(this.classTimetable[dayDoc][(hourDoc.id - 1)])
             this.loaded++
           })
         })
-      })
-    })
+      }
+    }
 
     // fetching teacher timetable
     teacherTimeTableRef.onSnapshot(teacherTimetableSnapshot => {
@@ -273,7 +303,7 @@ $w: 10rem;
 }
 
 .softLocked {
-  background-color: rgb(228, 212, 70);
+  background-color: #6e7e9f;
 }
 
 .subject {
