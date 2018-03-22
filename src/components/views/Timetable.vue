@@ -162,7 +162,7 @@ export default {
     //  index - the corresponding hour
     //  item - details of the hour selected
     softLock: function (day, index, item) {
-      if (item.hardLock != true) {
+      if (item.hardLock !== true) {
         this.selectedCount[day][index - 1] = 0
         this.totalSelectedCount = this.selectedCount.monday.reduce((sum, x) => sum + x) + this.selectedCount.tuesday.reduce((sum, x) => sum + x) + this.selectedCount.wednesday.reduce((sum, x) => sum + x) + this.selectedCount.thursday.reduce((sum, x) => sum + x) + this.selectedCount.friday.reduce((sum, x) => sum + x)
         var cannotSelect = false
