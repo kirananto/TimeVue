@@ -17,11 +17,7 @@
               <!-- calendar group -->
               <div class="vcenter">
                 <h1 class="text-center timeVue-time">TIME<span class="timeVue-vue">VUE</span></h1>
-                <h3 >  Please Select the class and semester </h3>
-                <h4>Is CurrentClass set ? {{isCurrentClassSet}}</h4>
-                <h4>Semester: {{getCurrentClass.semester || 'Select First'}} </h4>
-                <h4>Branch: {{getCurrentClass.branch  || 'Select First'}}</h4>
-                <h4>Division : {{getCurrentClass.division  || 'Select First'}}</h4>
+                <subjectlist></subjectlist>
               <!-- /input-group -->
               </div>
             </div>
@@ -35,8 +31,12 @@
   <!-- /.content -->
 </template>
 <script>
+import Subjectlist from '@/components/views/Subjectlist'
 import { mapGetters } from 'vuex'
 export default {
+  components: {
+    Subjectlist
+  },
   computed: {
     ...mapGetters([
       'getNotifications',
@@ -49,9 +49,9 @@ export default {
 .vcenter {
     display: inline-block;
     vertical-align: middle;
-    padding-top: 14em;
+    padding-top: 6em;
     color: grey;
-    padding-bottom: 18em;
+    padding-bottom: 5em;
 }
 
 .timeVue-time {

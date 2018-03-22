@@ -1,20 +1,13 @@
 <template>
   <div class="container container-table">
-      <div class="row vertical-10p">
-        <div class="container">
-          <div class="text-center col-md-12 card ">
-            <h1>SELECT CLASS</h1>
-            <center>
-
-              <!-- check for passing props -->
-            <router-link v-for="(item,key) in subjects" :key="key"  :to="{ path:`/timetable/${JSON.stringify(item)}` }" class="btn btn-primary subject-button"  align="center">
-              {{item.subject}} || {{item.className}} -  {{item.branchName}} - {{item.divisionName}}
-            </router-link>
-            <!-- check for passing props -->
-            </center>
-          </div>
-        </div>
-      </div>
+    <h1>SELECT CLASS</h1>
+    <center>
+      <!-- check for passing props -->
+    <router-link v-for="(item,key) in subjects" :key="key"  :to="{ path:`/timetable/${JSON.stringify(item)}` }" class="btn btn-primary subject-button"  align="center">
+      {{item.subject}} || {{item.className}} -  {{item.branchName}} - {{item.divisionName}}
+    </router-link>
+    <!-- check for passing props -->
+    </center>
   </div>
 </template>
 
@@ -60,10 +53,11 @@ export default {
   margin-top: 2rem;
   max-width: 65rem;
   display: block;
+  background-color: #00a65a;
 
 }
 
 .vcenter {
-  margin-bottom: 10rem;
+  margin-bottom: 5rem;
 }
 </style>
