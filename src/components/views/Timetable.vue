@@ -143,19 +143,18 @@ export default {
   // },
   methods: {
     submit: function () {
-      // var batch = firebase.firestore().batch
-      // subjectRef = firebase.firestore().collection(this.classLocation)
+      var batch = firebase.firestore().batch
+      var subjectRef = firebase.firestore().collection(this.classLocation)
       for (var day in this.selectedHours) {
         if (this.selectedHours.hasOwnProperty(day)) {
           this.selectedHours[day].forEach(hour => {
-            firebase.firestore().collection(this.classLocation).doc(day).collection('hours').doc(hour.index.toString()).set(hour).then(success => {
-              console.log('success')
-            })
+            batch.set(subjectRef.doc(day).collection('hours').doc(hour.index.toString()), hour)
           })
         }
       }
-      // batch.set(subjectRef.collection('monday/hours'))
-      swal('Successfully submitted', 'Thank you for early submission', 'success')
+      batch.commit().then(success => {
+        swal('Successfully submitted', 'Thank you for early submission', 'success')
+      })
     },
     // Function to apply softlock when a user clicks the respective hour
     // params
@@ -163,7 +162,7 @@ export default {
     //  index - the corresponding hour
     //  item - details of the hour selected
     softLock: function (day, index, item) {
-      if (item.hardLock === false) {
+      if (item.hardLock != true) {
         this.selectedCount[day][index - 1] = 0
         this.totalSelectedCount = this.selectedCount.monday.reduce((sum, x) => sum + x) + this.selectedCount.tuesday.reduce((sum, x) => sum + x) + this.selectedCount.wednesday.reduce((sum, x) => sum + x) + this.selectedCount.thursday.reduce((sum, x) => sum + x) + this.selectedCount.friday.reduce((sum, x) => sum + x)
         var cannotSelect = false
@@ -197,6 +196,7 @@ export default {
               // this.selectedCount++
               this.selectedHours[day].push({
                 index: index,
+                day: day,
                 subcode: this.subject.subcode,
                 tcode: this.subject.tcode,
                 softLock: false,
@@ -254,6 +254,9 @@ export default {
           dailyHours.forEach(hourDoc => {
             // console.log(hourDoc.data().tcode + hourDoc.data().day + hourDoc.id + '-----')
             if ((hourDoc.data().subcode === this.subject.subcode) && (hourDoc.data().tcode === this.subject.tcode) && ((hourDoc.data().softLock === true) || (hourDoc.data().hardLock === true))) {
+              if (hourDoc.data().day === undefined) {
+                console.log(hourDoc.data())
+              }
               this.selectedCount[hourDoc.data().day][(hourDoc.id - 1)] = 1
               this.totalSelectedCount = this.selectedCount.monday.reduce((sum, x) => sum + x) + this.selectedCount.tuesday.reduce((sum, x) => sum + x) + this.selectedCount.wednesday.reduce((sum, x) => sum + x) + this.selectedCount.thursday.reduce((sum, x) => sum + x) + this.selectedCount.friday.reduce((sum, x) => sum + x)
               // console.log('selected' + hourDoc.data().tcode + hourDoc.data().day + hourDoc.id + '-----')
@@ -263,6 +266,7 @@ export default {
               tcode: hourDoc.data().tcode,
               hardLock: hourDoc.data().hardLock,
               softLock: hourDoc.data().softLock,
+              day: hourDoc.data().day,
               softLockDetails: hourDoc.data().softLockDetails
             }
             // console.log(this.classTimetable[dayDoc][(hourDoc.id - 1)])
