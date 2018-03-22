@@ -2,11 +2,16 @@
   <div class="container container-table">
     <h1>SELECT CLASS</h1>
     <center>
+    <div v-if="subjects.length > 0">
       <!-- check for passing props -->
-    <router-link v-for="(item,key) in subjects" :key="key"  :to="{ path:`/timetable/${JSON.stringify(item)}` }" class="btn btn-primary subject-button"  align="center">
-      {{item.subject}} || {{item.className}} -  {{item.branchName}} - {{item.divisionName}}
-    </router-link>
-    <!-- check for passing props -->
+      <router-link v-for="(item,key) in subjects" :key="key"  :to="{ path:`/timetable/${JSON.stringify(item)}` }" class="btn btn-primary subject-button"  align="center">
+        {{item.subject}} || {{item.className}} -  {{item.branchName}} - {{item.divisionName}}
+      </router-link>
+      <!-- check for passing props -->
+    </div>
+    <div v-else>
+      <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+    </div>
     </center>
   </div>
 </template>
