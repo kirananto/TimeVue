@@ -149,6 +149,7 @@ export default {
         if (this.selectedHours.hasOwnProperty(day)) {
           this.selectedHours[day].forEach(hour => {
             batch.set(subjectRef.doc(day).collection('hours').doc(hour.index.toString()), hour)
+            batch.set(firebase.firestore().doc(`teachers/${this.subject.tcode}/timeTable/day/hours/${hour.index.toString()}`), hour)
           })
         }
       }
@@ -162,11 +163,11 @@ export default {
     //  index - the corresponding hour
     //  item - details of the hour selected
     softLock: function (day, index, item) {
-      if (item.hardLock !== true) {
+      if (item.hardLock !== true && this.teacherTimetable[day][index - 1].hardLock !== true) {
         this.selectedCount[day][index - 1] = 0
         this.totalSelectedCount = this.selectedCount.monday.reduce((sum, x) => sum + x) + this.selectedCount.tuesday.reduce((sum, x) => sum + x) + this.selectedCount.wednesday.reduce((sum, x) => sum + x) + this.selectedCount.thursday.reduce((sum, x) => sum + x) + this.selectedCount.friday.reduce((sum, x) => sum + x)
         var cannotSelect = false
-        if ((this.classTimetable[day][index - 2].softLock === true) || this.classTimetable[day][index].softLock === true) {
+        if (((this.classTimetable[day][index - 2].softLock === true && this.classTimetable[day][index - 2].tcode === this.subject.tcode) || (this.classTimetable[day][index].softLock === true && this.classTimetable[day][index].tcode === this.subject.tcode) || (this.classTimetable[day][index].hardLock === true && this.classTimetable[day][index].tcode === this.subject.tcode) || (this.classTimetable[day][index - 2].softLock === true && this.classTimetable[day][index - 2].tcode === this.subject.tcode)) && ((this.teacherTimetable[day][index].hardLock === true) || (this.teacherTimetable[day][index - 2].hardLock === true))) {
           cannotSelect = true
           // console.log('first')
         }
