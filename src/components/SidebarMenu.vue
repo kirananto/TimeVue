@@ -6,7 +6,7 @@
         <span class="page">Dashboard</span>
       </a>
     </router-link>
-    <router-link tag="li" class="pageLink" to="/teachertimetable">
+    <router-link tag="li" class="pageLink" :to="`/teachertimetable`">
       <a>
         <i class="fa fa-calendar"></i>
         <span class="page">Teacher Timetable</span>
