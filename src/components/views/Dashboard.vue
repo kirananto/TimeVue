@@ -3,7 +3,7 @@
   <section class="content">
     <!-- Info boxes -->
     <div class="row">
-      <div v-for="(key,item) in getNotifications" class="alert alert-dismissible" :key="key" :class="item.type">
+      <div v-for="(item, key) in getNotifications" class="alert alert-dismissible" :key="key" :class="item.type">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <h4><i class="icon fa" :class="item.icon"></i>{{item.title}}</h4>
         <span v-html="item.body"></span>
