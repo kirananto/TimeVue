@@ -143,7 +143,7 @@ export default {
   // },
   methods: {
     submit: function () {
-      var batch = firebase.firestore().batch
+      var batch = firebase.firestore().batch()
       var subjectRef = firebase.firestore().collection(this.classLocation)
       for (var day in this.selectedHours) {
         if (this.selectedHours.hasOwnProperty(day)) {
@@ -154,7 +154,7 @@ export default {
       }
       batch.commit().then(success => {
         swal('Successfully submitted', 'Thank you for early submission', 'success')
-      })
+      }).catch(error => console.log(error))
     },
     // Function to apply softlock when a user clicks the respective hour
     // params
