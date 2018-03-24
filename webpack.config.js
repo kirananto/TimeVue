@@ -14,6 +14,10 @@ const buildingForLocal = () => {
   return (NODE_ENV === 'development');
 };
 
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
+
 const setPublicPath = () => {
   let env = NODE_ENV;
   if (env === 'production') {
@@ -105,6 +109,15 @@ const config = {
   module: {
     rules: [
       {
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        enforce: "pre",
+        include: [resolve('src'), resolve('test')],
+        options: {
+          formatter: require('eslint-friendly-formatter')
+        }
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
@@ -121,6 +134,10 @@ const config = {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         use: [{
+          loader: "babel-loader",
+          options: { presets: ['env'] }
+        },
+        {
           loader: "babel-loader",
           options: { presets: ['env'] }
         }]
