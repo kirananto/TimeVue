@@ -3,7 +3,7 @@ const fs = require('fs');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const NODE_ENV = process.env.NODE_ENV;
 
 const setPath = function(folderName) {
@@ -33,7 +33,19 @@ const extractCSS = new ExtractTextPlugin({
   disable: process.env.NODE_ENV === "development"
 });
 
-
+const CopyWebPack = new CopyWebpackPlugin([
+  {
+    from: path.resolve(__dirname, './static'),
+    to: path.resolve(__dirname, './dist/static'),
+    ignore: ['.*']
+  },
+  // Copy redirects file
+  // {
+  //   from: path.resolve(__dirname, '../_redirects'),
+  //   to: config.build.assetsRoot,
+  //   ignore: ['.*']
+  // }
+])
 const extractHTML = new HtmlWebpackPlugin({
   title: 'History Search',
   filename: 'index.html',
@@ -60,7 +72,7 @@ const config = {
   // },
   
   optimization:{
-    runtimeChunk: false,
+    runtimeChunk: true,
     splitChunks: {
       chunks: "all", //Taken from https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693
     }
@@ -75,6 +87,7 @@ const config = {
   },
   plugins: [
     extractHTML,
+    CopyWebPack,
     // extractCSS,
     new webpack.DefinePlugin({
       'process.env': {
