@@ -74,7 +74,7 @@
 
 <script>
 import firebase from 'firebase'
-import Sidebar from './Sidebar'
+import Sidebar from './Sidebar.vue'
 require('firebase/firestore')
 import 'hideseek'
 

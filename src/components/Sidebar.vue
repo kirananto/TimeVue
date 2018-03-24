@@ -46,7 +46,7 @@
   </aside>
 </template>
 <script>
-import SidebarMenu from './SidebarMenu'
+import SidebarMenu from './SidebarMenu.vue'
 
 export default {
   name: 'Sidebar',

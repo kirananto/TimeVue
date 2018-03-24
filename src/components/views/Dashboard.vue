@@ -31,7 +31,7 @@
   <!-- /.content -->
 </template>
 <script>
-import Subjectlist from '@/components/views/Subjectlist'
+import Subjectlist from './Subjectlist.vue'
 import { mapGetters } from 'vuex'
 export default {
   components: {
