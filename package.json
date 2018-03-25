@@ -1,6 +1,6 @@
 {
   "name": "timevue",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "A timetable generation tool",
   "author": "Kiran Anto <kirananto@gmail.com>",
   "repository": "https://github.com/kirananto/TimeVue.git",
@@ -15,7 +15,6 @@
     "babel-runtime": "^6.26.0",
     "compression": "^1.7.2",
     "csvtojson": "^1.1.9",
-    "eslint-friendly-formatter": "^4.0.0",
     "firebase": "^4.12.0",
     "hideseek": "^0.8.0",
     "jquery": "^3.2.1",
