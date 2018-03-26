@@ -168,10 +168,11 @@ export default {
         this.totalSelectedCount = this.selectedCount.monday.reduce((sum, x) => sum + x) + this.selectedCount.tuesday.reduce((sum, x) => sum + x) + this.selectedCount.wednesday.reduce((sum, x) => sum + x) + this.selectedCount.thursday.reduce((sum, x) => sum + x) + this.selectedCount.friday.reduce((sum, x) => sum + x)
         var cannotSelect = false
         // declaring the softlocks checks for nearby hours
-        var checkNearbyinClassSoftLock = ((this.classTimetable[day][index - 2].softLock === true && this.classTimetable[day][index - 2].tcode === this.subject.tcode) || (this.classTimetable[day][index].softLock === true && this.classTimetable[day][index].tcode === this.subject.tcode))
-        var checkNearbyinClassHardLock = (this.classTimetable[day][index].hardLock === true && this.classTimetable[day][index].tcode === this.subject.tcode) || (this.classTimetable[day][index - 2].softLock === true && this.classTimetable[day][index - 2].tcode === this.subject.tcode)
+        var checkNearbyinClassSoftLock = ((this.classTimetable[day][index-1].day!=="monday" && this.classTimetable[day][index - 2].softLock === true && this.classTimetable[day][index - 2].tcode === this.subject.tcode) || (this.classTimetable[day][index].softLock === true && this.classTimetable[day][index].tcode === this.subject.tcode))
+        var checkNearbyinClassHardLock = (this.classTimetable[day][index].hardLock === true && this.classTimetable[day][index].tcode === this.subject.tcode) || (this.classTimetable[day][index-1].day!=="monday" && this.classTimetable[day][index - 2].softLock === true && this.classTimetable[day][index - 2].tcode === this.subject.tcode)
         var checkNearbyinClass = (checkNearbyinClassSoftLock || checkNearbyinClassHardLock)
-        var checkNearbyinTeacher = ((this.teacherTimetable[day][index].hardLock === true) || (this.teacherTimetable[day][index - 2].hardLock === true))
+        var checkNearbyinTeacher = ((this.teacherTimetable[day][index].hardLock === true) || (this.teacherTimetable[day][index - 2].hardLock === true) || (this.teacherTimetable[day][index - 1].hardLock === true))
+        
         // console.log(checkNearbyinClass)
         // console.log(checkNearbyinTeacher)
         if (checkNearbyinClass || checkNearbyinTeacher) {
