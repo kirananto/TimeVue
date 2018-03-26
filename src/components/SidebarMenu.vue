@@ -93,7 +93,9 @@
   </ul>
 </template>
 <script>
+
 import firebase from 'firebase'
+// import firebase from 'firebase'
 require('firebase/firestore')
 var db = null
 import { mapGetters } from 'vuex'

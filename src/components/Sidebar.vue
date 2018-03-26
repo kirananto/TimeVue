@@ -46,7 +46,8 @@
   </aside>
 </template>
 <script>
-import SidebarMenu from './SidebarMenu.vue'
+// import SidebarMenu from './SidebarMenu.vue'
+const SidebarMenu = () => import(/* webpackChunkName: "SidebarMenu" */ './SidebarMenu.vue')
 
 export default {
   name: 'Sidebar',

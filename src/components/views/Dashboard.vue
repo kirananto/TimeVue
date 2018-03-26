@@ -31,7 +31,7 @@
   <!-- /.content -->
 </template>
 <script>
-import Subjectlist from './Subjectlist.vue'
+const Subjectlist = () => import(/* webpackChunkName: "Subjectlist" */ './Subjectlist.vue')
 import { mapGetters } from 'vuex'
 export default {
   components: {
