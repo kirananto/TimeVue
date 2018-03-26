@@ -10,9 +10,10 @@ import routes from './routes'
 import store from './store'
 import VueParticles from 'vue-particles'
 import firebase from 'firebase'
-require('firebase/firestore')
 // Import Views - Top level
 import AppView from './components/App.vue'
+
+require('firebase/firestore')
 
 // Vue.use(vSelect)
 Vue.use(VueRouter)
