@@ -8,7 +8,7 @@
             <!-- Input Addons -->
 
             <div class="box-header with-border">
-              <h3 class="box-title"><strong> Timetable for {{subject.tcode}}</strong></h3>
+              <h3 class="box-title"><strong> Timetable </strong></h3>
             </div>
 
             <div class="box-body text-center">
@@ -84,7 +84,6 @@ require('firebase/firestore')
 export default {
   data: function () {
     return {
-      subject: JSON.parse(this.$route.params.subject.toString()),
       teacherTimetable: {
         monday: [],
         tuesday: [],
@@ -95,21 +94,20 @@ export default {
       loaded: 0
     }
   },
-  computed: {
-    teacherLocation: function () {
-      return `/teachers/${this.subject.tcode}/timeTable`
-    }
-  },
   mounted () {
-    const teacherTimeTableRef = firebase.firestore().collection(this.teacherLocation)
-    teacherTimeTableRef.get().then(teacherTimetableSnapshot => {
-      teacherTimetableSnapshot.forEach(dayDoc => {
-        teacherTimeTableRef.doc(dayDoc.id).collection('hours').get().then(dailyHours => {
-          dailyHours.forEach(hourDoc => {
-            this.teacherTimetable[dayDoc.id][(hourDoc.id - 1)] = {
-              subcode: hourDoc.data().subcode,
-              tcode: hourDoc.data().tcode
-            }
+    firebase.firestore().doc(`users/${firebase.auth().currentUser.uid}`).get().then(doc => {
+      console.log(doc.data().tcode)
+      const teacherTimeTableRef = firebase.firestore().collection(`/teachers/${doc.data().tcode}/timeTable`)
+      teacherTimeTableRef.get().then(teacherTimetableSnapshot => {
+        teacherTimetableSnapshot.forEach(dayDoc => {
+          teacherTimeTableRef.doc(dayDoc.id).collection('hours').get().then(dailyHours => {
+            dailyHours.forEach(hourDoc => {
+              this.loaded++
+              this.teacherTimetable[dayDoc.id][(hourDoc.id - 1)] = {
+                subcode: hourDoc.data().subcode,
+                tcode: hourDoc.data().tcode
+              }
+            })
           })
         })
       })
