@@ -27,7 +27,7 @@
 </template>
 
 <script>
-const firebase = () => import(/* webpackChunkName: "Firebase" */ 'firebase')
+import firebase from 'firebase'
 require('firebase/firestore')
 import vSelect from 'vue-select'
 import { mapGetters } from 'vuex'

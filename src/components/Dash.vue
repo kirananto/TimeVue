@@ -73,7 +73,7 @@
 </template>
 
 <script>
-const firebase = () => import(/* webpackChunkName: "Firebase" */ 'firebase')
+import firebase from 'firebase'
 const Sidebar = () => import(/* webpackChunkName: "Sidebar" */ './Sidebar.vue')
 require('firebase/firestore')
 import 'hideseek'

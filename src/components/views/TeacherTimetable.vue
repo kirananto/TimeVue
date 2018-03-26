@@ -79,7 +79,7 @@
   </section>
 </template>
 <script>
-const firebase = () => import(/* webpackChunkName: "Firebase" */ 'firebase')
+import firebase from 'firebase'
 require('firebase/firestore')
 export default {
 data: function () {

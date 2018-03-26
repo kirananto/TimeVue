@@ -94,7 +94,7 @@
 </template>
 <script>
 
-const firebase = () => import(/* webpackChunkName: "Firebase" */ 'firebase')
+import firebase from 'firebase'
 // import firebase from 'firebase'
 require('firebase/firestore')
 var db = null

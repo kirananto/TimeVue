@@ -113,7 +113,7 @@
 <script>
   import vSelect from 'vue-select'
   import { mapGetters } from 'vuex'
-  const firebase = () => import(/* webpackChunkName: "Firebase" */ 'firebase')
+  import firebase from 'firebase'
   require('firebase/firestore')
   export default {
     components: {
