@@ -62,7 +62,7 @@ Assign Subjects</router-link>
   <!-- /.content -->
 </template>
 <script>
-import firebase from 'firebase'
+const firebase = () => import(/* webpackChunkName: "Firebase" */ 'firebase')
 require('firebase/firestore')
 import csv from 'csvtojson'
 var db = null

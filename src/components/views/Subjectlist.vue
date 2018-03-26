@@ -19,7 +19,7 @@
 
 
 <script type="text/javascript">
-import firebase from 'firebase'
+const firebase = () => import(/* webpackChunkName: "Firebase" */ 'firebase')
 require('firebase/firestore')
 export default {
   data: function () {

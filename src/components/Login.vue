@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+const firebase = () => import(/* webpackChunkName: "Firebase" */ 'firebase')
 require('firebase/firestore')
 export default {
   name: 'Login',

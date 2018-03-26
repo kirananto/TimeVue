@@ -90,7 +90,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import firebase from 'firebase'
+const firebase = () => import(/* webpackChunkName: "Firebase" */ 'firebase')
 import swal from 'sweetalert'
 require('firebase/firestore')
 export default {
