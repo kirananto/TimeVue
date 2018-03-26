@@ -82,7 +82,7 @@
 const firebase = () => import(/* webpackChunkName: "Firebase" */ 'firebase')
 require('firebase/firestore')
 export default {
-  data: function () {
+data: function () {
     return {
       teacherTimetable: {
         monday: [],
