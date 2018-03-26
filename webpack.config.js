@@ -65,15 +65,14 @@ const config = {
   /**
    * You can use these too for bigger projects. For now it is 0 conf mode for me!
    */
-  // entry: {
-  //   build: path.join(setPath('src'), 'main.js'),
-  //   vendor: path.join('setPath('src'), 'vendor.js')
-  // },
-  // output: {
-  //   path: buildingForLocal() ? path.resolve(__dirname) : setPath('dist'), //this one sets the path to serve
-  //   publicPath: setPublicPath(),
-  //   filename: buildingForLocal() ? 'js/[name].js' : 'js/[name].[hash].js'
-  // },
+  entry: {
+    build: path.join(setPath('src'), 'index.js')
+  },
+  output: {
+    path: buildingForLocal() ? path.resolve(__dirname) : setPath('dist'), //this one sets the path to serve
+    publicPath: setPublicPath(),
+    filename: buildingForLocal() ? 'js/[name].js' : 'js/[name][hash].js'
+  },
   
   optimization:{
     runtimeChunk: true,
