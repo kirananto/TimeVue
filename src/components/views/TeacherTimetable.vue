@@ -82,7 +82,7 @@
 import firebase from 'firebase'
 require('firebase/firestore')
 export default {
-  data: function () {
+data: function () {
     return {
       subject: JSON.parse(this.$route.params.subject.toString()),
       teacherTimetable: {
