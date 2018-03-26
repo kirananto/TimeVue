@@ -115,6 +115,7 @@ export default {
 
 <style lang="scss">
 .wrapper.fixed_layout {
+  margin-bottom: 15rem;
   .main-header {
     position: fixed;
     width: 100%;
