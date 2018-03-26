@@ -125,12 +125,12 @@ export default {
     },
     setdiv: function (div) {
       // console.log('SEtting division')
+      this.$store.commit('TOGGLE_CLASS_DIV', div)
       var item = {
         className: this.getCurrentClass.semester,
         branchName: this.getCurrentClass.branch,
-        divisionName: this.getCurrentClass.div
+        divisionName: div
       }
-      this.$store.commit('TOGGLE_CLASS_DIV', div)
       this.$router.push({
         path: `/viewtimetable/${JSON.stringify(item)}`
       })

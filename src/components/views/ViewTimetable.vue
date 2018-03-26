@@ -104,8 +104,8 @@ export default {
     const classTimetableRef = firebase.firestore().collection(this.classLocation)
     for (var dayDoc in this.classTimetable) {
       if (this.classTimetable.hasOwnProperty(dayDoc)) {
-        console.log(dayDoc)
-        classTimetableRef.doc(dayDoc).collection(`hours`).get().then(dailyHours => {
+        classTimetableRef.doc(dayDoc.toString()).collection(`hours`).get().then(dailyHours => {
+          console.log(dailyHours.size)
           dailyHours.forEach(hourDoc => {
             // console.log(hourDoc.data().tcode + hourDoc.data().day + hourDoc.id + '-----')
             // if ((hourDoc.data().subcode === this.subject.subcode) && (hourDoc.data().tcode === this.subject.tcode) && ((hourDoc.data().softLock === true) || (hourDoc.data().hardLock === true))) {
