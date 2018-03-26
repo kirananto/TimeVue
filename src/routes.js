@@ -1,18 +1,17 @@
-import DashView from './components/Dash.vue'
-import LoginView from './components/Login.vue'
-import NotFoundView from './components/404.vue'
-import AccessDenied from './components/AccessDenied.vue'
+const DashView = () => import(/* webpackChunkName: "DashView" */ './components/Dash.vue')
+const LoginView = () => import(/* webpackChunkName: "LoginView" */ './components/Login.vue')
+const NotFoundView = () => import(/* webpackChunkName: "NotFoundView" */ './components/404.vue')
+const AccessDenied = () => import(/* webpackChunkName: "AccessDenied" */ './components/AccessDenied.vue')
 
-// Import Views - Dash
-import DashboardView from './components/views/Dashboard.vue'
-import DetailsView from './components/views/Details.vue'
-import ProfileView from './components/views/Profile.vue'
-import TimetableView from './components/views/Timetable.vue'
-import ViewTimetable from './components/views/ViewTimetable.vue'
-import TeachersView from './components/views/Teachers.vue'
-import SubjectsView from './components/views/Subjects.vue'
-import SubjectListView from './components/views/Subjectlist.vue'
-import TeacherTimetable from './components/views/TeacherTimetable.vue'
+const DashboardView = () => import(/* webpackChunkName: "DashboardView" */ './components/views/Dashboard.vue')
+const DetailsView = () => import(/* webpackChunkName: "DetailsView" */ './components/views/Details.vue')
+const ProfileView = () => import(/* webpackChunkName: "ProfileView" */ './components/views/Profile.vue')
+const TimetableView = () => import(/* webpackChunkName: "TimetableView" */ './components/views/Timetable.vue')
+const ViewTimetable = () => import(/* webpackChunkName: "ViewTimetable" */ './components/views/ViewTimetable.vue')
+const TeachersView = () => import(/* webpackChunkName: "TeachersView" */ './components/views/Teachers.vue')
+const SubjectsView = () => import(/* webpackChunkName: "SubjectsView" */ './components/views/Subjects.vue')
+const SubjectListView = () => import(/* webpackChunkName: "SubjectListView" */ './components/views/Subjectlist.vue')
+const TeacherTimetable = () => import(/* webpackChunkName: "TeacherTimetable" */ './components/views/TeacherTimetable.vue')
 // import SettingView from './components/views/Setting.vue'
 
 // Routes
