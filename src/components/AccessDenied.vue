@@ -21,7 +21,7 @@
 <style scoped>
 
 .vertical-10p {
-  padding-top: 30%;
+  padding-top: 15%;
 }
 
 .logo {
