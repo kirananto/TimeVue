@@ -100,17 +100,199 @@ data: function () {
       console.log(doc.data().tcode)
       const teacherTimeTableRef = firebase.firestore().collection(`/teachers/${doc.data().tcode}/timeTable`)
       teacherTimeTableRef.get().then(teacherTimetableSnapshot => {
-        teacherTimetableSnapshot.forEach(dayDoc => {
-          teacherTimeTableRef.doc(dayDoc.id).collection('hours').get().then(dailyHours => {
-            dailyHours.forEach(hourDoc => {
-              this.loaded++
-              this.teacherTimetable[dayDoc.id][(hourDoc.id - 1)] = {
-                subcode: hourDoc.data().subcode,
-                tcode: hourDoc.data().tcode
+        if(teacherTimetableSnapshot.size === 0) {
+          this.teacherTimetable = {
+            monday: [{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            }],
+            tuesday: [{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            }],
+            thursday: [{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            }],
+            wednesday: [{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            }],
+            friday: [{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            }]
+          }
+        } else {
+          teacherTimetableSnapshot.forEach(dayDoc => {
+            teacherTimeTableRef.doc(dayDoc.id).collection('hours').get().then(dailyHours => {
+              if(dailyHours.size === 0) {
+                this.teacherTimetable[dayDoc.id] = [{
+                  subcode: '',
+                  tcode: '',
+                  hardLock: false
+                },{
+                  subcode: '',
+                  tcode: '',
+                  hardLock: false
+                },{
+                  subcode: '',
+                  tcode: '',
+                  hardLock: false
+                },{
+                  subcode: '',
+                  tcode: '',
+                  hardLock: false
+                },{
+                  subcode: '',
+                  tcode: '',
+                  hardLock: false
+                },{
+                  subcode: '',
+                  tcode: '',
+                  hardLock: false
+                },{
+                  subcode: '',
+                  tcode: '',
+                  hardLock: false
+                }]
+              } else {
+                dailyHours.forEach(hourDoc => {
+                  this.loaded++
+                  this.teacherTimetable[dayDoc.id][(hourDoc.id - 1)] = {
+                    subcode: hourDoc.data().subcode,
+                    tcode: hourDoc.data().tcode
+                  }
+                })
               }
             })
           })
-        })
+        }
       })
     })
   }

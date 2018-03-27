@@ -302,17 +302,199 @@ export default {
 
     // fetching teacher timetable
     teacherTimeTableRef.onSnapshot(teacherTimetableSnapshot => {
-      teacherTimetableSnapshot.forEach(dayDoc => {
-        teacherTimeTableRef.doc(dayDoc.id).collection('hours').onSnapshot(dailyHours => {
-          dailyHours.forEach(hourDoc => {
-            this.teacherTimetable[dayDoc.id][(hourDoc.id - 1)] = {
-              subcode: hourDoc.data().subcode,
-              tcode: hourDoc.data().tcode,
-              hardLock: hourDoc.data().hardLock
+      if(teacherTimetableSnapshot.size === 0) {
+        this.teacherTimetable = {
+          monday: [{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          }],
+          tuesday: [{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          }],
+          thursday: [{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          }],
+          wednesday: [{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          }],
+          friday: [{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          }]
+        }
+      } else {
+        teacherTimetableSnapshot.forEach(dayDoc => {
+          teacherTimeTableRef.doc(dayDoc.id).collection('hours').onSnapshot(dailyHours => {
+            if(dailyHours.size === 0) {
+              this.teacherTimetable[dayDoc.id] = [{
+                subcode: '',
+                tcode: '',
+                hardLock: false
+              },{
+                subcode: '',
+                tcode: '',
+                hardLock: false
+              },{
+                subcode: '',
+                tcode: '',
+                hardLock: false
+              },{
+                subcode: '',
+                tcode: '',
+                hardLock: false
+              },{
+                subcode: '',
+                tcode: '',
+                hardLock: false
+              },{
+                subcode: '',
+                tcode: '',
+                hardLock: false
+              },{
+                subcode: '',
+                tcode: '',
+                hardLock: false
+              }]
+            } else {
+              dailyHours.forEach(hourDoc => {
+                this.teacherTimetable[dayDoc.id][(hourDoc.id - 1)] = {
+                  subcode: hourDoc.data().subcode,
+                  tcode: hourDoc.data().tcode,
+                  hardLock: hourDoc.data().hardLock
+                }
+              })
             }
           })
         })
-      })
+      }
     }, err => {
       console.log('Unable to fetch teacherTimetable' + err)
     })
