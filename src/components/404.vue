@@ -19,15 +19,23 @@
 </script>
 
 <style scoped>
+
+.vertical-10p {
+  padding-top: 30%;
+}
+
+.logo {
+  height: 30rem;
+}
 h1,h4 {
   color: white;
 }
 
 h1 {
-  font-size: 15rem;
+  font-size: 5rem;
 }
 
 h4 {
-  font-size: 3rem;
+  font-size: 1.5rem;
 }
 </style>

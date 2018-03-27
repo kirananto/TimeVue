@@ -185,8 +185,9 @@ export default {
         } else {
            checkNearbyinClassHardLock = (this.classTimetable[day][index].hardLock === true && this.classTimetable[day][index].tcode === this.subject.tcode)
            checkNearbyinClassSoftLock = ((this.classTimetable[day][index].softLock === true && this.classTimetable[day][index].tcode === this.subject.tcode))
-           checkNearbyinTeacher = ((this.teacherTimetable[day][index].hardLock === true) || (this.teacherTimetable[day][index - 1].hardLock === true))
+           checkNearbyinTeacher = (this.teacherTimetable[day][index].hardLock === true)
         }
+
         var checkNearbyinClass = (checkNearbyinClassSoftLock || checkNearbyinClassHardLock)
 
         if (checkNearbyinClass || checkNearbyinTeacher) {
@@ -247,7 +248,11 @@ export default {
           }
         }
       } else {
-        swal('Sorry', 'You cannot modify these', 'error')
+         if (this.teacherTimetable[day][index - 1].hardLock === true) {
+            swal('Sorry', 'You have an Hour in //TODO', 'error')
+          } else {
+            swal('Sorry', 'You cannot modify these', 'error')
+          }
       }
     }
   },
