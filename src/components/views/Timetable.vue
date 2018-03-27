@@ -168,29 +168,23 @@ export default {
         this.totalSelectedCount = this.selectedCount.monday.reduce((sum, x) => sum + x) + this.selectedCount.tuesday.reduce((sum, x) => sum + x) + this.selectedCount.wednesday.reduce((sum, x) => sum + x) + this.selectedCount.thursday.reduce((sum, x) => sum + x) + this.selectedCount.friday.reduce((sum, x) => sum + x)
         var cannotSelect = false
         // declaring the softlocks checks for nearby hours
+        var checkNearbyinClassSoftLock = true
+        var checkNearbyinClassHardLock = true
+        var checkNearbyinTeacher = true
         if (index-1 !== 0) {
-           checkNearbyinClassSoftLock = ((this.classTimetable[day][index - 2].softLock === true && this.classTimetable[day][index - 2].tcode === this.subject.tcode) || (this.classTimetable[day][index].softLock === true && this.classTimetable[day][index].tcode === this.subject.tcode))
+          console.log(index - 1)
+          checkNearbyinClassSoftLock = ((this.classTimetable[day][index - 2].softLock === true && this.classTimetable[day][index - 2].tcode === this.subject.tcode) || (this.classTimetable[day][index].softLock === true && this.classTimetable[day][index].tcode === this.subject.tcode))
+          checkNearbyinClassHardLock = (this.classTimetable[day][index].hardLock === true && this.classTimetable[day][index].tcode === this.subject.tcode) || (this.classTimetable[day][index - 2].softLock === true && this.classTimetable[day][index - 2].tcode === this.subject.tcode)
+          checkNearbyinTeacher = ((this.teacherTimetable[day][index].hardLock === true) || (this.teacherTimetable[day][index - 2].hardLock === true) || (this.teacherTimetable[day][index - 1].hardLock === true))
         } else {
+           checkNearbyinClassHardLock = (this.classTimetable[day][index].hardLock === true && this.classTimetable[day][index].tcode === this.subject.tcode)
            checkNearbyinClassSoftLock = ((this.classTimetable[day][index].softLock === true && this.classTimetable[day][index].tcode === this.subject.tcode))
-        }
-        if (index-1 !== 0) {
-          var checkNearbyinClassHardLock = (this.classTimetable[day][index].hardLock === true && this.classTimetable[day][index].tcode === this.subject.tcode) || (this.classTimetable[day][index - 2].softLock === true && this.classTimetable[day][index - 2].tcode === this.subject.tcode)
-        }
-        else {
-          var checkNearbyinClassHardLock = (this.classTimetable[day][index].hardLock === true && this.classTimetable[day][index].tcode === this.subject.tcode)
+           checkNearbyinTeacher = ((this.teacherTimetable[day][index].hardLock === true) || (this.teacherTimetable[day][index - 1].hardLock === true))
         }
         var checkNearbyinClass = (checkNearbyinClassSoftLock || checkNearbyinClassHardLock)
-        if (index-1 !== 0) {
-            var checkNearbyinTeacher = ((this.teacherTimetable[day][index].hardLock === true) || (this.teacherTimetable[day][index - 2].hardLock === true) || (this.teacherTimetable[day][index - 1].hardLock === true))
-        }
-        else {
-            var checkNearbyinTeacher = ((this.teacherTimetable[day][index].hardLock === true) || (this.teacherTimetable[day][index - 1].hardLock === true))
-        }
-        // console.log(checkNearbyinClass)
-        // console.log(checkNearbyinTeacher)
+
         if (checkNearbyinClass || checkNearbyinTeacher) {
           cannotSelect = true
-          // console.log('first')
         }
         // console.log('second')
         var loc = `${this.classLocation}/${day}/hours/${index}`
@@ -294,6 +288,8 @@ export default {
             // console.log(this.classTimetable[dayDoc][(hourDoc.id - 1)])
             this.loaded++
           })
+        }, err => {
+          console.log('Unable to fetch classTimetable' + err)
         })
       }
     }
@@ -310,6 +306,8 @@ export default {
           })
         })
       })
+    }, err => {
+      console.log('Unable to fetch teacherTimetable' + err)
     })
   }
 }
