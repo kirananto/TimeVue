@@ -23,13 +23,10 @@
             <div class="timetable" v-if="loaded>=35">
               <div class="row">
                 <button class="btn sub mainbutton"></button>
-                <button class="btn sub mainbutton2">Hour1</button>
-                <button class="btn sub mainbutton2">Hour2</button>
-                <button class="btn sub mainbutton2">Hour3</button>
-                <button class="btn sub mainbutton2">Hour4</button>
-                <button class="btn sub mainbutton2">Hour5</button>
-                <button class="btn sub mainbutton2">Hour6</button>
-                <button class="btn sub mainbutton2">Hour7</button>
+                <button v-for="(item,keyMon) in classTimetable.monday" :key="keyMon"  class="btn sub mainbutton2">
+                  <span class="subject">HOUR{{keyMon+1}}</span>
+                  <span class="tcode"></span>
+                </button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Monday</button>
@@ -512,7 +509,7 @@ $w: 10rem;
 .sub {
   height: $h;
   min-width: $w;
-  border-radius: 1rem;
+  border-radius: .8rem;
   margin: .5rem;
   background-color: #dbdbdb;
   
@@ -540,6 +537,7 @@ $w: 10rem;
   background-color: #00A65A;
   font-weight: bold;
   width: 14rem;
+  // color: #000;
   font-family: bebas_neue_regularregular;
   font-size: 3rem;
 }
@@ -547,6 +545,7 @@ $w: 10rem;
 .mainbutton2 {  
   background-color: #00A65A;
   font-weight: bold;
+  // color: #000;
   font-family: bebas_neue_regularregular;
   font-size: 3rem;
 }
