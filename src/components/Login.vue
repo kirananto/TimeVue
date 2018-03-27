@@ -126,7 +126,6 @@ html, body, .container-table {
 .logo {
   width: 20em;
   padding: 1em;
-  margin-top: 20rem;
   margin-bottom: 1rem;
 }
 .loginForm .input-group {

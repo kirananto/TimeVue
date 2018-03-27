@@ -68,8 +68,8 @@ router.beforeEach((to, from, next) => {
           if (to.fullPath === '/details') {
             next('/profile')
           } else if (to.fullPath === '/' && store.getters.isCurrentClassSet) {
-            next('/timetable')
-          } else if (to.fullPath === '/timetable' && !store.getters.isCurrentClassSet) {
+            next()
+          } else if (to.fullPath === '/viewtimetable' && !store.getters.isCurrentClassSet) {
             next('/')
           } else {
             next()

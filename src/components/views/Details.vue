@@ -30,6 +30,7 @@
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
+import swal from 'sweetalert'
 import vSelect from 'vue-select'
 import { mapGetters } from 'vuex'
 export default {
@@ -78,7 +79,7 @@ export default {
   },
   methods: {
     submit: function () {
-      var batch = firebase.firestore().batch
+      var batch = firebase.firestore().batch()
       batch.set(firebase.firestore().collection('teachers').doc(this.tcode), {
         tname: this.tname,
         tbranch: this.tbranch
