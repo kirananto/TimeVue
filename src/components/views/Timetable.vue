@@ -90,9 +90,10 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import firebase from 'firebase'
+import * as firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
 import swal from 'sweetalert'
-require('firebase/firestore')
 export default {
   data () {
     return {

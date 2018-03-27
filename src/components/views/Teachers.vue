@@ -62,8 +62,9 @@ Assign Subjects</router-link>
   <!-- /.content -->
 </template>
 <script>
-import firebase from 'firebase'
-require('firebase/firestore')
+import * as firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
 import csv from 'csvtojson'
 var db = null
 export default {

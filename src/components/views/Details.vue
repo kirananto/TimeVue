@@ -27,8 +27,9 @@
 </template>
 
 <script>
-import firebase from 'firebase'
-require('firebase/firestore')
+import * as firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
 import vSelect from 'vue-select'
 import { mapGetters } from 'vuex'
 export default {

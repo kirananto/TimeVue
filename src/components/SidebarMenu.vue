@@ -94,9 +94,9 @@
 </template>
 <script>
 
-import firebase from 'firebase'
-// import firebase from 'firebase'
-require('firebase/firestore')
+import * as firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
 var db = null
 import { mapGetters } from 'vuex'
 export default {
