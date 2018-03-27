@@ -21,7 +21,7 @@
           <button v-on:click="setsem(item)" 
             class="btn col-md-3 classbutton" 
             v-bind:class="{'classbutton-pressed': item === getCurrentClass.semester }"> 
-              <strong>{{item.toUpperCase().substring(4)}}</strong>
+              <strong>YEAR {{item.toUpperCase().substring(4)}}</strong>
           </button>
         </div>
       </div>

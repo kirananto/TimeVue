@@ -8,7 +8,7 @@
             <!-- Input Addons -->
 
             <div class="box-header with-border">
-              <h3 class="box-title"><strong> Timetable for {{subject.className}} {{subject.branchName}} {{subject.divisionName}}</strong></h3>
+              <h3 class="box-title"><strong> Timetable for YEAR {{subject.className.toUpperCase().substring(4)}} {{subject.branchName.toUpperCase()}} {{subject.divisionName.toUpperCase()}}</strong></h3>
             </div>
 
             <div class="box-body text-center">
