@@ -21,7 +21,7 @@
           <button v-on:click="setsem(item)" 
             class="btn col-md-3 classbutton" 
             v-bind:class="{'classbutton-pressed': item === getCurrentClass.semester }"> 
-              <strong>{{item}}</strong>
+              <strong>{{item.toUpperCase().substring(4)}}</strong>
           </button>
         </div>
       </div>
@@ -40,7 +40,7 @@
           <button v-on:click="setbranch(item)" 
             class="btn col-md-2 classbutton"
             v-bind:class="{'classbutton-pressed': item === getCurrentClass.branch }">
-              <strong>{{item}}</strong>
+              <strong>{{item.toUpperCase()}}</strong>
           </button>
         </div>
       </div>
@@ -66,7 +66,7 @@
           <button v-on:click="setdiv(item)"
             class="btn col-md-6 classbutton"
             v-bind:class="{'classbutton-pressed': item === getCurrentClass.division }"> 
-              <strong>{{item}}</strong>
+              <strong>{{item.toUpperCase()}}</strong>
           </button>
         </div>
       </div>
@@ -203,6 +203,7 @@ export default {
 
   .classbutton {
     margin-left: 1rem;
+    font-size: 1.2rem;
   }
   .classbutton-pressed {
     background-color: #00A65A;
