@@ -65,6 +65,7 @@ Assign Subjects</router-link>
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
+import swal from 'sweetalert'
 import csv from 'csvtojson'
 var db = null
 export default {
@@ -93,7 +94,9 @@ export default {
         tname: this.tname,
         tbranch: this.tbranch
       }).then((success) => {
-        console.log('pushed data')
+        swal('Success', 'Successfully Added the Teacher', 'success')
+      }).catch(err => {
+        swal('Error', 'Failed to Add Teacher', 'error')
       })
       this.tid = null
       this.tname = null
@@ -119,7 +122,9 @@ export default {
         })
         .on('done', () => {
           batch.commit().then((success) => {
-            console.log('Success')
+            swal('Success', 'Successfully Uploaded the Data', 'success')
+          }).catch(err => {
+            swal('Error', 'Failed to Upload the data', 'error')
           })
         })
       }

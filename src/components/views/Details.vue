@@ -78,20 +78,19 @@ export default {
   },
   methods: {
     submit: function () {
-      firebase.firestore().collection('teachers').doc(this.tcode).set({
+      var batch = firebase.firestore().batch
+      batch.set(firebase.firestore().collection('teachers').doc(this.tcode), {
         tname: this.tname,
         tbranch: this.tbranch
-      }).then((success) => {
-        console.log('data pushed to teachers')
       })
-      firebase.firestore().collection('users').doc(this.getUser.uid).set({
+      batch.set(firebase.firestore().collection('users').doc(this.getUser.uid), {
         tcode: this.tcode,
         tname: this.tname,
         tbranch: this.tbranch
-      }).then((success) => {
-        console.log('data pushed to the user')
       })
-      // TODO push teacher details
+      batch.commit().then((success) => {
+        swal('Success', 'Updated User Details', 'success')
+      }).catch(err => swal('Error', 'Failed to Update', 'error'))
     }
   }
 }

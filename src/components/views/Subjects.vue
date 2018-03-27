@@ -192,7 +192,11 @@
             })
           })
         })
-        p.then(success => batch.commit().then(success => console.log('batch write success')))
+        p.then(success => batch.commit().then(success => {
+          swal('Success', 'Assigned Subjects', 'success')
+          }).catch(err => {
+            swal('Error', 'Failed to Push Data', 'error')
+          }))
       },
       addTeacher: function () {
         console.log('this is keyer')
