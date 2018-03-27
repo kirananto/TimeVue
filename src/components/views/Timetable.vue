@@ -150,7 +150,7 @@ export default {
         if (this.selectedHours.hasOwnProperty(day)) {
           this.selectedHours[day].forEach(hour => {
             batch.set(subjectRef.doc(day).collection('hours').doc(hour.index.toString()), hour)
-            batch.set(firebase.firestore().doc(`teachers/${this.subject.tcode}/timeTable/day/hours/${hour.index.toString()}`), hour)
+            batch.set(firebase.firestore().doc(`teachers/${this.subject.tcode}/timeTable/${day}/hours/${hour.index.toString()}`), hour)
           })
         }
       }
@@ -307,7 +307,8 @@ export default {
           dailyHours.forEach(hourDoc => {
             this.teacherTimetable[dayDoc.id][(hourDoc.id - 1)] = {
               subcode: hourDoc.data().subcode,
-              tcode: hourDoc.data().tcode
+              tcode: hourDoc.data().tcode,
+              hardLock: hourDoc.data().hardLock
             }
           })
         })
