@@ -173,10 +173,15 @@ export default {
         var checkNearbyinClassHardLock = true
         var checkNearbyinTeacher = true
         if (index-1 !== 0) {
-          console.log(index - 1)
-          checkNearbyinClassSoftLock = ((this.classTimetable[day][index - 2].softLock === true && this.classTimetable[day][index - 2].tcode === this.subject.tcode) || (this.classTimetable[day][index].softLock === true && this.classTimetable[day][index].tcode === this.subject.tcode))
-          checkNearbyinClassHardLock = (this.classTimetable[day][index].hardLock === true && this.classTimetable[day][index].tcode === this.subject.tcode) || (this.classTimetable[day][index - 2].softLock === true && this.classTimetable[day][index - 2].tcode === this.subject.tcode)
-          checkNearbyinTeacher = ((this.teacherTimetable[day][index].hardLock === true) || (this.teacherTimetable[day][index - 2].hardLock === true) || (this.teacherTimetable[day][index - 1].hardLock === true))
+          if(index === 7) {
+            checkNearbyinClassSoftLock = (this.classTimetable[day][index - 2].softLock === true && this.classTimetable[day][index - 2].tcode === this.subject.tcode)
+            checkNearbyinClassHardLock = (this.classTimetable[day][index - 2].softLock === true && this.classTimetable[day][index - 2].tcode === this.subject.tcode)
+            checkNearbyinTeacher = ((this.teacherTimetable[day][index - 2].hardLock === true) || (this.teacherTimetable[day][index - 1].hardLock === true))
+          } else {
+            checkNearbyinClassSoftLock = ((this.classTimetable[day][index - 2].softLock === true && this.classTimetable[day][index - 2].tcode === this.subject.tcode) || (this.classTimetable[day][index].softLock === true && this.classTimetable[day][index].tcode === this.subject.tcode))
+            checkNearbyinClassHardLock = (this.classTimetable[day][index].hardLock === true && this.classTimetable[day][index].tcode === this.subject.tcode) || (this.classTimetable[day][index - 2].softLock === true && this.classTimetable[day][index - 2].tcode === this.subject.tcode)
+            checkNearbyinTeacher = ((this.teacherTimetable[day][index].hardLock === true) || (this.teacherTimetable[day][index - 2].hardLock === true) || (this.teacherTimetable[day][index - 1].hardLock === true))
+          }
         } else {
            checkNearbyinClassHardLock = (this.classTimetable[day][index].hardLock === true && this.classTimetable[day][index].tcode === this.subject.tcode)
            checkNearbyinClassSoftLock = ((this.classTimetable[day][index].softLock === true && this.classTimetable[day][index].tcode === this.subject.tcode))
