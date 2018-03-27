@@ -83,7 +83,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 html, body, .container-table {
   height: 100%;
 }
@@ -126,6 +126,7 @@ html, body, .container-table {
 .logo {
   width: 20em;
   padding: 1em;
+  margin-top: 20rem;
   margin-bottom: 1rem;
 }
 .loginForm .input-group {

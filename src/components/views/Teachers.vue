@@ -94,6 +94,7 @@ export default {
         tname: this.tname,
         tbranch: this.tbranch
       }).then((success) => {
+        console.log('success')
         swal('Success', 'Successfully Added the Teacher', 'success')
       }).catch(err => {
         swal('Error', 'Failed to Add Teacher', 'error')

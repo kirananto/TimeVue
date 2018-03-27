@@ -1,12 +1,12 @@
 <template>
   <div id="app">
      <vue-particles
-        color="#41B883"
+        color="#35495e"
         :particleOpacity="0.7"
         :particlesNumber="80"
         shapeType="circle"
         :particleSize="4"
-        linesColor="#41B883"
+        linesColor="#35495f"
         :linesWidth="1"
         :lineLinked="true"
         :lineOpacity="0.4"
