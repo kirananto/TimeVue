@@ -1,29 +1,29 @@
 <template>
-  <div class="container container-table">
-      <div class="row vertical-10p">
-        <div class="container">
-            <!-- details form -->
-            <div class="box-body text-center">
-            <div class="row">
-              <v-select v-model="tcode" :options="tcodes" class="tcode"></v-select>
-              <!-- <div class="input-group">
-                    <input v-model="teacherdetails.tcode"  type="text" length="100" placeholder="Enter Teacher Code" >
-              </div> -->
-            </div>
-            <div class="row">
-              <div class="input-group">
-                    <input v-model="tname"  type="text" placeholder="Teacher Name" >
+  <section class="content">
+    <!-- Info boxes -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box box-info">
+          <!-- Input Addons -->
+          <div class="box-header with-border">
+            <h3 class="box-title"><strong>SELECT YOUR TEACHER ENTRY</strong></h3>
+          </div>
+          <div class="box-body text-center">
+            <!-- calendar group -->
+            <div class="vcenter">
+              <div class="row">
+                <div class="vsele">
+                  <v-select v-model="tcode" :options="tcodes" class="tcode"></v-select>
+                </div>
+                <input v-model="tname"  type="text" placeholder="Teacher Name" >
+                <button v-on:click="submit" class="btn tab"> SUBMIT</button>
               </div>
             </div>
-            <div class="row">
-              <div class="input-group">
-                     <button v-on:click="submit" class="btn tab add-button"> SUBMIT</button>
-              </div>
-            </div>
-              </div>
-              </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -98,16 +98,12 @@ export default {
 </script>
 
 <style>
-html, body, .container-table {
-  height: 100%;
-}
-.container-table {
-    display: table;
-    color: black;
+.vsele {
+  display: inline;
 }
 input[type=text] {
     border: none;
-    /*background-color: #F0F0F0;*/
+    background-color: #F0F0F0;
     height: 5rem;
     border-radius: 1rem;
     padding-left: 2rem;
@@ -115,6 +111,7 @@ input[type=text] {
 
 .tcode {
   width: 40%;
+  margin-left: 2rem;
 }
 .tab {
   border-radius: 1rem;

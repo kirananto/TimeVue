@@ -514,6 +514,7 @@ $w: 10rem;
   min-width: $w;
   border-radius: 1rem;
   margin: .5rem;
+  background-color: #dbdbdb;
   
   &:hover {
     background-color: #00A65A;
