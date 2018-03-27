@@ -164,32 +164,34 @@
           this.tabledata.forEach(data => {
             // update subject data
             console.log(data.Name)
-            batch.update(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}`), {
-              Name: data.Name,
-              Hours: parseInt(data.Hours),
-              Type: data.Type
-            })
-
-            firebase.firestore().collection(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}/Teachers`).get().then(q => {
-              counter++
-              q.forEach(d => {
-                batch.delete(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${d.data().subject}/Teachers/${d.id}`))
+            if(data.Name && data.Id && data.Type) {
+               batch.update(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}`), {
+                Name: data.Name,
+                Hours: parseInt(data.Hours),
+                Type: data.Type
               })
-              if (counter !== this.tabledata.length) {
-                console.log(counter)
-                resolve()
-              }
-            })
-            // push teacher to subjects database
-            batch.set(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}/Teachers/${data.Teacher.tid}`), {
-              Name: firebase.firestore().doc(`/teachers/${data.Teacher.tid}`),
-              subject: data.Id
-            })
 
-            // push subjects to teachers
-            batch.set(firebase.firestore().doc(`/teachers/${data.Teacher.tid}/Subjects/${data.Id}`), {
-              Name: firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}`)
-            })
+              firebase.firestore().collection(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}/Teachers`).get().then(q => {
+                counter++
+                q.forEach(d => {
+                  batch.delete(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${d.data().subject}/Teachers/${d.id}`))
+                })
+                if (counter !== this.tabledata.length) {
+                  console.log(counter)
+                  resolve()
+                }
+              })
+              // push teacher to subjects database
+              batch.set(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}/Teachers/${data.Teacher.tid}`), {
+                Name: firebase.firestore().doc(`/teachers/${data.Teacher.tid}`),
+                subject: data.Id
+              })
+
+              // push subjects to teachers
+              batch.set(firebase.firestore().doc(`/teachers/${data.Teacher.tid}/Subjects/${data.Id}`), {
+                Name: firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}`)
+              })
+            }
           })
         })
         p.then(success => batch.commit().then(success => {
