@@ -101,6 +101,7 @@ data: function () {
       const teacherTimeTableRef = firebase.firestore().collection(`/teachers/${doc.data().tcode}/timeTable`)
       teacherTimeTableRef.get().then(teacherTimetableSnapshot => {
         if(teacherTimetableSnapshot.size === 0) {
+          this.loaded = 35
           this.teacherTimetable = {
             monday: [{
               subcode: '',
@@ -252,6 +253,7 @@ data: function () {
           teacherTimetableSnapshot.forEach(dayDoc => {
             teacherTimeTableRef.doc(dayDoc.id).collection('hours').get().then(dailyHours => {
               if(dailyHours.size === 0) {
+                this.loaded += 7
                 this.teacherTimetable[dayDoc.id] = [{
                   subcode: '',
                   tcode: '',
