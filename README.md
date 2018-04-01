@@ -37,7 +37,7 @@ Contribution are always **welcome and recommended**! Here is how:
 
 ### Installation
 
-timeVue requires [Node.js](https://nodejs.org/) v8+ to run.
+timeVue requires [Node.js](https://nodejs.org/) v9+ to run.
 
 Install the dependencies and devDependencies and start the server.
 
@@ -51,8 +51,7 @@ For production environments...
 
 ```sh
 $ npm install
-$ npm build
-$ npm start
+$ npm run build
 ```
 
 ### Development
@@ -68,14 +67,11 @@ First Tab:
 ```sh
 $ npm run dev
 ```
-(optional) Second:
-```sh
-$ karma test
-```
+
 #### Building for source
 For production release:
 ```sh
-$ npm build
+$ npm run build
 ```
 
 ### Thank You for your time. 
