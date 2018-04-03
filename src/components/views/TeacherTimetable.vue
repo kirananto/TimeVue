@@ -100,6 +100,7 @@ data: function () {
       console.log(doc.data().tcode)
       const teacherTimeTableRef = firebase.firestore().collection(`/teachers/${doc.data().tcode}/timeTable`)
       teacherTimeTableRef.get().then(teacherTimetableSnapshot => {
+        console.log('no db')
         if(teacherTimetableSnapshot.size === 0) {
           this.loaded = 35
           this.teacherTimetable = {
