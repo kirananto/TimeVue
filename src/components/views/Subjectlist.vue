@@ -1,7 +1,6 @@
 <template>
   <div class="container container-table">
     <h1>SELECT CLASS</h1>
-    <center>
     <div v-if="subjects.length > 0">
       <!-- check for passing props -->
       <router-link v-for="(item,key) in subjects" :key="key"  :to="{ path:`/timetable/${JSON.stringify(item)}` }" class="btn btn-primary subject-button"  align="center">
@@ -12,7 +11,6 @@
     <div v-else>
       <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
     </div>
-    </center>
   </div>
 </template>
 
@@ -57,7 +55,6 @@ export default {
 <style lang="scss" scoped>
 .subject-button {
   margin-top: 2rem;
-  max-width: 65rem;
   display: block;
   background-color: #00a65a;
 
