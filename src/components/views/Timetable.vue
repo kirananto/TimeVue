@@ -58,7 +58,7 @@
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Friday</button>
-                <button v-for="(item,keyFri) in classTimetable.friday" v-if="!((item.className === 'yearOne' && keyFri == 4) || (item.className != 'yearOne' && keyFri == 5 ))" :key="keyFri"  v-on:click="softLock('friday',keyFri + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
+                <button v-for="(item,keyFri) in classTimetable.friday" :key="keyFri"  v-on:click="softLock('friday',keyFri + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
