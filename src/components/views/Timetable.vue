@@ -30,35 +30,35 @@
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Monday</button>
-                <button v-for="(item,keyMon) in classTimetable.monday" :key="keyMon" v-on:click="softLock('monday',keyMon + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
+                <button v-for="(item,keyMon) in classTimetable.monday" v-if="!((item.className === 'yearOne' && keyMon == 4) || (item.className != 'yearOne' && keyMon == 5 ))" :key="keyMon" v-on:click="softLock('monday',keyMon + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Tuesday</button>
-                <button v-for="(item,keyTue) in classTimetable.tuesday" :key="keyTue" v-on:click="softLock('tuesday',keyTue + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
+                <button v-for="(item,keyTue) in classTimetable.tuesday" v-if="!((item.className === 'yearOne' && keyTue == 4) || (item.className != 'yearOne' && keyTue == 5 ))" :key="keyTue"   v-on:click="softLock('tuesday',keyTue + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Wednesday</button>
-                <button v-for="(item,keyWed) in classTimetable.wednesday" :key="keyWed"  v-on:click="softLock('wednesday',keyWed + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
+                <button v-for="(item,keyWed) in classTimetable.wednesday" v-if="!((item.className === 'yearOne' && keyWed == 4) || (item.className != 'yearOne' && keyWed == 5 ))" :key="keyWed"    v-on:click="softLock('wednesday',keyWed + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Thursday</button>
-                <button v-for="(item,keyThu) in classTimetable.thursday" :key="keyThu" v-on:click="softLock('thursday',keyThu + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
+                <button v-for="(item,keyThu) in classTimetable.thursday" v-if="!((item.className === 'yearOne' && keyThu == 4) || (item.className != 'yearOne' && keyThu == 5 ))" :key="keyThu"   v-on:click="softLock('thursday',keyThu + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Friday</button>
-                <button v-for="(item,keyFri) in classTimetable.friday" :key="keyFri" v-on:click="softLock('friday',keyFri + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
+                <button v-for="(item,keyFri) in classTimetable.friday" v-if="!((item.className === 'yearOne' && keyFri == 4) || (item.className != 'yearOne' && keyFri == 5 ))" :key="keyFri"  v-on:click="softLock('friday',keyFri + 1,item)" class="btn sub" v-bind:class="{softLocked: item.softLock}">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
@@ -110,11 +110,11 @@ export default {
         friday: []
       },
       selectedCount: {
-        monday: [0, 0, 0, 0, 0, 0, 0],
-        tuesday: [0, 0, 0, 0, 0, 0, 0],
-        thursday: [0, 0, 0, 0, 0, 0, 0],
-        wednesday: [0, 0, 0, 0, 0, 0, 0],
-        friday: [0, 0, 0, 0, 0, 0, 0]
+        monday: [0, 0, 0, 0, 0, 0, 0, 0],
+        tuesday: [0, 0, 0, 0, 0, 0, 0, 0],
+        thursday: [0, 0, 0, 0, 0, 0, 0, 0],
+        wednesday: [0, 0, 0, 0, 0, 0, 0, 0],
+        friday: [0, 0, 0, 0, 0, 0, 0, 0]
       },
       loaded: 0,
       teacherTimetable: {
