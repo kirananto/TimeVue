@@ -17,11 +17,11 @@ export default {
     }
   ],
   config: {
-    apiKey: 'AIzaSyB1zJLXNuzP8KmKfahOzzKwzCYk57oOaXU',
-    authDomain: 'timevue-a3bfb.firebaseapp.com',
-    databaseURL: 'https://timevue-a3bfb.firebaseio.com',
-    projectId: 'timevue-a3bfb',
-    storageBucket: 'timevue-a3bfb.appspot.com',
-    messagingSenderId: '1090341141834'
+    apiKey: 'AIzaSyBAgETRWU9aEjq5giu2Sv9F2l9IlZ__Z9Q',
+    authDomain: 'timevuetesting.firebaseapp.com',
+    databaseURL: 'https://timevuetesting.firebaseio.com',
+    projectId: 'timevuetesting',
+    storageBucket: 'timevuetesting.appspot.com',
+    messagingSenderId: '520393216136'
   }
 }
