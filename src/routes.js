@@ -12,6 +12,7 @@ const TeachersView = () => import(/* webpackChunkName: "TeachersView" */ './comp
 const SubjectsView = () => import(/* webpackChunkName: "SubjectsView" */ './components/views/Subjects.vue')
 const SubjectListView = () => import(/* webpackChunkName: "SubjectListView" */ './components/views/Subjectlist.vue')
 const TeacherTimetable = () => import(/* webpackChunkName: "TeacherTimetable" */ './components/views/TeacherTimetable.vue')
+const NoNetwork = () => import(/* webpackChunkName: "NoNetwork" */ './components/NoNetwork.vue')
 // import SettingView from './components/views/Setting.vue'
 
 // Routes
@@ -23,6 +24,10 @@ const routes = [
   {
     path: '/accessdenied',
     component: AccessDenied
+  },
+  {
+    path: '/nonetwork',
+    component: NoNetwork
   },
   {
     path: '/',

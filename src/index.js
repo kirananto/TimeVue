@@ -84,7 +84,9 @@ router.beforeEach((to, from, next) => {
             next()
           }
         }
-      })
+      }).catch(err => next({
+        path: '/nonetwork'
+      }))
     }
   } else {
     if (currentUser && to.fullPath === '/login') {
