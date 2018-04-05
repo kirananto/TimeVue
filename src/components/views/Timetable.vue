@@ -23,7 +23,7 @@
             <div class="timetable" v-if="loaded>=35">
               <div class="row">
                 <button class="btn sub mainbutton"></button>
-                <button v-for="(item,keyMon) in classTimetable.monday" :key="keyMon"  class="btn sub mainbutton2">
+                <button v-for="(item,keyMon) in classTimetable.monday" v-if="keyMon < 7" :key="keyMon"  class="btn sub mainbutton2">
                   <span class="subject">HOUR{{keyMon+1}}</span>
                   <span class="tcode"></span>
                 </button>
