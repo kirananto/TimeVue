@@ -46,7 +46,7 @@
                       <tbody>
                       <tr v-for="(item,key) in tabledata" :key="key">
                         <td>
-                          {{item.Name}} 
+                          <input type="text" v-model="item.Name"> 
                         </td>
                         <td>
                           <input type="number" v-model="item.Hours" name="HOURS">
