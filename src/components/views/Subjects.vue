@@ -61,13 +61,16 @@
                           </select>
                         </td>
                         <td >
-                          <v-select v-model="item.Teacher" :options="teachers">
-                          <select v-model="teachers"  placeholder="Select Teacher">
-                          <option v-for="(option,key) in teachers" :key="key" v-bind:value="option">
-                            {{ option }}
-                          </option>
-                          </select>
-                          </v-select>
+                          <div v-for="(i,k) in item.Teacher" :key="k">
+                            <v-select v-model="i.data" :options="teachers">
+                              <select v-model="teachers"  placeholder="Select Teacher">
+                              <option v-for="(option,key) in teachers" :key="key" v-bind:value="option">
+                                {{ option }}
+                              </option>
+                              </select>
+                            </v-select>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                          </div>
                         </td>
                         <td></td>
                         
@@ -237,14 +240,24 @@
         .get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             console.log(doc.data())
-            this.tabledata.push({
-              Name: doc.data().Name,
-              Id: doc.id,
-              Hours: doc.data().Hours,
-              Type:  doc.data().Type,
-              Teacher: doc.data().Teacher
-              // Hours: doc.data().Hours
-              // Teachers: doc.data().Teachers
+            firebase.firestore().collection(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${val}/subjects/${doc.id}/Teachers`).get()
+            .then(qS => {
+              let Teacher = []
+              qS.forEach(d => {
+                Teacher.push({ data: {
+                  tid: d.data().Name.path.split('/')[1],
+                  label: d.data().Name.path.split('/')[1]
+                }})
+              })
+               this.tabledata.push({
+                  Name: doc.data().Name,
+                  Id: doc.id,
+                  Hours: doc.data().Hours,
+                  Type:  doc.data().Type,
+                  Teacher: Teacher
+                  // Hours: doc.data().Hours
+                  // Teachers: doc.data().Teachers
+                })
             })
             console.log(doc.data())
           })
