@@ -36,7 +36,7 @@
                       </option>
                     </select>
                     
-                    <table class="table tble table-responsive">
+                    <table class="table tble table-responsive" v-if="tabledata">
                       <thead>
                         <tr>
                           <th scope="col"> SUBJECT NAME</th>
@@ -74,9 +74,10 @@
                         <td v-on:click="addTeacher">
                           <i class="fa fa-plus-circle plusbutton" ></i>
                         </td>
+                      </tr>
+                      <tr>
+                         <button v-on:click="assignTeacher" class="btn btn-primary" align="center">Confirm</button>
                       </tr> 
-                       <button v-on:click="assignTeacher" class="btn btn-primary" align="center">Confirm
-                          </button>
                       </tbody>                  
                     </table>
                     <!-- <input v-model="tCode" type="text" placeholder="Teacher Code" >
@@ -118,6 +119,7 @@
   import * as firebase from 'firebase/app'
   import 'firebase/auth'
   import 'firebase/firestore'
+  import swal from 'sweetalert'
   export default {
     components: {
       vSelect
@@ -234,9 +236,13 @@
         firebase.firestore().collection(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${val}/subjects`)
         .get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
+            console.log(doc.data())
             this.tabledata.push({
               Name: doc.data().Name,
-              Id: doc.id
+              Id: doc.id,
+              Hours: doc.data().Hours,
+              Type:  doc.data().Type,
+              Teacher: doc.data().Teacher
               // Hours: doc.data().Hours
               // Teachers: doc.data().Teachers
             })
