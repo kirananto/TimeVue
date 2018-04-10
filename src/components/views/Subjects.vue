@@ -17,24 +17,26 @@
                  <div class="row">
                    <!-- {{classList}} -->
                    <select v-model="selectedClass" class="selecCl">
-                      <option value="" disabled selected hidden>Select Class</option>
+                      <option value="" selected disabled hidden>Select Class</option>
                       <option v-for="(option,key) in classList" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
                     </select>
-                    <select v-model="selectedBranch"  class="selecCl" placeholder="Select Branch" >
+                    <select v-model="selectedBranch"  class="selecCl">
+                      <option value="" selected disabled hidden>Select Branch</option>
                       <option v-for="(option,key) in branches" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
                     </select>
 
-                     <select v-model="selectedDivision"  class="selecCl" placeholder="Select Class">
+                     <select v-model="selectedDivision"  class="selecCl">
+                      <option value="" selected disabled hidden>Select Division</option>                       
                       <option v-for="(option,key) in divisions" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
                     </select>
                     
-                    <table class="table tble table-responsive">
+                    <table class="table tble table-responsive" v-if="tabledata">
                       <thead>
                         <tr>
                           <th scope="col"> SUBJECT NAME</th>
@@ -72,9 +74,10 @@
                         <td v-on:click="addTeacher">
                           <i class="fa fa-plus-circle plusbutton" ></i>
                         </td>
+                      </tr>
+                      <tr>
+                         <button v-on:click="assignTeacher" class="btn btn-primary" align="center">Confirm</button>
                       </tr> 
-                       <button v-on:click="assignTeacher" class="btn btn-primary" align="center">Confirm
-                          </button>
                       </tbody>                  
                     </table>
                     <!-- <input v-model="tCode" type="text" placeholder="Teacher Code" >
@@ -116,6 +119,7 @@
   import * as firebase from 'firebase/app'
   import 'firebase/auth'
   import 'firebase/firestore'
+  import swal from 'sweetalert'
   export default {
     components: {
       vSelect
@@ -232,9 +236,13 @@
         firebase.firestore().collection(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${val}/subjects`)
         .get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
+            console.log(doc.data())
             this.tabledata.push({
               Name: doc.data().Name,
-              Id: doc.id
+              Id: doc.id,
+              Hours: doc.data().Hours,
+              Type:  doc.data().Type,
+              Teacher: doc.data().Teacher
               // Hours: doc.data().Hours
               // Teachers: doc.data().Teachers
             })
@@ -261,11 +269,21 @@ input[type=text] {
     padding-left: 2rem;
 }
 
+input[type=number] {
+    border: none;
+    background-color: #F0F0F0;
+    height: 4rem !important;
+    border-radius: 1rem;
+    padding-left: 2rem;
+}
+
 select {
     -webkit-appearance: button;
     -moz-appearance: button;
     -webkit-user-select: none;
     -moz-user-select: none;
+    height: 4rem !important;
+    border-radius: 1rem;
     user-select: none;
     -webkit-padding-end: 20px;
     -moz-padding-end: 20px;
