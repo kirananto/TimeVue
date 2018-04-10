@@ -17,18 +17,20 @@
                  <div class="row">
                    <!-- {{classList}} -->
                    <select v-model="selectedClass" class="selecCl">
-                      <option value="" disabled selected hidden>Select Class</option>
+                      <option value="" selected disabled hidden>Select Class</option>
                       <option v-for="(option,key) in classList" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
                     </select>
-                    <select v-model="selectedBranch"  class="selecCl" placeholder="Select Branch" >
+                    <select v-model="selectedBranch"  class="selecCl">
+                      <option value="" selected disabled hidden>Select Branch</option>
                       <option v-for="(option,key) in branches" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
                     </select>
 
-                     <select v-model="selectedDivision"  class="selecCl" placeholder="Select Class">
+                     <select v-model="selectedDivision"  class="selecCl">
+                      <option value="" selected disabled hidden>Select Division</option>                       
                       <option v-for="(option,key) in divisions" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
@@ -261,11 +263,21 @@ input[type=text] {
     padding-left: 2rem;
 }
 
+input[type=number] {
+    border: none;
+    background-color: #F0F0F0;
+    height: 4rem !important;
+    border-radius: 1rem;
+    padding-left: 2rem;
+}
+
 select {
     -webkit-appearance: button;
     -moz-appearance: button;
     -webkit-user-select: none;
     -moz-user-select: none;
+    height: 4rem !important;
+    border-radius: 1rem;
     user-select: none;
     -webkit-padding-end: 20px;
     -moz-padding-end: 20px;
