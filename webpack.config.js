@@ -44,11 +44,11 @@ const CopyWebPack = new CopyWebpackPlugin([
     ignore: ['.*']
   },
   // Copy redirects file
-  // {
-  //   from: path.resolve(__dirname, '../_redirects'),
-  //   to: config.build.assetsRoot,
-  //   ignore: ['.*']
-  // }
+  {
+    from: path.resolve(__dirname, './_redirects'),
+    to: path.resolve(__dirname, './dist/'),
+    ignore: ['.*']
+  }
 ])
 const extractHTML = new HtmlWebpackPlugin({
   title: 'History Search',
