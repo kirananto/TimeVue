@@ -1,0 +1,57 @@
+{
+    "jshint.options": {
+        "esversion": 6,
+    /**
+     * This option allows you to force all variable names to use either
+     * camelCase style or UPPER_CASE with underscores.
+     *
+     * @deprecated JSHint is limiting its scope to issues of code correctness.
+     *             If you would like to enforce rules relating to code style,
+     *             check out [the JSCS
+     *             project](https://github.com/jscs-dev/node-jscs).
+     */
+    "camelcase": true,
+
+    /**
+     * This option requires you to always put curly braces around blocks in
+     * loops and conditionals. JavaScript allows you to omit curly braces when
+     * the block consists of only one statement, for example:
+     *
+     *     while (day)
+     *       shuffle();
+     *
+     * However, in some circumstances, it can lead to bugs (you'd think that
+     * `sleep()` is a part of the loop while in reality it is not):
+     *
+     *     while (day)
+     *       shuffle();
+     *       sleep();
+     */
+    "curly": true,
+      /**
+     * This options prohibits the use of `==` and `!=` in favor of `===` and
+     * `!==`. The former try to coerce values before comparing them which can
+     * lead to some unexpected results. The latter don't do any coercion so
+     * they are generally safer. If you would like to learn more about type
+     * coercion in JavaScript, we recommend [Truth, Equality and
+     * JavaScript](http://javascriptweblog.wordpress.com/2011/02/07/truth-equality-and-javascript/)
+     * by Angus Croll.
+     */
+     "eqeqeq": true,
+     /**
+     * This option suppresses warnings about missing semicolons. There is a lot
+     * of FUD about semicolon spread by quite a few people in the community.
+     * The common myths are that semicolons are required all the time (they are
+     * not) and that they are unreliable. JavaScript has rules about semicolons
+     * which are followed by *all* browsers so it is up to you to decide
+     * whether you should or should not use semicolons in your code.
+     *
+     * For more information about semicolons in JavaScript read [An Open Letter
+     * to JavaScript Leaders Regarding
+     * Semicolons](http://blog.izs.me/post/2353458699/an-open-letter-to-javascript-leaders-regarding)
+     * by Isaac Schlueter and [JavaScript Semicolon
+     * Insertion](http://inimino.org/~inimino/blog/javascript_semicolons).
+     */
+    "asi": true,
+    }
+}
