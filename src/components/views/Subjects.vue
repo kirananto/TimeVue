@@ -189,14 +189,17 @@
                 }
               })
               // push teacher to subjects database
-              batch.set(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}/Teachers/${data.Teacher[0].data.tid}`), {
-                Name: firebase.firestore().doc(`/teachers/${data.Teacher[0].data.tid}`),
-                subject: data.Id,
-                tid: data.Teacher[0].data.tid,
-                tname: data.Teacher[0].data.tname,
-                tbranch: data.Teacher[0].data.tbranch,
-                label: data.Teacher[0].data.label
-              })
+              if(data.Teacher[0].data) {
+                console.log(data.Teacher[0].data.label)
+                batch.set(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}/Teachers/${data.Teacher[0].data.tid}`), {
+                  Name: firebase.firestore().doc(`/teachers/${data.Teacher[0].data.tid}`),
+                  subject: data.Id,
+                  tid: data.Teacher[0].data.tid,
+                  tname: data.Teacher[0].data.tname,
+                  tbranch: data.Teacher[0].data.tbranch,
+                  label: data.Teacher[0].data.label
+                })
+              }
               
               // push subjects to teachers
               batch.set(firebase.firestore().doc(`/teachers/${data.Teacher.tid}/Subjects/${data.Id}`), {
@@ -256,6 +259,9 @@
 
                 }})
               })
+              if (qS.size == 0) {
+                Teacher = [{}]
+              }
                this.tabledata.push({
                   Name: doc.data().Name,
                   Id: doc.id,
@@ -265,16 +271,6 @@
                   // Hours: doc.data().Hours
                   // Teachers: doc.data().Teachers
                 })
-            }).catch(err => {
-              this.tabledata.push({
-                  Name: doc.data().Name,
-                  Id: doc.id,
-                  Hours: doc.data().Hours,
-                  Type:  doc.data().Type,
-                  Teacher: [{}]
-                  // Hours: doc.data().Hours
-                  // Teachers: doc.data().Teachers
-              })
             })
             console.log(doc.data())
           })
