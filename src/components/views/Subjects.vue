@@ -61,22 +61,27 @@
                           </select>
                         </td>
                         <td >
-                          <v-select v-model="item.Teacher" :options="teachers">
-                          <select v-model="teachers"  placeholder="Select Teacher">
-                          <option v-for="(option,key) in teachers" :key="key" v-bind:value="option">
-                            {{ option }}
-                          </option>
-                          </select>
-                          </v-select>
+                          <div v-for="(i,k) in item.Teacher" :key="k">
+                            <v-select v-model="i.data" :options="teachers">
+                              <select v-model="teachers"  placeholder="Select Teacher">
+                              <option v-for="(option,key) in teachers" :key="key" v-bind:value="option">
+                                {{ option }}
+                              </option>
+                              </select>
+                            </v-select>
+                            <i v-on:click="item.Teacher.splice(key-1, 1)" class="fa fa-trash" aria-hidden="true"></i>
+                          </div>
                         </td>
                         <td></td>
                         
-                        <td v-on:click="addTeacher">
+                        <td v-on:click="item.Teacher.push({})">
                           <i class="fa fa-plus-circle plusbutton" ></i>
                         </td>
                       </tr>
                       <tr>
-                         <button v-on:click="assignTeacher" class="btn btn-primary" align="center">Confirm</button>
+                        <td colspan="5">
+                         <button v-on:click="assignTeacher" class="btn btn-primary confirm" align="center">Confirm</button>
+                        </td>
                       </tr> 
                       </tbody>                  
                     </table>
@@ -186,11 +191,18 @@
                 }
               })
               // push teacher to subjects database
-              batch.set(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}/Teachers/${data.Teacher.tid}`), {
-                Name: firebase.firestore().doc(`/teachers/${data.Teacher.tid}`),
-                subject: data.Id
-              })
-
+              if(data.Teacher[0].data) {
+                console.log(data.Teacher[0].data.label)
+                batch.set(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}/Teachers/${data.Teacher[0].data.tid}`), {
+                  Name: firebase.firestore().doc(`/teachers/${data.Teacher[0].data.tid}`),
+                  subject: data.Id,
+                  tid: data.Teacher[0].data.tid,
+                  tname: data.Teacher[0].data.tname,
+                  tbranch: data.Teacher[0].data.tbranch,
+                  label: data.Teacher[0].data.label
+                })
+              }
+              
               // push subjects to teachers
               batch.set(firebase.firestore().doc(`/teachers/${data.Teacher.tid}/Subjects/${data.Id}`), {
                 Name: firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}`)
@@ -237,14 +249,30 @@
         .get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             console.log(doc.data())
-            this.tabledata.push({
-              Name: doc.data().Name,
-              Id: doc.id,
-              Hours: doc.data().Hours,
-              Type:  doc.data().Type,
-              Teacher: doc.data().Teacher
-              // Hours: doc.data().Hours
-              // Teachers: doc.data().Teachers
+            firebase.firestore().collection(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${val}/subjects/${doc.id}/Teachers`).get()
+            .then(qS => {
+              let Teacher = []
+              qS.forEach(d => {
+                Teacher.push({ data: {
+                  tid: d.data().tid,
+                  tname: d.data().tbranch,
+                  tbranch: d.data().tbranch,
+                  label: d.data().label
+
+                }})
+              })
+              if (qS.size == 0) {
+                Teacher = [{}]
+              }
+               this.tabledata.push({
+                  Name: doc.data().Name,
+                  Id: doc.id,
+                  Hours: doc.data().Hours,
+                  Type:  doc.data().Type,
+                  Teacher: Teacher
+                  // Hours: doc.data().Hours
+                  // Teachers: doc.data().Teachers
+                })
             })
             console.log(doc.data())
           })
@@ -312,9 +340,18 @@ select {
   min-width: 15rem;
 }
 
+.confirm {
+  height: 5rem;
+  border-radius: 5rem;
+  width: 100%;
+  background-color: #222D32;
+  margin-top: 3rem;
+}
+
 .tble {
   width: 100rem;
   max-width: 80rem;
+  margin-top: 5rem;
 }
 
 .teach {
