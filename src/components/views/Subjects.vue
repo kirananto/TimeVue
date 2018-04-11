@@ -69,7 +69,7 @@
                               </option>
                               </select>
                             </v-select>
-                            <i class="fa fa-trash" aria-hidden="true"></i>
+                            <i v-on:click="item.Teacher.splice(key-1, 1)" class="fa fa-trash" aria-hidden="true"></i>
                           </div>
                         </td>
                         <td></td>
@@ -189,11 +189,15 @@
                 }
               })
               // push teacher to subjects database
-              batch.set(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}/Teachers/${data.Teacher.tid}`), {
-                Name: firebase.firestore().doc(`/teachers/${data.Teacher.tid}`),
-                subject: data.Id
+              batch.set(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}/Teachers/${data.Teacher[0].data.tid}`), {
+                Name: firebase.firestore().doc(`/teachers/${data.Teacher[0].data.tid}`),
+                subject: data.Id,
+                tid: data.Teacher[0].data.tid,
+                tname: data.Teacher[0].data.tname,
+                tbranch: data.Teacher[0].data.tbranch,
+                label: data.Teacher[0].data.label
               })
-
+              
               // push subjects to teachers
               batch.set(firebase.firestore().doc(`/teachers/${data.Teacher.tid}/Subjects/${data.Id}`), {
                 Name: firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}`)
@@ -245,8 +249,11 @@
               let Teacher = []
               qS.forEach(d => {
                 Teacher.push({ data: {
-                  tid: d.data().Name.path.split('/')[1],
-                  label: d.data().Name.path.split('/')[1]
+                  tid: d.data().tid,
+                  tname: d.data().tbranch,
+                  tbranch: d.data().tbranch,
+                  label: d.data().label
+
                 }})
               })
                this.tabledata.push({
@@ -258,6 +265,16 @@
                   // Hours: doc.data().Hours
                   // Teachers: doc.data().Teachers
                 })
+            }).catch(err => {
+              this.tabledata.push({
+                  Name: doc.data().Name,
+                  Id: doc.id,
+                  Hours: doc.data().Hours,
+                  Type:  doc.data().Type,
+                  Teacher: [{}]
+                  // Hours: doc.data().Hours
+                  // Teachers: doc.data().Teachers
+              })
             })
             console.log(doc.data())
           })
