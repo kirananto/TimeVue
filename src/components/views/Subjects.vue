@@ -74,12 +74,14 @@
                         </td>
                         <td></td>
                         
-                        <td v-on:click="addTeacher">
+                        <td v-on:click="item.Teacher.push({})">
                           <i class="fa fa-plus-circle plusbutton" ></i>
                         </td>
                       </tr>
                       <tr>
-                         <button v-on:click="assignTeacher" class="btn btn-primary" align="center">Confirm</button>
+                        <td colspan="5">
+                         <button v-on:click="assignTeacher" class="btn btn-primary confirm" align="center">Confirm</button>
+                        </td>
                       </tr> 
                       </tbody>                  
                     </table>
@@ -338,9 +340,18 @@ select {
   min-width: 15rem;
 }
 
+.confirm {
+  height: 5rem;
+  border-radius: 5rem;
+  width: 100%;
+  background-color: #222D32;
+  margin-top: 3rem;
+}
+
 .tble {
   width: 100rem;
   max-width: 80rem;
+  margin-top: 5rem;
 }
 
 .teach {
