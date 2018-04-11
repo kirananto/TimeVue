@@ -17,24 +17,26 @@
                  <div class="row">
                    <!-- {{classList}} -->
                    <select v-model="selectedClass" class="selecCl">
-                      <option value="" disabled selected hidden>Select Class</option>
+                      <option value="" selected disabled hidden>Select Class</option>
                       <option v-for="(option,key) in classList" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
                     </select>
-                    <select v-model="selectedBranch"  class="selecCl" placeholder="Select Branch" >
+                    <select v-model="selectedBranch"  class="selecCl">
+                      <option value="" selected disabled hidden>Select Branch</option>
                       <option v-for="(option,key) in branches" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
                     </select>
 
-                     <select v-model="selectedDivision"  class="selecCl" placeholder="Select Class">
+                     <select v-model="selectedDivision"  class="selecCl">
+                      <option value="" selected disabled hidden>Select Division</option>                       
                       <option v-for="(option,key) in divisions" :key="key" v-bind:value="option">
                         {{ option }}
                       </option>
                     </select>
                     
-                    <table class="table tble table-responsive">
+                    <table class="table tble table-responsive" v-if="tabledata">
                       <thead>
                         <tr>
                           <th scope="col"> SUBJECT NAME</th>
@@ -59,22 +61,28 @@
                           </select>
                         </td>
                         <td >
-                          <v-select v-model="item.Teacher" :options="teachers">
-                          <select v-model="teachers"  placeholder="Select Teacher">
-                          <option v-for="(option,key) in teachers" :key="key" v-bind:value="option">
-                            {{ option }}
-                          </option>
-                          </select>
-                          </v-select>
+                          <div v-for="(i,k) in item.Teacher" :key="k">
+                            <v-select v-model="i.data" :options="teachers">
+                              <select v-model="teachers"  placeholder="Select Teacher">
+                              <option v-for="(option,key) in teachers" :key="key" v-bind:value="option">
+                                {{ option }}
+                              </option>
+                              </select>
+                            </v-select>
+                            <i v-on:click="item.Teacher.splice(key-1, 1)" class="fa fa-trash" aria-hidden="true"></i>
+                          </div>
                         </td>
                         <td></td>
                         
-                        <td v-on:click="addTeacher">
+                        <td v-on:click="item.Teacher.push({})">
                           <i class="fa fa-plus-circle plusbutton" ></i>
                         </td>
+                      </tr>
+                      <tr>
+                        <td colspan="5">
+                         <button v-on:click="assignTeacher" class="btn btn-primary confirm" align="center">Confirm</button>
+                        </td>
                       </tr> 
-                       <button v-on:click="assignTeacher" class="btn btn-primary" align="center">Confirm
-                          </button>
                       </tbody>                  
                     </table>
                     <!-- <input v-model="tCode" type="text" placeholder="Teacher Code" >
@@ -116,6 +124,7 @@
   import * as firebase from 'firebase/app'
   import 'firebase/auth'
   import 'firebase/firestore'
+  import swal from 'sweetalert'
   export default {
     components: {
       vSelect
@@ -182,11 +191,18 @@
                 }
               })
               // push teacher to subjects database
-              batch.set(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}/Teachers/${data.Teacher.tid}`), {
-                Name: firebase.firestore().doc(`/teachers/${data.Teacher.tid}`),
-                subject: data.Id
-              })
-
+              if(data.Teacher[0].data) {
+                console.log(data.Teacher[0].data.label)
+                batch.set(firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}/Teachers/${data.Teacher[0].data.tid}`), {
+                  Name: firebase.firestore().doc(`/teachers/${data.Teacher[0].data.tid}`),
+                  subject: data.Id,
+                  tid: data.Teacher[0].data.tid,
+                  tname: data.Teacher[0].data.tname,
+                  tbranch: data.Teacher[0].data.tbranch,
+                  label: data.Teacher[0].data.label
+                })
+              }
+              
               // push subjects to teachers
               batch.set(firebase.firestore().doc(`/teachers/${data.Teacher.tid}/Subjects/${data.Id}`), {
                 Name: firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}`)
@@ -232,11 +248,31 @@
         firebase.firestore().collection(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${val}/subjects`)
         .get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-            this.tabledata.push({
-              Name: doc.data().Name,
-              Id: doc.id
-              // Hours: doc.data().Hours
-              // Teachers: doc.data().Teachers
+            console.log(doc.data())
+            firebase.firestore().collection(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${val}/subjects/${doc.id}/Teachers`).get()
+            .then(qS => {
+              let Teacher = []
+              qS.forEach(d => {
+                Teacher.push({ data: {
+                  tid: d.data().tid,
+                  tname: d.data().tbranch,
+                  tbranch: d.data().tbranch,
+                  label: d.data().label
+
+                }})
+              })
+              if (qS.size == 0) {
+                Teacher = [{}]
+              }
+               this.tabledata.push({
+                  Name: doc.data().Name,
+                  Id: doc.id,
+                  Hours: doc.data().Hours,
+                  Type:  doc.data().Type,
+                  Teacher: Teacher
+                  // Hours: doc.data().Hours
+                  // Teachers: doc.data().Teachers
+                })
             })
             console.log(doc.data())
           })
@@ -261,11 +297,21 @@ input[type=text] {
     padding-left: 2rem;
 }
 
+input[type=number] {
+    border: none;
+    background-color: #F0F0F0;
+    height: 4rem !important;
+    border-radius: 1rem;
+    padding-left: 2rem;
+}
+
 select {
     -webkit-appearance: button;
     -moz-appearance: button;
     -webkit-user-select: none;
     -moz-user-select: none;
+    height: 4rem !important;
+    border-radius: 1rem;
     user-select: none;
     -webkit-padding-end: 20px;
     -moz-padding-end: 20px;
@@ -294,9 +340,18 @@ select {
   min-width: 15rem;
 }
 
+.confirm {
+  height: 5rem;
+  border-radius: 5rem;
+  width: 100%;
+  background-color: #222D32;
+  margin-top: 3rem;
+}
+
 .tble {
   width: 100rem;
   max-width: 80rem;
+  margin-top: 5rem;
 }
 
 .teach {
