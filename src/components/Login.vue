@@ -41,8 +41,17 @@ export default {
       this.toggleLoading()
       /* Making API call to authenticate a user */
 
-      firebase.auth().signInWithPopup(provider)
-        .then((result) => {
+      firebase.auth().signInWithRedirect(provider)
+    },
+    toggleLoading () {
+      this.loading = (this.loading === '') ? 'loading' : ''
+    },
+    resetResponse () {
+      this.response = ''
+    }
+  },
+  mounted () {
+    firebase.auth().getRedirectResult().then((result) => {
           // This gives you a Google Access Token. You can use it to access the Google API.
           // var token = result.credential.accessToken
           // The signed-in user info.
@@ -72,13 +81,6 @@ export default {
           this.toggleLoading()
             // ...
         })
-    },
-    toggleLoading () {
-      this.loading = (this.loading === '') ? 'loading' : ''
-    },
-    resetResponse () {
-      this.response = ''
-    }
   }
 }
 </script>

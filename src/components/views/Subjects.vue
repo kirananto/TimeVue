@@ -201,12 +201,12 @@
                   tbranch: data.Teacher[0].data.tbranch,
                   label: data.Teacher[0].data.label
                 })
+
+                // push subjects to teachers
+                batch.set(firebase.firestore().doc(`/teachers/${data.Teacher[0].data.tid}/Subjects/${data.Id}`), {
+                  Name: firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}`)
+                })
               }
-              
-              // push subjects to teachers
-              batch.set(firebase.firestore().doc(`/teachers/${data.Teacher.tid}/Subjects/${data.Id}`), {
-                Name: firebase.firestore().doc(`/classes/${this.selectedClass}/branches/${this.selectedBranch}/divisions/${this.selectedDivision}/subjects/${data.Id}`)
-              })
             }
           })
         })
