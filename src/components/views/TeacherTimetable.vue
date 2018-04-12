@@ -103,123 +103,44 @@ data: function () {
         console.log('no db')
         if(teacherTimetableSnapshot.size === 0) {
           this.loaded = 35
+          var day = [{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            },{
+              subcode: '',
+              tcode: '',
+              hardLock: false
+            }]
           this.teacherTimetable = {
-            monday: [{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            }],
-            tuesday: [{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            }],
-            thursday: [{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            }],
-            wednesday: [{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            },{
-              subcode: '',
-              tcode: '',
-              hardLock: false
-            }],
+            monday: day,
+            tuesday: day,
+            thursday: day,
+            wednesday: day,
             friday: [{
               subcode: '',
               tcode: '',
