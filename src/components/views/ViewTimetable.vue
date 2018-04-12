@@ -17,38 +17,35 @@
             <div class="timetable" v-if="loaded>=35">
               <div class="row">
                 <button class="btn sub mainbutton"></button>
-                <button class="btn sub mainbutton2">Hour1</button>
-                <button class="btn sub mainbutton2">Hour2</button>
-                <button class="btn sub mainbutton2">Hour3</button>
-                <button class="btn sub mainbutton2">Hour4</button>
-                <button class="btn sub mainbutton2">Hour5</button>
-                <button class="btn sub mainbutton2">Hour6</button>
-                <button class="btn sub mainbutton2">Hour7</button>
+                <button v-for="(item,keyMon) in classTimetable.monday" v-if="keyMon < 7" :key="keyMon"  class="btn sub mainbutton2">
+                  <span class="subject">HOUR{{keyMon+1}}</span>
+                  <span class="tcode"></span>
+                </button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Monday</button>
-                <button v-for="(item,keyMon) in classTimetable.monday" :key="keyMon"  class="btn sub">
+                <button v-for="(item,keyMon) in classTimetable.monday" v-if="!((item.className === 'yearOne' && keyMon == 4) || (item.className != 'yearOne' && keyMon == 5 ))"   :key="keyMon"  class="btn sub">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Tuesday</button>
-                <button v-for="(item,keyTue) in classTimetable.tuesday" :key="keyTue" class="btn sub">
+                <button v-for="(item,keyTue) in classTimetable.tuesday" v-if="!((item.className === 'yearOne' && keyTue == 4) || (item.className != 'yearOne' && keyTue == 5 ))" :key="keyTue" class="btn sub">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Wednesday</button>
-                <button v-for="(item,keyWed) in classTimetable.wednesday" :key="keyWed" class="btn sub">
+                <button v-for="(item,keyWed) in classTimetable.wednesday" v-if="!((item.className === 'yearOne' && keyWed == 4) || (item.className != 'yearOne' && keyWed == 5 ))" :key="keyWed" class="btn sub">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
               </div>
               <div class="row">
                 <button class="btn sub mainbutton">Thursday</button>
-                <button v-for="(item,keyThu) in classTimetable.thursday" :key="keyThu" class="btn sub">
+                <button v-for="(item,keyThu) in classTimetable.thursday"  v-if="!((item.className === 'yearOne' && keyThu == 4) || (item.className != 'yearOne' && keyThu == 5 ))" :key="keyThu" class="btn sub">
                   <span class="subject">{{item.subcode}}</span>
                   <span class="tcode">{{item.tcode}}</span>
                 </button>
