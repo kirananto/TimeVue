@@ -305,124 +305,49 @@ export default {
     // fetching teacher timetable
     teacherTimeTableRef.onSnapshot(teacherTimetableSnapshot => {
       if(teacherTimetableSnapshot.size === 0) {
+        var day = [{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          }]
         this.teacherTimetable = {
-          monday: [{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          }],
-          tuesday: [{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          }],
-          thursday: [{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          }],
-          wednesday: [{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          },{
-            subcode: '',
-            tcode: '',
-            hardLock: false
-          }],
+          monday: day,
+          tuesday: day,
+          thursday: day,
+          wednesday: day,
           friday: [{
+            subcode: '',
+            tcode: '',
+            hardLock: false
+          },{
             subcode: '',
             tcode: '',
             hardLock: false
@@ -457,6 +382,10 @@ export default {
           teacherTimeTableRef.doc(dayDoc.id).collection('hours').onSnapshot(dailyHours => {
             if(dailyHours.size === 0) {
               this.teacherTimetable[dayDoc.id] = [{
+                subcode: '',
+                tcode: '',
+                hardLock: false
+              },{
                 subcode: '',
                 tcode: '',
                 hardLock: false
